@@ -28,6 +28,13 @@ export interface InsightCard {
   data: Record<string, string | number>
   recommendation: string
   persona: Persona
+  dataSources: {
+    internal: {
+      structured: string[]
+      unstructured: string[]
+    }
+    external: string[]
+  }
 }
 
 export const customers: Customer[] = [
@@ -87,6 +94,13 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Schedule security review meeting to discuss expanding EDR coverage to all endpoints.",
     persona: "Sales",
+    dataSources: {
+      internal: {
+        structured: ["RMM Platform - Asset Database", "CRM - Contract Management", "EDR Console - Deployment Status"],
+        unstructured: ["Security Audit Reports", "Ticketing System - Security Incidents"],
+      },
+      external: ["Gartner EDR Market Report 2025", "NIST Cybersecurity Framework"],
+    },
   },
   {
     id: "seat-count",
@@ -102,6 +116,13 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Initiate true-up conversation for Q1 billing adjustment.",
     persona: "Sales",
+    dataSources: {
+      internal: {
+        structured: ["Active Directory - User Database", "CRM - Billing Records", "License Management System"],
+        unstructured: ["Contract Documents", "Email - Billing Communications"],
+      },
+      external: ["Industry Benchmarking - SaaS Pricing Models"],
+    },
   },
   {
     id: "eol-refresh",
@@ -117,6 +138,17 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Propose hardware refresh program with financing options.",
     persona: "Sales",
+    dataSources: {
+      internal: {
+        structured: ["Asset Management Database", "RMM - OS Version Reports", "Procurement History"],
+        unstructured: ["IT Budget Planning Documents", "Email - Hardware Performance Complaints"],
+      },
+      external: [
+        "Microsoft Windows 10 EOL Schedule",
+        "Gartner Hardware Lifecycle Best Practices",
+        "IDC PC Market Analysis",
+      ],
+    },
   },
   {
     id: "shadow-it",
@@ -132,6 +164,17 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Present managed SaaS governance solution to IT leadership.",
     persona: "Sales",
+    dataSources: {
+      internal: {
+        structured: ["Firewall Logs", "Network Traffic Analytics", "SaaS Management Platform"],
+        unstructured: ["IT Policy Documents", "Slack - IT Support Channels", "Email - Application Requests"],
+      },
+      external: [
+        "Cloud Security Alliance - SaaS Risk Assessment",
+        "Forrester SaaS Governance Report",
+        "GDPR Compliance Requirements",
+      ],
+    },
   },
   // Account Management persona cards
   {
@@ -148,6 +191,13 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Reach out to secondary contact immediately to confirm relationship status.",
     persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: ["CRM - Contact Records", "Email Server - Bounce Logs", "Calendar System - Meeting History"],
+        unstructured: ["Email Communications Archive", "LinkedIn - Profile Activity"],
+      },
+      external: ["LinkedIn Public Profile Data", "Company Press Releases", "ZoomInfo Contact Intelligence"],
+    },
   },
   {
     id: "quiet-client",
@@ -163,6 +213,17 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Schedule QBR to re-engage and understand current IT priorities.",
     persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: [
+          "Ticketing System - Volume Analytics",
+          "CRM - Account Activity Logs",
+          "Calendar - Meeting Records",
+        ],
+        unstructured: ["Support Tickets - Historical Conversations", "Email - Communication Frequency Analysis"],
+      },
+      external: ["Customer Success Benchmarks - Engagement Patterns", "Gainsight Churn Risk Indicators"],
+    },
   },
   {
     id: "sentiment-drift",
@@ -178,6 +239,18 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Executive sponsor should reach out personally to address underlying concerns.",
     persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: ["CRM - Customer Interaction History", "NPS Survey Responses"],
+        unstructured: [
+          "Email Communications - Sentiment Analysis",
+          "Slack - Customer Channel Messages",
+          "Support Tickets - Text Mining",
+          "Call Recordings - Transcripts",
+        ],
+      },
+      external: ["Industry NPS Benchmarks", "Customer Health Score Models - ChurnZero"],
+    },
   },
   // Engineering persona cards
   {
@@ -194,6 +267,17 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Allocate additional on-call engineer to handle ticket surge.",
     persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "Ticketing System - SLA Tracking",
+          "CRM - Contract SLA Terms",
+          "Time Tracking System - Response Logs",
+        ],
+        unstructured: ["Support Tickets - P1 Incident Details", "Team Chat - On-Call Handoff Notes"],
+      },
+      external: ["ITIL Service Management Framework", "HDI Support Center Benchmarks"],
+    },
   },
   {
     id: "resource-util",
@@ -209,6 +293,17 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Plan capacity upgrade or workload optimization before threshold breach.",
     persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "Monitoring Platform - Performance Metrics",
+          "CMDB - Server Inventory",
+          "Capacity Planning Database",
+        ],
+        unstructured: ["Infrastructure Runbooks", "Slack - DevOps Alerts Channel"],
+      },
+      external: ["AWS Well-Architected Framework", "Uptime Institute - Capacity Planning Guidelines"],
+    },
   },
   {
     id: "patch-compliance",
@@ -224,6 +319,21 @@ export const insightCards: InsightCard[] = [
     },
     recommendation: "Schedule emergency maintenance window for patch deployment.",
     persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "Patch Management System - Compliance Reports",
+          "Vulnerability Scanner - Asset Status",
+          "Change Management Database",
+        ],
+        unstructured: ["Security Team Email - Patch Bulletins", "Ticketing System - Maintenance Windows"],
+      },
+      external: [
+        "NIST National Vulnerability Database (NVD)",
+        "CISA Known Exploited Vulnerabilities",
+        "Microsoft Security Response Center",
+      ],
+    },
   },
 ]
 
