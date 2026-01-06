@@ -1,0 +1,42 @@
+"use client"
+
+import { LayoutDashboard, Users, FolderOpen } from "lucide-react"
+
+interface EmptyStateProps {
+  hasPersona: boolean
+  hasCustomer: boolean
+}
+
+export function EmptyState({ hasPersona, hasCustomer }: EmptyStateProps) {
+  return (
+    <div className="flex flex-1 items-center justify-center">
+      <div className="mx-auto max-w-md text-center">
+        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#D2E5F6]">
+          <LayoutDashboard className="h-10 w-10 text-[#242E65]/40" />
+        </div>
+        <h2 className="mb-3 font-heading text-xl font-semibold text-[#242E65]">Select your context</h2>
+        <p className="mb-6 text-sm leading-relaxed text-[#797575]">
+          Choose your persona, customer, and project to see tailored insights and opportunities.
+        </p>
+        <div className="flex flex-col gap-3">
+          <div
+            className={`flex items-center gap-3 rounded-lg border p-3 ${hasPersona ? "border-green-200 bg-green-50" : "border-[#D2E5F6] bg-white"}`}
+          >
+            <Users className={`h-5 w-5 ${hasPersona ? "text-green-600" : "text-[#797575]"}`} />
+            <span className={`text-sm ${hasPersona ? "text-green-700" : "text-[#797575]"}`}>
+              {hasPersona ? "Persona selected ✓" : "Select a persona"}
+            </span>
+          </div>
+          <div
+            className={`flex items-center gap-3 rounded-lg border p-3 ${hasCustomer ? "border-green-200 bg-green-50" : "border-[#D2E5F6] bg-white"}`}
+          >
+            <FolderOpen className={`h-5 w-5 ${hasCustomer ? "text-green-600" : "text-[#797575]"}`} />
+            <span className={`text-sm ${hasCustomer ? "text-green-700" : "text-[#797575]"}`}>
+              {hasCustomer ? "Customer selected ✓" : "Select a customer & project"}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
