@@ -35,6 +35,44 @@ export interface InsightCard {
     }
     external: string[]
   }
+  riskProfile?: RiskProfile
+  playbook?: Playbook
+  affectedDevices?: DeviceGap[]
+}
+
+export interface RiskProfile {
+  overallScore: number // 0-100
+  exploitationLikelihood: "Critical" | "High" | "Medium" | "Low"
+  businessImpact: string
+  complianceRisks: string[]
+  detectionGaps: string[]
+}
+
+export interface DeviceGap {
+  deviceName: string
+  osVersion: string
+  lastSeen: string
+  vulnerabilities: string[]
+  riskScore: number
+}
+
+export interface Playbook {
+  generatedAt: string
+  steps: PlaybookStep[]
+  timeline: string
+  estimatedCost: number
+  costOfInaction: number
+  expectedRiskReduction: number
+  conversationScript: string
+  roiSummary: string
+}
+
+export interface PlaybookStep {
+  phase: string
+  action: string
+  owner: string
+  duration: string
+  dependencies: string[]
 }
 
 export const customers: Customer[] = [
@@ -100,6 +138,250 @@ export const insightCards: InsightCard[] = [
         unstructured: ["Security Audit Reports", "Ticketing System - Security Incidents"],
       },
       external: ["Gartner EDR Market Report 2025", "NIST Cybersecurity Framework"],
+    },
+    riskProfile: {
+      overallScore: 78,
+      exploitationLikelihood: "High",
+      businessImpact:
+        "Unprotected endpoints create significant attack surface. Single breach could lead to ransomware deployment, data exfiltration, or lateral movement across network. Manufacturing operations at risk of disruption.",
+      complianceRisks: ["CMMC Level 2 non-compliance", "Cyber insurance policy violation", "PCI-DSS scope concerns"],
+      detectionGaps: [
+        "No real-time threat detection on 23 workstations",
+        "Limited visibility into process-level activity",
+        "No automated response capability for zero-day threats",
+      ],
+    },
+    affectedDevices: [
+      {
+        deviceName: "ACME-SHOP-WS-07",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-05 14:32",
+        vulnerabilities: ["CVE-2024-43582", "CVE-2024-43583", "Outdated Chrome v121"],
+        riskScore: 82,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-12",
+        osVersion: "Windows 10 Pro 21H2",
+        lastSeen: "2025-01-05 09:18",
+        vulnerabilities: ["CVE-2024-43582", "CVE-2024-38063", "Missing EDR agent"],
+        riskScore: 89,
+      },
+      {
+        deviceName: "ACME-OFFICE-WS-03",
+        osVersion: "Windows 11 Pro 23H2",
+        lastSeen: "2025-01-06 08:45",
+        vulnerabilities: ["Unpatched Office 2019", "Weak password policy"],
+        riskScore: 65,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-19",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-04 16:22",
+        vulnerabilities: ["CVE-2024-43582", "Legacy Java v8 installed"],
+        riskScore: 76,
+      },
+      {
+        deviceName: "ACME-ADMIN-WS-01",
+        osVersion: "Windows 10 Pro 21H2",
+        lastSeen: "2025-01-05 11:05",
+        vulnerabilities: ["CVE-2024-43583", "CVE-2024-38063", "Admin rights misconfigured"],
+        riskScore: 91,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-22",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-05 13:47",
+        vulnerabilities: ["Outdated Firefox v115", "No EDR coverage"],
+        riskScore: 70,
+      },
+      {
+        deviceName: "ACME-CONF-WS-08",
+        osVersion: "Windows 11 Pro 22H2",
+        lastSeen: "2025-01-06 07:12",
+        vulnerabilities: ["CVE-2024-43582", "SMBv1 enabled"],
+        riskScore: 79,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-31",
+        osVersion: "Windows 10 Pro 21H2",
+        lastSeen: "2025-01-03 15:38",
+        vulnerabilities: ["CVE-2024-38063", "Unencrypted drive", "No TPM enabled"],
+        riskScore: 88,
+      },
+      {
+        deviceName: "ACME-LAB-WS-05",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-05 10:29",
+        vulnerabilities: ["Legacy TLS 1.0 enabled", "Outdated drivers"],
+        riskScore: 68,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-14",
+        osVersion: "Windows 11 Pro 23H2",
+        lastSeen: "2025-01-06 08:01",
+        vulnerabilities: ["CVE-2024-43582", "No BitLocker"],
+        riskScore: 73,
+      },
+      {
+        deviceName: "ACME-OFFICE-WS-11",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-04 14:55",
+        vulnerabilities: ["Missing security patches", "Unauthorized USB devices detected"],
+        riskScore: 81,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-27",
+        osVersion: "Windows 11 Pro 23H2",
+        lastSeen: "2025-01-05 12:18",
+        vulnerabilities: ["CVE-2024-43583", "CVE-2024-38063", "Guest account enabled"],
+        riskScore: 85,
+      },
+      {
+        deviceName: "ACME-ADMIN-WS-04",
+        osVersion: "Windows 11 Pro 23H2",
+        lastSeen: "2025-01-06 09:33",
+        vulnerabilities: ["Outdated PowerShell v5.1", "No application whitelisting"],
+        riskScore: 71,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-09",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-05 15:02",
+        vulnerabilities: ["CVE-2024-43582", "Weak firewall rules"],
+        riskScore: 77,
+      },
+      {
+        deviceName: "ACME-CONF-WS-02",
+        osVersion: "Windows 10 Pro 21H2",
+        lastSeen: "2025-01-04 11:44",
+        vulnerabilities: ["CVE-2024-38063", "No endpoint encryption"],
+        riskScore: 83,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-18",
+        osVersion: "Windows 11 Pro 22H2",
+        lastSeen: "2025-01-06 07:56",
+        vulnerabilities: ["Legacy software installed", "Unpatched Adobe Reader"],
+        riskScore: 69,
+      },
+      {
+        deviceName: "ACME-LAB-WS-12",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-05 13:21",
+        vulnerabilities: ["CVE-2024-43582", "Open RDP port to internet"],
+        riskScore: 92,
+      },
+      {
+        deviceName: "ACME-OFFICE-WS-06",
+        osVersion: "Windows 10 Pro 21H2",
+        lastSeen: "2025-01-03 16:47",
+        vulnerabilities: ["Missing critical updates", "Shadow IT apps detected"],
+        riskScore: 80,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-25",
+        osVersion: "Windows 11 Pro 23H2",
+        lastSeen: "2025-01-06 08:29",
+        vulnerabilities: ["CVE-2024-43583", "No MFA configured"],
+        riskScore: 74,
+      },
+      {
+        deviceName: "ACME-ADMIN-WS-09",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-05 14:08",
+        vulnerabilities: ["Outdated antivirus definitions", "No network segmentation"],
+        riskScore: 78,
+      },
+      {
+        deviceName: "ACME-SHOP-WS-33",
+        osVersion: "Windows 10 Pro 21H2",
+        lastSeen: "2025-01-04 10:52",
+        vulnerabilities: ["CVE-2024-38063", "Local admin access widespread"],
+        riskScore: 87,
+      },
+      {
+        deviceName: "ACME-CONF-WS-15",
+        osVersion: "Windows 11 Pro 23H2",
+        lastSeen: "2025-01-06 09:14",
+        vulnerabilities: ["Outdated Zoom client", "No DLP policies"],
+        riskScore: 67,
+      },
+      {
+        deviceName: "ACME-LAB-WS-08",
+        osVersion: "Windows 10 Pro 22H2",
+        lastSeen: "2025-01-05 11:36",
+        vulnerabilities: ["CVE-2024-43582", "Unmonitored USB storage use"],
+        riskScore: 75,
+      },
+    ],
+    playbook: {
+      generatedAt: "2025-01-06T10:30:00Z",
+      timeline: "4 weeks",
+      estimatedCost: 12400,
+      costOfInaction: 45000,
+      expectedRiskReduction: 68,
+      conversationScript:
+        "I wanted to share something important I discovered during our routine security assessment. Our AI monitoring detected 23 workstations in your environment that currently lack EDR protection, creating a significant blind spot in your security posture. Here's what concerns me: these devices are processing production data daily, but we have no visibility into potential threats or malicious activity. With the current threat landscape, particularly ransomware targeting manufacturing, this represents about $45,000 in potential incident response costs if just one endpoint is compromised. The good news? We can close this gap completely for $12,400 annually, reducing your overall risk by 68%. This investment also brings you into CMMC compliance and satisfies your cyber insurance requirements. Can we schedule 30 minutes this week to walk through the specific devices at risk and the deployment plan?",
+      roiSummary:
+        "Annual EDR investment of $12,400 prevents potential breach costs of $45,000+ (incident response, downtime, data recovery). Achieves compliance requirements, reduces insurance premiums by est. $3,200/year, and provides 24/7 threat monitoring. Net ROI: 263% in year one.",
+      steps: [
+        {
+          phase: "Assessment & Planning",
+          action: "Complete security gap analysis and obtain customer approval",
+          owner: "Account Executive",
+          duration: "Week 1",
+          dependencies: [],
+        },
+        {
+          phase: "Assessment & Planning",
+          action: "Validate device inventory and EDR licensing requirements",
+          owner: "Solutions Engineer",
+          duration: "Week 1",
+          dependencies: ["Complete security gap analysis and obtain customer approval"],
+        },
+        {
+          phase: "Deployment",
+          action: "Deploy EDR agents to first 10 workstations (pilot group)",
+          owner: "Security Engineer",
+          duration: "Week 2",
+          dependencies: ["Validate device inventory and EDR licensing requirements"],
+        },
+        {
+          phase: "Deployment",
+          action: "Configure monitoring policies and alert thresholds",
+          owner: "Security Engineer",
+          duration: "Week 2",
+          dependencies: ["Deploy EDR agents to first 10 workstations (pilot group)"],
+        },
+        {
+          phase: "Rollout",
+          action: "Deploy EDR agents to remaining 13 workstations",
+          owner: "Security Engineer",
+          duration: "Week 3",
+          dependencies: ["Configure monitoring policies and alert thresholds"],
+        },
+        {
+          phase: "Rollout",
+          action: "Conduct end-user security awareness training",
+          owner: "Customer Success Manager",
+          duration: "Week 3",
+          dependencies: [],
+        },
+        {
+          phase: "Validation",
+          action: "Perform penetration testing on protected endpoints",
+          owner: "Security Consultant",
+          duration: "Week 4",
+          dependencies: ["Deploy EDR agents to remaining 13 workstations"],
+        },
+        {
+          phase: "Validation",
+          action: "Document compliance improvements and deliver executive report",
+          owner: "Account Executive",
+          duration: "Week 4",
+          dependencies: ["Perform penetration testing on protected endpoints"],
+        },
+      ],
     },
   },
   {
