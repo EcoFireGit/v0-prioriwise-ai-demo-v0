@@ -30,13 +30,33 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="relative w-full max-w-4xl rounded-xl border border-secondary bg-card shadow-2xl">
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
-        >
-          <X className="h-5 w-5" />
-        </button>
+        <div className="sticky top-0 z-10 border-b border-secondary bg-card/95 backdrop-blur-sm">
+          <div className="flex items-start justify-between gap-4 p-8 pb-4">
+            {/* Close button - repositioned */}
+            <button
+              onClick={onClose}
+              className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <Button className="flex-shrink-0 bg-accent font-heading text-accent-foreground hover:bg-accent/90">
+              Take Action
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Title and category in sticky header */}
+          <div className="px-8 pb-6">
+            <div className="mb-2 flex items-center gap-3">
+              <h2 className="font-heading text-2xl font-semibold text-primary">{insight?.title}</h2>
+              <Badge variant="outline" className={insight ? severityColors[insight.severity] : ""}>
+                {insight?.severity?.toUpperCase()}
+              </Badge>
+            </div>
+            <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{insight?.category}</p>
+          </div>
+        </div>
 
         {isLoading ? (
           <div className="flex h-80 flex-col items-center justify-center gap-4">
@@ -45,18 +65,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             <p className="text-sm text-muted-foreground">Generating insights and recommendations</p>
           </div>
         ) : insight ? (
-          <div className="max-h-[90vh] overflow-y-auto p-8">
-            {/* Header */}
-            <div className="mb-6">
-              <div className="mb-2 flex items-center gap-3">
-                <h2 className="font-heading text-2xl font-semibold text-primary">{insight.title}</h2>
-                <Badge variant="outline" className={severityColors[insight.severity]}>
-                  {insight.severity.toUpperCase()}
-                </Badge>
-              </div>
-              <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{insight.category}</p>
-            </div>
-
+          <div className="max-h-[calc(90vh-240px)] overflow-y-auto p-8">
             {/* Summary */}
             <p className="mb-6 text-base leading-relaxed text-muted-foreground">{insight.summary}</p>
 
@@ -160,12 +169,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
               </div>
             )}
 
-            {/* CTA Buttons */}
-            <div className="space-y-2">
-              <Button className="w-full bg-accent font-heading text-accent-foreground hover:bg-accent/90">
-                Take Action
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+            <div>
               <Button
                 onClick={onReturnToDashboard}
                 variant="outline"
