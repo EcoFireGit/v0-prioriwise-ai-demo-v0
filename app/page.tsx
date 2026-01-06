@@ -88,7 +88,7 @@ export default function Dashboard() {
                 <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary">
                   <LayoutDashboard className="h-10 w-10 text-primary/40" />
                 </div>
-                <h2 className="mb-6 font-heading text-xl font-semibold text-primary">Select your context</h2>
+                <h2 className="mb-6 font-heading text-xl font-semibold text-primary">Welcome back, Urvashi</h2>
                 <Selectors
                   persona={persona}
                   setPersona={setPersona}
