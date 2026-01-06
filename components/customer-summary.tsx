@@ -14,7 +14,7 @@ interface HealthScorePillar {
   score: number
   trend: "up" | "down" | "stable"
   reasoning: string
-  impact: number // Used for sorting, higher = more impact on overall score
+  impact: number
 }
 
 export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
@@ -37,33 +37,43 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
   const healthScorePillars: HealthScorePillar[] = [
     {
       name: "Financial Risk",
-      score: 80,
-      trend: "up",
-      reasoning: "Contract value growing and payments on time",
+      score: customer.healthMetrics.financialRisk.score,
+      trend: customer.healthMetrics.financialRisk.trend,
+      reasoning:
+        customer.healthMetrics.financialRisk.paymentStatus === "Current"
+          ? `Payments on time with ${customer.healthMetrics.financialRisk.contractGrowth}% contract growth, ${customer.healthMetrics.financialRisk.daysUntilRenewal} days until renewal`
+          : `Payment issues detected, ${customer.healthMetrics.financialRisk.daysUntilRenewal} days until renewal`,
       impact: 4,
     },
     {
       name: "Product Adoption",
-      score: 78,
-      trend: "stable",
-      reasoning: "Steady usage across 85% of licensed seats",
+      score: customer.healthMetrics.productAdoption.score,
+      trend: customer.healthMetrics.productAdoption.trend,
+      reasoning: `${customer.healthMetrics.productAdoption.seatUtilization}% seat utilization with ${customer.healthMetrics.productAdoption.loginFrequency.toLowerCase()} login frequency`,
       impact: 3,
     },
     {
       name: "Sentiment",
-      score: 70,
-      trend: "stable",
-      reasoning: "Positive feedback in recent support interactions",
+      score: customer.healthMetrics.sentiment.score,
+      trend: customer.healthMetrics.sentiment.trend,
+      reasoning: `${customer.healthMetrics.sentiment.currentSentiment} sentiment detected in communications with NPS of ${customer.healthMetrics.sentiment.npsScore}/10`,
       impact: 2,
     },
     {
       name: "Engagement",
-      score: 60,
-      trend: "down",
-      reasoning: "Engagement is 60 based on recent email responsiveness",
+      score: customer.healthMetrics.engagement.score,
+      trend: customer.healthMetrics.engagement.trend,
+      reasoning:
+        customer.healthMetrics.engagement.ticketVolumeChange < 0
+          ? `${customer.healthMetrics.engagement.emailResponseRate}% email response rate, ticket volume dropped ${Math.abs(customer.healthMetrics.engagement.ticketVolumeChange)}% (last contact: ${customer.healthMetrics.engagement.lastContact})`
+          : `${customer.healthMetrics.engagement.emailResponseRate}% email response rate with ${customer.healthMetrics.engagement.ticketVolume} support tickets this quarter`,
       impact: 1,
     },
   ].sort((a, b) => b.impact - a.impact)
+
+  const calculatedHealthScore = Math.round(
+    healthScorePillars.reduce((sum, pillar) => sum + pillar.score, 0) / healthScorePillars.length,
+  )
 
   const getTrendIcon = (trend: "up" | "down" | "stable") => {
     if (trend === "up") return <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
@@ -115,7 +125,7 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
               <p className="text-xs text-muted-foreground">Health Score</p>
               <div className="flex items-center gap-1.5">
                 <p className={`font-heading rounded-md px-2 py-0.5 font-semibold ${healthColor}`}>
-                  {customer.healthScore}/100
+                  {calculatedHealthScore}/100
                 </p>
                 <div
                   className="relative"

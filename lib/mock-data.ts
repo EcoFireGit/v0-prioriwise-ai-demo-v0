@@ -9,6 +9,38 @@ export interface Customer {
   employees: number
   contractValue: number
   healthScore: number
+  healthMetrics: {
+    engagement: {
+      score: number
+      trend: "up" | "down" | "stable"
+      emailResponseRate: number // percentage
+      lastContact: string
+      ticketVolume: number
+      ticketVolumeChange: number // percentage change
+    }
+    sentiment: {
+      score: number
+      trend: "up" | "down" | "stable"
+      currentSentiment: string
+      baselineSentiment: string
+      recentKeywords: string[]
+      npsScore: number
+    }
+    productAdoption: {
+      score: number
+      trend: "up" | "down" | "stable"
+      seatUtilization: number // percentage
+      featureUsage: number // percentage
+      loginFrequency: string
+    }
+    financialRisk: {
+      score: number
+      trend: "up" | "down" | "stable"
+      paymentStatus: string
+      contractGrowth: number // percentage
+      daysUntilRenewal: number
+    }
+  }
 }
 
 export interface Project {
@@ -45,6 +77,38 @@ export const customers: Customer[] = [
     employees: 450,
     contractValue: 125000,
     healthScore: 72,
+    healthMetrics: {
+      engagement: {
+        score: 58,
+        trend: "down",
+        emailResponseRate: 45,
+        lastContact: "14 days ago",
+        ticketVolume: 11,
+        ticketVolumeChange: -68,
+      },
+      sentiment: {
+        score: 65,
+        trend: "down",
+        currentSentiment: "Neutral",
+        baselineSentiment: "Positive",
+        recentKeywords: ["delays", "waiting", "concerned"],
+        npsScore: 6,
+      },
+      productAdoption: {
+        score: 77,
+        trend: "stable",
+        seatUtilization: 77,
+        featureUsage: 62,
+        loginFrequency: "Weekly",
+      },
+      financialRisk: {
+        score: 88,
+        trend: "up",
+        paymentStatus: "Current",
+        contractGrowth: 15,
+        daysUntilRenewal: 180,
+      },
+    },
   },
   {
     id: "globex",
@@ -53,6 +117,38 @@ export const customers: Customer[] = [
     employees: 280,
     contractValue: 89000,
     healthScore: 85,
+    healthMetrics: {
+      engagement: {
+        score: 82,
+        trend: "stable",
+        emailResponseRate: 78,
+        lastContact: "3 days ago",
+        ticketVolume: 24,
+        ticketVolumeChange: 5,
+      },
+      sentiment: {
+        score: 88,
+        trend: "up",
+        currentSentiment: "Very Positive",
+        baselineSentiment: "Positive",
+        recentKeywords: ["excellent", "helpful", "satisfied"],
+        npsScore: 9,
+      },
+      productAdoption: {
+        score: 85,
+        trend: "up",
+        seatUtilization: 92,
+        featureUsage: 78,
+        loginFrequency: "Daily",
+      },
+      financialRisk: {
+        score: 85,
+        trend: "stable",
+        paymentStatus: "Current",
+        contractGrowth: 8,
+        daysUntilRenewal: 90,
+      },
+    },
   },
   {
     id: "initech",
@@ -61,6 +157,38 @@ export const customers: Customer[] = [
     employees: 120,
     contractValue: 45000,
     healthScore: 91,
+    healthMetrics: {
+      engagement: {
+        score: 92,
+        trend: "up",
+        emailResponseRate: 95,
+        lastContact: "1 day ago",
+        ticketVolume: 18,
+        ticketVolumeChange: 12,
+      },
+      sentiment: {
+        score: 94,
+        trend: "stable",
+        currentSentiment: "Excellent",
+        baselineSentiment: "Very Positive",
+        recentKeywords: ["impressed", "innovative", "partnership"],
+        npsScore: 10,
+      },
+      productAdoption: {
+        score: 89,
+        trend: "up",
+        seatUtilization: 98,
+        featureUsage: 85,
+        loginFrequency: "Daily",
+      },
+      financialRisk: {
+        score: 90,
+        trend: "stable",
+        paymentStatus: "Current",
+        contractGrowth: 22,
+        daysUntilRenewal: 240,
+      },
+    },
   },
 ]
 
