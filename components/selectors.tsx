@@ -37,7 +37,7 @@ export function Selectors({
             variant="outline"
             className="min-w-[160px] justify-between border-secondary bg-card font-heading text-primary hover:bg-muted hover:text-primary"
           >
-            {persona || "Select Persona"}
+            {persona || "Select Department"}
             <ChevronDown className="ml-2 h-4 w-4 opacity-70" />
           </Button>
         </DropdownMenuTrigger>
