@@ -26,9 +26,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 }
 
 const severityColors = {
-  high: "bg-[#FEE2E2] text-[#DC2626] border-[#FCA5A5]",
-  medium: "bg-[#FFF7ED] text-[#F05523] border-[#FDBA74]",
-  low: "bg-[#F0FDF4] text-[#16A34A] border-[#BBF7D0]",
+  high: "bg-red-50 text-destructive border-red-200",
+  medium: "bg-amber-50 text-accent border-amber-200",
+  low: "bg-green-50 text-green-600 border-green-200",
 }
 
 export function InsightCard({ insight, onClick }: InsightCardProps) {
@@ -36,23 +36,23 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
 
   return (
     <Card
-      className="cursor-pointer border-[#D2E5F6] bg-white transition-all duration-200 hover:border-[#242E65]/30 hover:shadow-lg"
+      className="cursor-pointer border-secondary bg-card transition-all duration-200 hover:border-primary/30 hover:shadow-lg"
       onClick={onClick}
     >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#D2E5F6]">
-            <Icon className="h-5 w-5 text-[#242E65]" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
+            <Icon className="h-5 w-5 text-primary" />
           </div>
           <Badge variant="outline" className={severityColors[insight.severity]}>
             {insight.severity.toUpperCase()}
           </Badge>
         </div>
-        <CardTitle className="mt-3 font-heading text-lg font-semibold text-[#242E65]">{insight.title}</CardTitle>
-        <p className="text-xs font-medium uppercase tracking-wide text-[#797575]">{insight.category}</p>
+        <CardTitle className="mt-3 font-heading text-lg font-semibold text-primary">{insight.title}</CardTitle>
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{insight.category}</p>
       </CardHeader>
       <CardContent>
-        <p className="text-sm leading-relaxed text-[#797575]">{insight.summary}</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">{insight.summary}</p>
       </CardContent>
     </Card>
   )

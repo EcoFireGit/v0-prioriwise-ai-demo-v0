@@ -24,15 +24,15 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
         : "bg-blue-100 text-blue-700"
 
   return (
-    <div className="rounded-xl border border-[#D2E5F6] bg-white p-5">
+    <div className="rounded-xl border border-secondary bg-card p-5">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#242E65]">
-            <Building2 className="h-6 w-6 text-white" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
+            <Building2 className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
-            <h2 className="font-heading text-xl font-semibold text-[#242E65]">{customer.name}</h2>
-            <p className="text-sm text-[#797575]">
+            <h2 className="font-heading text-xl font-semibold text-primary">{customer.name}</h2>
+            <p className="text-sm text-muted-foreground">
               {project.name} •{" "}
               <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${statusColor}`}>
                 {project.status}
@@ -42,23 +42,23 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
         </div>
         <div className="flex flex-wrap gap-6">
           <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-[#797575]" />
+            <Users className="h-4 w-4 text-muted-foreground" />
             <div>
-              <p className="text-xs text-[#797575]">Employees</p>
-              <p className="font-heading font-semibold text-[#242E65]">{customer.employees}</p>
+              <p className="text-xs text-muted-foreground">Employees</p>
+              <p className="font-heading font-semibold text-primary">{customer.employees}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <DollarSign className="h-4 w-4 text-[#797575]" />
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
             <div>
-              <p className="text-xs text-[#797575]">Contract Value</p>
-              <p className="font-heading font-semibold text-[#242E65]">${customer.contractValue.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Contract Value</p>
+              <p className="font-heading font-semibold text-primary">${customer.contractValue.toLocaleString()}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Activity className="h-4 w-4 text-[#797575]" />
+            <Activity className="h-4 w-4 text-muted-foreground" />
             <div>
-              <p className="text-xs text-[#797575]">Health Score</p>
+              <p className="text-xs text-muted-foreground">Health Score</p>
               <p className={`font-heading rounded-md px-2 py-0.5 font-semibold ${healthColor}`}>
                 {customer.healthScore}/100
               </p>

@@ -35,7 +35,7 @@ export function Selectors({
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="min-w-[160px] justify-between border-[#D2E5F6] bg-white font-heading text-[#242e65] hover:bg-[#f3f4f6] hover:text-[#242e65]"
+            className="min-w-[160px] justify-between border-secondary bg-card font-heading text-primary hover:bg-muted hover:text-primary"
           >
             {persona || "Select Persona"}
             <ChevronDown className="ml-2 h-4 w-4 opacity-70" />
@@ -55,7 +55,7 @@ export function Selectors({
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="min-w-[160px] justify-between border-[#D2E5F6] bg-white font-heading text-[#242e65] hover:bg-[#f3f4f6] hover:text-[#242e65]"
+            className="min-w-[160px] justify-between border-secondary bg-card font-heading text-primary hover:bg-muted hover:text-primary"
           >
             {customer?.name || "Select Customer"}
             <ChevronDown className="ml-2 h-4 w-4 opacity-70" />
@@ -75,7 +75,7 @@ export function Selectors({
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="min-w-[180px] justify-between border-[#D2E5F6] bg-white font-heading text-[#242e65] hover:bg-[#f3f4f6] hover:text-[#242e65]"
+            className="min-w-[180px] justify-between border-secondary bg-card font-heading text-primary hover:bg-muted hover:text-primary"
             disabled={!customer}
           >
             {project?.name || "Select Project"}

@@ -14,9 +14,9 @@ interface InsightModalProps {
 }
 
 const severityColors = {
-  high: "bg-[#FEE2E2] text-[#DC2626] border-[#FCA5A5]",
-  medium: "bg-[#FFF7ED] text-[#F05523] border-[#FDBA74]",
-  low: "bg-[#F0FDF4] text-[#16A34A] border-[#BBF7D0]",
+  high: "bg-red-50 text-destructive border-red-200",
+  medium: "bg-amber-50 text-accent border-amber-200",
+  low: "bg-green-50 text-green-600 border-green-200",
 }
 
 export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard }: InsightModalProps) {
@@ -24,11 +24,11 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="relative w-full max-w-2xl rounded-xl border border-[#D2E5F6] bg-white shadow-2xl">
+      <div className="relative w-full max-w-2xl rounded-xl border border-secondary bg-card shadow-2xl">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-1 text-[#797575] transition-colors hover:bg-[#D2E5F6] hover:text-[#242E65]"
+          className="absolute right-4 top-4 rounded-full p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
         >
           <X className="h-5 w-5" />
         </button>
@@ -36,57 +36,57 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
         {isLoading ? (
           <div className="flex h-80 flex-col items-center justify-center gap-4">
             <SegmentedRingLoader />
-            <p className="font-heading text-lg font-medium text-[#242E65]">Analyzing data...</p>
-            <p className="text-sm text-[#797575]">Generating insights and recommendations</p>
+            <p className="font-heading text-lg font-medium text-primary">Analyzing data...</p>
+            <p className="text-sm text-muted-foreground">Generating insights and recommendations</p>
           </div>
         ) : insight ? (
           <div className="max-h-[90vh] overflow-y-auto p-8">
             {/* Header */}
             <div className="mb-6">
               <div className="mb-2 flex items-center gap-3">
-                <h2 className="font-heading text-2xl font-semibold text-[#242E65]">{insight.title}</h2>
+                <h2 className="font-heading text-2xl font-semibold text-primary">{insight.title}</h2>
                 <Badge variant="outline" className={severityColors[insight.severity]}>
                   {insight.severity.toUpperCase()}
                 </Badge>
               </div>
-              <p className="text-sm font-medium uppercase tracking-wide text-[#797575]">{insight.category}</p>
+              <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{insight.category}</p>
             </div>
 
             {/* Summary */}
-            <p className="mb-6 text-base leading-relaxed text-[#797575]">{insight.summary}</p>
+            <p className="mb-6 text-base leading-relaxed text-muted-foreground">{insight.summary}</p>
 
             {/* Data Points */}
-            <div className="mb-6 rounded-lg bg-[#D2E5F6] p-4">
-              <h3 className="mb-3 font-heading text-sm font-semibold uppercase tracking-wide text-[#242E65]">
+            <div className="mb-6 rounded-lg bg-secondary p-4">
+              <h3 className="mb-3 font-heading text-sm font-semibold uppercase tracking-wide text-primary">
                 Key Data Points
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {Object.entries(insight.data).map(([key, value]) => (
                   <div key={key} className="flex flex-col">
-                    <span className="text-xs text-[#797575]">{key}</span>
-                    <span className="font-heading text-lg font-semibold text-[#242E65]">{value}</span>
+                    <span className="text-xs text-muted-foreground">{key}</span>
+                    <span className="font-heading text-lg font-semibold text-primary">{value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Data Sources */}
-            <div className="mb-6 rounded-lg border border-[#D2E5F6] bg-white p-4">
-              <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wide text-[#242E65]">
+            <div className="mb-6 rounded-lg border border-secondary bg-card p-4">
+              <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wide text-primary">
                 Data Sources
               </h3>
               <div className="space-y-4">
                 {/* Internal Structured */}
                 <div>
                   <div className="mb-2 flex items-center gap-2">
-                    <Database className="h-4 w-4 text-[#242E65]" />
-                    <h4 className="text-xs font-semibold uppercase tracking-wide text-[#242E65]">
+                    <Database className="h-4 w-4 text-primary" />
+                    <h4 className="text-xs font-semibold uppercase tracking-wide text-primary">
                       Internal - Structured
                     </h4>
                   </div>
                   <ul className="ml-6 space-y-1">
                     {insight.dataSources.internal.structured.map((source, idx) => (
-                      <li key={idx} className="text-sm text-[#797575]">
+                      <li key={idx} className="text-sm text-muted-foreground">
                         • {source}
                       </li>
                     ))}
@@ -96,14 +96,14 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
                 {/* Internal Unstructured */}
                 <div>
                   <div className="mb-2 flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-[#242E65]" />
-                    <h4 className="text-xs font-semibold uppercase tracking-wide text-[#242E65]">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <h4 className="text-xs font-semibold uppercase tracking-wide text-primary">
                       Internal - Unstructured
                     </h4>
                   </div>
                   <ul className="ml-6 space-y-1">
                     {insight.dataSources.internal.unstructured.map((source, idx) => (
-                      <li key={idx} className="text-sm text-[#797575]">
+                      <li key={idx} className="text-sm text-muted-foreground">
                         • {source}
                       </li>
                     ))}
@@ -113,12 +113,12 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
                 {/* External */}
                 <div>
                   <div className="mb-2 flex items-center gap-2">
-                    <Globe className="h-4 w-4 text-[#242E65]" />
-                    <h4 className="text-xs font-semibold uppercase tracking-wide text-[#242E65]">External Sources</h4>
+                    <Globe className="h-4 w-4 text-primary" />
+                    <h4 className="text-xs font-semibold uppercase tracking-wide text-primary">External Sources</h4>
                   </div>
                   <ul className="ml-6 space-y-1">
                     {insight.dataSources.external.map((source, idx) => (
-                      <li key={idx} className="text-sm text-[#797575]">
+                      <li key={idx} className="text-sm text-muted-foreground">
                         • {source}
                       </li>
                     ))}
@@ -128,23 +128,23 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             </div>
 
             {/* Recommendation */}
-            <div className="mb-6 rounded-lg border border-[#F05523]/20 bg-[#FFF7ED] p-4">
-              <h3 className="mb-2 font-heading text-sm font-semibold uppercase tracking-wide text-[#F05523]">
+            <div className="mb-6 rounded-lg border border-accent/20 bg-accent/5 p-4">
+              <h3 className="mb-2 font-heading text-sm font-semibold uppercase tracking-wide text-accent">
                 Recommended Action
               </h3>
-              <p className="text-sm leading-relaxed text-[#797575]">{insight.recommendation}</p>
+              <p className="text-sm leading-relaxed text-muted-foreground">{insight.recommendation}</p>
             </div>
 
             {/* CTA Buttons */}
             <div className="space-y-2">
-              <Button className="w-full bg-[#F05523] font-heading text-white hover:bg-[#D94A1F]">
+              <Button className="w-full bg-accent font-heading text-accent-foreground hover:bg-accent/90">
                 Take Action
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 onClick={onReturnToDashboard}
                 variant="outline"
-                className="w-full font-heading text-[#242E65] hover:bg-[#D2E5F6] bg-transparent"
+                className="w-full font-heading text-primary hover:bg-secondary bg-transparent"
               >
                 Return to Dashboard
               </Button>

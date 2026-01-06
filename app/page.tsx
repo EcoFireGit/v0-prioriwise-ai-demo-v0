@@ -77,7 +77,7 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f9fafb]">
+    <div className="flex min-h-screen flex-col bg-background">
       <Header />
 
       <main className="flex flex-1 flex-col p-6">
@@ -85,10 +85,10 @@ export default function Dashboard() {
           <>
             <div className="flex flex-1 items-center justify-center">
               <div className="mx-auto max-w-md text-center">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#D2E5F6]">
-                  <LayoutDashboard className="h-10 w-10 text-[#242E65]/40" />
+                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary">
+                  <LayoutDashboard className="h-10 w-10 text-primary/40" />
                 </div>
-                <h2 className="mb-6 font-heading text-xl font-semibold text-[#242E65]">Select your context</h2>
+                <h2 className="mb-6 font-heading text-xl font-semibold text-primary">Select your context</h2>
                 <Selectors
                   persona={persona}
                   setPersona={setPersona}
@@ -104,7 +104,7 @@ export default function Dashboard() {
             {isDashboardAnalyzing && (
               <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
                 <div className="flex flex-col items-center gap-4">
-                  <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#D2E5F6] border-t-[#242E65]"></div>
+                  <div className="h-16 w-16 animate-spin rounded-full border-4 border-secondary border-t-primary"></div>
                   <p className="font-heading text-lg font-medium text-white">Analyzing data...</p>
                   <p className="text-sm text-white/80">Generating insights and recommendations</p>
                 </div>
@@ -121,9 +121,11 @@ export default function Dashboard() {
 
             {/* Insights Grid */}
             <div>
-              <h3 className="mb-4 text-lg font-semibold text-[#242d64]">
+              <h3 className="mb-4 text-lg font-semibold text-foreground">
                 {persona} Insights
-                <span className="ml-2 text-sm font-normal text-[#6b7280]">({insights.length} opportunities)</span>
+                <span className="ml-2 text-sm font-normal text-muted-foreground">
+                  ({insights.length} opportunities)
+                </span>
               </h3>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {insights.map((insight) => (
@@ -134,7 +136,7 @@ export default function Dashboard() {
                 <Button
                   onClick={handleReturnToDashboard}
                   variant="outline"
-                  className="font-heading text-[#242E65] hover:bg-[#D2E5F6] bg-transparent"
+                  className="font-heading text-primary hover:bg-secondary bg-transparent"
                 >
                   Return to Dashboard
                 </Button>
