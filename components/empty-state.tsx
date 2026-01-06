@@ -16,7 +16,7 @@ export function EmptyState({ hasPersona, hasCustomer }: EmptyStateProps) {
         </div>
         <h2 className="mb-3 font-heading text-xl font-semibold text-[#242E65]">Select your context</h2>
         <p className="mb-6 text-sm leading-relaxed text-[#797575]">
-          Choose your persona, customer, and project to see tailored insights and opportunities.
+          Choose a persona, customer, and project to see tailored insights and opportunities.
         </p>
         <div className="flex flex-col gap-3">
           <div
