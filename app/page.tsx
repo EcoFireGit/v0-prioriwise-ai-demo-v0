@@ -10,6 +10,7 @@ import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
 import { AppFooter } from "@/components/app-footer"
+import { StakeholderChatbot } from "@/components/stakeholder-chatbot"
 import {
   customers,
   getProjectsForCustomer,
@@ -155,6 +156,8 @@ export default function Dashboard() {
         onClose={handleCloseModal}
         onReturnToDashboard={handleReturnToDashboard}
       />
+
+      <StakeholderChatbot />
     </div>
   )
 }
