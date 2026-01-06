@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react"
 import { LayoutDashboard } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Selectors } from "@/components/selectors"
 import { InsightCard } from "@/components/insight-card"
@@ -58,6 +59,14 @@ export default function Dashboard() {
     setIsModalLoading(false)
   }, [])
 
+  const handleReturnToDashboard = useCallback(() => {
+    setPersona(null)
+    setCustomer(null)
+    setProject(null)
+    setSelectedInsight(null)
+    setIsModalLoading(false)
+  }, [])
+
   const showDashboard = persona && customer && project
 
   return (
@@ -103,13 +112,26 @@ export default function Dashboard() {
                   <InsightCard key={insight.id} insight={insight} onClick={() => handleCardClick(insight)} />
                 ))}
               </div>
+              <div className="mt-8 flex justify-center">
+                <Button
+                  onClick={handleReturnToDashboard}
+                  variant="outline"
+                  className="font-heading text-[#242E65] hover:bg-[#D2E5F6] bg-transparent"
+                >
+                  Return to Dashboard
+                </Button>
+              </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* Modal */}
-      <InsightModal insight={selectedInsight} isLoading={isModalLoading} onClose={handleCloseModal} />
+      <InsightModal
+        insight={selectedInsight}
+        isLoading={isModalLoading}
+        onClose={handleCloseModal}
+        onReturnToDashboard={handleReturnToDashboard}
+      />
     </div>
   )
 }

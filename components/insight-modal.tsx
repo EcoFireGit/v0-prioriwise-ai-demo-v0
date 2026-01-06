@@ -10,6 +10,7 @@ interface InsightModalProps {
   insight: InsightCard | null
   isLoading: boolean
   onClose: () => void
+  onReturnToDashboard?: () => void
 }
 
 const severityColors = {
@@ -18,7 +19,7 @@ const severityColors = {
   low: "bg-[#F0FDF4] text-[#16A34A] border-[#BBF7D0]",
 }
 
-export function InsightModal({ insight, isLoading, onClose }: InsightModalProps) {
+export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard }: InsightModalProps) {
   if (!insight && !isLoading) return null
 
   return (
@@ -77,11 +78,20 @@ export function InsightModal({ insight, isLoading, onClose }: InsightModalProps)
               <p className="text-sm leading-relaxed text-[#797575]">{insight.recommendation}</p>
             </div>
 
-            {/* CTA */}
-            <Button className="w-full bg-[#F05523] font-heading text-white hover:bg-[#D94A1F]">
-              Take Action
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            {/* CTA Buttons */}
+            <div className="space-y-2">
+              <Button className="w-full bg-[#F05523] font-heading text-white hover:bg-[#D94A1F]">
+                Take Action
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                onClick={onReturnToDashboard}
+                variant="outline"
+                className="w-full font-heading text-[#242E65] hover:bg-[#D2E5F6] bg-transparent"
+              >
+                Return to Dashboard
+              </Button>
+            </div>
           </div>
         ) : null}
       </div>
