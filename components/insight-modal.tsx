@@ -1,6 +1,6 @@
 "use client"
 
-import { X, ArrowRight } from "lucide-react"
+import { X, ArrowRight, Database, FileText, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { SegmentedRingLoader } from "@/components/segmented-ring-loader"
@@ -39,7 +39,7 @@ export function InsightModal({ insight, isLoading, onClose }: InsightModalProps)
             <p className="text-sm text-[#797575]">Generating insights and recommendations</p>
           </div>
         ) : insight ? (
-          <div className="p-8">
+          <div className="max-h-[90vh] overflow-y-auto p-8">
             {/* Header */}
             <div className="mb-6">
               <div className="mb-2 flex items-center gap-3">
@@ -66,6 +66,63 @@ export function InsightModal({ insight, isLoading, onClose }: InsightModalProps)
                     <span className="font-heading text-lg font-semibold text-[#242E65]">{value}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Data Sources */}
+            <div className="mb-6 rounded-lg border border-[#D2E5F6] bg-white p-4">
+              <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wide text-[#242E65]">
+                Data Sources
+              </h3>
+              <div className="space-y-4">
+                {/* Internal Structured */}
+                <div>
+                  <div className="mb-2 flex items-center gap-2">
+                    <Database className="h-4 w-4 text-[#242E65]" />
+                    <h4 className="text-xs font-semibold uppercase tracking-wide text-[#242E65]">
+                      Internal - Structured
+                    </h4>
+                  </div>
+                  <ul className="ml-6 space-y-1">
+                    {insight.dataSources.internal.structured.map((source, idx) => (
+                      <li key={idx} className="text-sm text-[#797575]">
+                        • {source}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Internal Unstructured */}
+                <div>
+                  <div className="mb-2 flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#242E65]" />
+                    <h4 className="text-xs font-semibold uppercase tracking-wide text-[#242E65]">
+                      Internal - Unstructured
+                    </h4>
+                  </div>
+                  <ul className="ml-6 space-y-1">
+                    {insight.dataSources.internal.unstructured.map((source, idx) => (
+                      <li key={idx} className="text-sm text-[#797575]">
+                        • {source}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* External */}
+                <div>
+                  <div className="mb-2 flex items-center gap-2">
+                    <Globe className="h-4 w-4 text-[#242E65]" />
+                    <h4 className="text-xs font-semibold uppercase tracking-wide text-[#242E65]">External Sources</h4>
+                  </div>
+                  <ul className="ml-6 space-y-1">
+                    {insight.dataSources.external.map((source, idx) => (
+                      <li key={idx} className="text-sm text-[#797575]">
+                        • {source}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
 
