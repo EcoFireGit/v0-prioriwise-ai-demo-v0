@@ -7,6 +7,7 @@ import { SegmentedRingLoader } from "@/components/segmented-ring-loader"
 import { RiskProfileDisplay } from "@/components/risk-profile-display"
 import { DeviceGapTable } from "@/components/device-gap-table"
 import { SecurityPlaybook } from "@/components/security-playbook"
+import { ConversationPlaybook } from "@/components/conversation-playbook"
 import type { InsightCard } from "@/lib/mock-data"
 
 interface InsightModalProps {
@@ -99,6 +100,13 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             {isSecurityGap && insight.playbook && (
               <div className="mb-6">
                 <SecurityPlaybook playbook={insight.playbook} />
+              </div>
+            )}
+
+            {/* Conversation Playbook section for all insight types */}
+            {insight.conversationPlaybook && (
+              <div className="mb-6">
+                <ConversationPlaybook playbook={insight.conversationPlaybook} />
               </div>
             )}
 

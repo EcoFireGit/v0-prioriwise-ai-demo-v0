@@ -38,6 +38,7 @@ export interface InsightCard {
   riskProfile?: RiskProfile
   playbook?: Playbook
   affectedDevices?: DeviceGap[]
+  conversationPlaybook?: ConversationPlaybook
 }
 
 export interface RiskProfile {
@@ -73,6 +74,31 @@ export interface PlaybookStep {
   owner: string
   duration: string
   dependencies: string[]
+}
+
+export interface ConversationPlaybook {
+  discussionPoints: string[]
+  successStories: SuccessStory[]
+  stakeholderTalks: StakeholderTalkTrack[]
+  objectionHandling: ObjectionHandler[]
+}
+
+export interface SuccessStory {
+  title: string
+  company: string
+  metric: string
+  result: string
+}
+
+export interface StakeholderTalkTrack {
+  stakeholder: string
+  focus: string
+  keyMessages: string[]
+}
+
+export interface ObjectionHandler {
+  objection: string
+  response: string
 }
 
 export const customers: Customer[] = [
@@ -383,6 +409,89 @@ export const insightCards: InsightCard[] = [
         },
       ],
     },
+    conversationPlaybook: {
+      discussionPoints: [
+        "23 workstations lack EDR protection despite being in scope for managed services",
+        "Current threat landscape makes unprotected endpoints a primary target for ransomware",
+        "Recent manufacturing sector attacks show average breach cost of $2.4M+ incident response",
+        "EDR deployment closes compliance gaps (CMMC Level 2, cyber insurance requirements)",
+        "Real-time visibility prevents lateral movement in multi-stage attacks",
+      ],
+      successStories: [
+        {
+          title: "Automotive Supplier Ransomware Prevention",
+          company: "Midwest Auto Parts Inc.",
+          metric: "23 endpoints protected",
+          result: "Prevented simulated ransomware spread in penetration test, avoided estimated $180K breach cost",
+        },
+        {
+          title: "Medical Device Manufacturer Compliance",
+          company: "PrecisionMed Corp",
+          metric: "47 devices brought into compliance",
+          result: "Achieved CMMC Level 2 certification, renewed cyber insurance with 12% premium reduction",
+        },
+        {
+          title: "Manufacturing Floor Security",
+          company: "Precision Manufacturing LLC",
+          metric: "35 shop floor workstations",
+          result: "Detected and blocked 3 zero-day attempts within first 30 days, prevented operational downtime",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "CIO / IT Director",
+          focus: "Risk Reduction & Compliance",
+          keyMessages: [
+            "Closes critical compliance gaps and audit findings",
+            "Provides 24/7 threat monitoring across all endpoints",
+            "Enables rapid incident response and forensics capabilities",
+            "Demonstrates due diligence to board and insurance carriers",
+          ],
+        },
+        {
+          stakeholder: "CFO / Finance",
+          focus: "Cost-Benefit Analysis",
+          keyMessages: [
+            "$12,400 annual investment prevents $45,000+ breach response costs",
+            "Reduces cyber insurance premiums by approximately $3,200 annually",
+            "Avoids operational downtime (manufacturing: $5,000-$50,000 per hour)",
+            "263% ROI in year one through breach prevention and savings",
+          ],
+        },
+        {
+          stakeholder: "Operations Manager",
+          focus: "Operational Continuity",
+          keyMessages: [
+            "Maintains 99.99% uptime during deployment and ongoing operation",
+            "Non-disruptive agent installation can be scheduled during maintenance windows",
+            "Provides real-time alerting for anomalous activity before systems are impacted",
+            "Supports business continuity and disaster recovery requirements",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "We already have antivirus, isn't that enough?",
+          response:
+            "Antivirus handles known threats, but EDR detects sophisticated attacks using behavior analysis. Recent ransomware bypasses antivirus 60% of the time. EDR catches these threats in execution phase, stopping them before damage occurs. You need both layers for complete protection.",
+        },
+        {
+          objection: "This seems expensive. Can we just monitor more closely with our current tools?",
+          response:
+            "Manual monitoring creates response gaps during off-hours and on weekends. EDR provides 24/7 automated monitoring and can block threats in milliseconds. One ransomware incident costs $45,000+ in response alone. This $12,400 investment pays for itself with just one prevented incident.",
+        },
+        {
+          objection: "Will EDR slow down our workstations or disrupt operations?",
+          response:
+            "Modern EDR agents use less than 2% CPU and 150MB RAM. Deployment is done in phases during maintenance windows. Our customers report zero user impact post-deployment. We can pilot on 5 devices first to prove this to your team.",
+        },
+        {
+          objection: "How long does deployment take? We can't afford downtime.",
+          response:
+            "We deploy in phases over 4 weeks with zero downtime. Week 1: Planning & validation. Week 2-3: Phased rollout of agents during evening hours. Week 4: Testing & validation. Your users experience no service interruption.",
+        },
+      ],
+    },
   },
   {
     id: "seat-count",
@@ -404,6 +513,62 @@ export const insightCards: InsightCard[] = [
         unstructured: ["Contract Documents", "Email - Billing Communications"],
       },
       external: ["Industry Benchmarking - SaaS Pricing Models"],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "Active Directory shows 47 additional users beyond current licensing",
+        "Users added over time often aren't reflected in license count",
+        "Compliance audit will flag this discrepancy as unlicensed software usage",
+        "True-up is straightforward process and can be applied retroactively to Q1",
+        "Opportunity to discuss other underutilized licenses or consolidation",
+      ],
+      successStories: [
+        {
+          title: "Tech Company License Consolidation",
+          company: "CloudTech Solutions",
+          metric: "47 additional users identified",
+          result: "True-up completed in Q1, identified 23 duplicate licenses for consolidation, saved $8,400 annually",
+        },
+        {
+          title: "Manufacturing Seat Count Discovery",
+          company: "Industrial Systems Corp",
+          metric: "34 untracked users",
+          result:
+            "True-up led to license audit, reallocated seats more efficiently, eliminated unused premium licenses",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Finance / Procurement",
+          focus: "Cost Management",
+          keyMessages: [
+            "True-up cost is $2,115/month going forward, locked in rate for 12 months",
+            "Can aggregate with other software renewals for volume discount",
+            "Retroactive adjustment simplifies Q1 and Q2 reconciliation",
+          ],
+        },
+        {
+          stakeholder: "IT Director",
+          focus: "Compliance & Governance",
+          keyMessages: [
+            "Ensures full SAM (Software Asset Management) compliance",
+            "Audit trail protects company from licensing violations",
+            "Accurate license count enables better capacity planning",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "Why are we being charged for users we didn't request?",
+          response:
+            "This is a common scenario with growing teams. New hires or contractors are often added to Active Directory before license requests are submitted. This isn't a billing error—it's a recognition that these users should have been licensed all along. We're catching it now to keep you compliant.",
+        },
+        {
+          objection: "Can we just remove these users from Active Directory instead?",
+          response:
+            "If they're in Active Directory, they likely have data, email, or folder access that's business-critical. Removing them could break workflows. True-up brings licensing in line with actual usage and ensures compliance without disrupting operations.",
+        },
+      ],
     },
   },
   {
@@ -480,6 +645,57 @@ export const insightCards: InsightCard[] = [
       },
       external: ["LinkedIn Public Profile Data", "Company Press Releases", "ZoomInfo Contact Intelligence"],
     },
+    conversationPlaybook: {
+      discussionPoints: [
+        "Sarah Chen's contact bouncing suggests email or employment status change",
+        "Champion departure is highest early-warning signal for account churn risk",
+        "Relationship transfer to secondary contact is critical immediately",
+        "Understanding why champion left is valuable for account retention",
+        "Early action prevents account stall and relationship deterioration",
+      ],
+      successStories: [
+        {
+          title: "Proactive Transition Saved Account",
+          company: "Enterprise Manufacturing Co",
+          metric: "CIO departed, account at risk",
+          result:
+            "CSM reached out immediately, built relationship with replacement, account renewed with 15% expansion",
+        },
+        {
+          title: "Prevented Account Loss",
+          company: "Retail Systems Inc",
+          metric: "IT Director promoted, lost day-to-day contact",
+          result: "Escalation manager engaged before relationship atrophied, secured multi-year renewal",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Secondary Contact / New Champion",
+          focus: "Continuity & Support",
+          keyMessages: [
+            "We value your partnership and want to ensure continuity during transitions",
+            "Our CSM is here to support your initiatives and business goals",
+            "Let's schedule brief intro call to make sure we support your priorities",
+          ],
+        },
+        {
+          stakeholder: "Executive Sponsor (if escalating)",
+          focus: "Relationship Value",
+          keyMessages: [
+            "Sarah was a valued partner and advocate for our solution",
+            "We want to ensure your organization continues to realize value from our platform",
+            "Let's discuss how our roadmap aligns with your evolving needs",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "Sarah moved on and we're re-evaluating our needs.",
+          response:
+            "Transitions are natural. This is a great opportunity for us to reset and make sure we're meeting current priorities. Can I schedule time with your new IT leader to understand how we can better support your goals? We've helped many organizations through similar transitions.",
+        },
+      ],
+    },
   },
   {
     id: "quiet-client",
@@ -505,6 +721,62 @@ export const insightCards: InsightCard[] = [
         unstructured: ["Support Tickets - Historical Conversations", "Email - Communication Frequency Analysis"],
       },
       external: ["Customer Success Benchmarks - Engagement Patterns", "Gainsight Churn Risk Indicators"],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "68% drop in support tickets over 90 days is significant engagement decline",
+        "Could indicate: system stability, user adoption drop, or customer dissatisfaction",
+        "Last proactive check-in was 45 days ago, no recent business reviews",
+        "Low engagement precedes churn—early action prevents account loss",
+        "QBR is opportunity to reassess business alignment and priorities",
+      ],
+      successStories: [
+        {
+          title: "Quiet Client Re-Engagement",
+          company: "Manufacturing Solutions Ltd",
+          metric: "Support tickets dropped 71%",
+          result: "QBR uncovered unmet needs, expanded platform adoption to additional teams, grew contract 28%",
+        },
+        {
+          title: "Prevented Churn Through Check-In",
+          company: "Regional IT Services",
+          metric: "Silent for 50+ days",
+          result:
+            "CSM outreach discovered budget re-prioritization, helped secure next year's commitment with new use cases",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Primary Contact",
+          focus: "Value Realization",
+          keyMessages: [
+            "We haven't connected in a while and want to make sure we're delivering value",
+            "Let's review how your team is using the platform and identify optimization opportunities",
+            "Are there evolving needs or priorities we should discuss for 2026?",
+          ],
+        },
+        {
+          stakeholder: "Finance (if churn risk high)",
+          focus: "Business Continuity",
+          keyMessages: [
+            "Understanding your evolving IT priorities helps us align our roadmap",
+            "Let's discuss how we can continue to support your operational goals",
+            "Any budget or strategic changes we should know about for planning?",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "We've been quiet because we haven't had any issues.",
+          response:
+            "That's great to hear! Stability is important. But quiet can also mean the team isn't maximizing the full platform. Let's do a quick audit of how you're using our solution. Many customers discover new capabilities that solve other pain points they're managing manually.",
+        },
+        {
+          objection: "We're evaluating other solutions right now.",
+          response:
+            "That's understandable. Before you decide, let's make sure you understand everything our platform offers. Many customers discover they can consolidate other tools with our solution. Can I show you three features you might not be using today?",
+        },
+      ],
     },
   },
   {
@@ -533,6 +805,58 @@ export const insightCards: InsightCard[] = [
       },
       external: ["Industry NPS Benchmarks", "Customer Health Score Models - ChurnZero"],
     },
+    conversationPlaybook: {
+      discussionPoints: [
+        "Email sentiment shifted from 'Friendly' to 'Terse' over 3-week period",
+        "Key phrases detected: 'delays', 'still waiting', 'frustrated' suggest frustration",
+        "Sentiment drift often precedes formal complaint or escalation",
+        "Early intervention prevents relationship deterioration and churn",
+        "Executive sponsor involvement shows customer importance and commitment",
+      ],
+      successStories: [
+        {
+          title: "Sentiment Drift Intervention",
+          company: "Financial Services Inc",
+          metric: "Friendly to Frustrated in 2 weeks",
+          result:
+            "Executive outreach addressed underlying issues, resolved in 5 days, customer became internal advocate",
+        },
+        {
+          title: "Prevented Escalation",
+          company: "Healthcare Systems Corp",
+          metric: "Terse communication detected",
+          result:
+            "Immediate CSM and manager response uncovered performance issue, implemented fix within 72 hours, renewed with expansion",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Primary Contact",
+          focus: "Issue Resolution",
+          keyMessages: [
+            "We noticed some challenges in recent communications and want to make things right",
+            "I'm personally taking ownership to resolve any issues you've experienced",
+            "Let's schedule a call today to discuss what's frustrated you and find solutions",
+          ],
+        },
+        {
+          stakeholder: "Executive Sponsor (VP/C-suite)",
+          focus: "Relationship & Commitment",
+          keyMessages: [
+            "I wanted to reach out personally because we value your partnership",
+            "Our team has noted some service concerns and I'm committed to fixing them",
+            "Your feedback is invaluable—let's discuss how we can restore your confidence",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "We've had too many issues with your platform lately.",
+          response:
+            "I understand your frustration, and I take full responsibility. Let's get specific about what's happened. [Listen]. Here's what I'm going to do: [specific action]. I'll personally follow up with you in 48 hours with status. Can we schedule time tomorrow to dig deeper?",
+        },
+      ],
+    },
   },
   // Engineering persona cards
   {
@@ -560,6 +884,42 @@ export const insightCards: InsightCard[] = [
       },
       external: ["ITIL Service Management Framework", "HDI Support Center Benchmarks"],
     },
+    conversationPlaybook: {
+      discussionPoints: [
+        "P1 response time trending toward 15-minute SLA breach (currently 12 min avg)",
+        "Only 3-minute buffer remaining with 4 open P1 tickets",
+        "SLA breaches trigger customer escalations and contract penalties",
+        "Early staffing adjustment prevents breach and customer dissatisfaction",
+        "Predictive staffing shows trend will breach by EOW without action",
+      ],
+      successStories: [
+        {
+          title: "Prevented SLA Breach",
+          company: "Critical Infrastructure Client",
+          metric: "4 P1 tickets with 3-min buffer",
+          result:
+            "Allocated additional engineer, maintained 99.2% SLA compliance, prevented $50K penalty and escalation",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Engineering Lead",
+          focus: "Team Capacity",
+          keyMessages: [
+            "Current ticket volume trending toward SLA breach this week",
+            "Allocate on-call engineer Thursday-Sunday to maintain compliance",
+            "Monitor P1 trends—if sustained, we need permanent capacity adjustment",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "Can we ask the customer to be patient with response times?",
+          response:
+            "No—SLA is contractual commitment. Breach triggers penalties and escalation. Better to allocate temporary capacity now than manage customer complaint and financial penalty later.",
+        },
+      ],
+    },
   },
   {
     id: "resource-util",
@@ -585,6 +945,50 @@ export const insightCards: InsightCard[] = [
         unstructured: ["Infrastructure Runbooks", "Slack - DevOps Alerts Channel"],
       },
       external: ["AWS Well-Architected Framework", "Uptime Institute - Capacity Planning Guidelines"],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "Server cluster at 87% CPU during peak hours—only 13% headroom to critical threshold",
+        "Storage projections show capacity limit by Feb 15, 2026 (40 days)",
+        "Performance degradation expected before threshold—customer impact imminent",
+        "Capacity planning decision needed: scale infrastructure or optimize workloads",
+        "Proactive upgrade prevents outages and customer dissatisfaction",
+      ],
+      successStories: [
+        {
+          title: "Capacity Upgrade Prevented Outage",
+          company: "E-Commerce Platform",
+          metric: "87% CPU utilization",
+          result: "Planned upgrade completed before holiday traffic spike, maintained 99.99% uptime during peak season",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Infrastructure Lead",
+          focus: "Capacity Planning",
+          keyMessages: [
+            "Current utilization trending toward critical threshold by Feb 15",
+            "Two options: scale infrastructure (12-day lead time) or optimize workloads (2-week analysis)",
+            "Recommend immediate decision to avoid customer impact",
+          ],
+        },
+        {
+          stakeholder: "Finance (if budget required)",
+          focus: "Business Continuity ROI",
+          keyMessages: [
+            "Proactive capacity upgrade costs $15K now",
+            "Emergency scaling during outage costs 3x and damages customer trust",
+            "Avoiding even one customer outage justifies the investment",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "Can we wait to see if usage stabilizes before upgrading?",
+          response:
+            "We're past the safe observation window. At 87% CPU, performance degradation begins, and storage hits limit in 40 days. Waiting risks customer impact. Let's start the upgrade process today—if usage drops, we can pause it.",
+        },
+      ],
     },
   },
   {
@@ -614,6 +1018,56 @@ export const insightCards: InsightCard[] = [
         "NIST National Vulnerability Database (NVD)",
         "CISA Known Exploited Vulnerabilities",
         "Microsoft Security Response Center",
+      ],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "14 servers missing critical security patches from December cycle",
+        "3 unpatched CVEs have active exploits in the wild",
+        "Compliance audit will flag this as critical finding",
+        "Emergency maintenance window is lowest-risk patching window",
+        "Delay increases breach likelihood and regulatory exposure",
+      ],
+      successStories: [
+        {
+          title: "Emergency Patch Deployment",
+          company: "Financial Institution",
+          metric: "14 unpatched servers",
+          result:
+            "Emergency patching completed in 24 hours, prevented post-exploitation of known CVEs during compliance audit",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Security Team",
+          focus: "Risk Mitigation",
+          keyMessages: [
+            "14 servers have exploitable CVEs—this is critical priority",
+            "Emergency patching window recommended for this week",
+            "Post-deployment validation confirms no functionality impact",
+          ],
+        },
+        {
+          stakeholder: "Operations Manager",
+          focus: "Minimal Disruption",
+          keyMessages: [
+            "Patching window scheduled for Sunday 2-4 AM to minimize operational impact",
+            "Rollback plan in place in case of issues",
+            "Estimated recovery time: 45 minutes per server",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "We can't patch during business operations—too risky.",
+          response:
+            "Absolutely—agreed on off-hours patching. Sunday 2-4 AM is lowest-usage window. We have rollback plan for each server. Staying unpatched is higher risk: these CVEs are actively exploited. We need emergency window this week.",
+        },
+        {
+          objection: "Can this wait until our next planned maintenance window?",
+          response:
+            "These are active exploits—not something we can wait on. Next planned window isn't for 6 weeks. Risk is too high. One compromised server could spread laterally across your environment. Emergency patching is justified here.",
+        },
       ],
     },
   },
