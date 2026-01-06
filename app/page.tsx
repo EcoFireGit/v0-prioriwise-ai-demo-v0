@@ -1,11 +1,13 @@
 "use client"
 
 import { useState, useCallback } from "react"
+import { LayoutDashboard } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
+import { Selectors } from "@/components/selectors"
 import { InsightCard } from "@/components/insight-card"
 import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
-import { EmptyState } from "@/components/empty-state"
 import { CustomerSummary } from "@/components/customer-summary"
 import {
   customers,
@@ -57,24 +59,40 @@ export default function Dashboard() {
     setIsModalLoading(false)
   }, [])
 
+  const handleReturnToDashboard = useCallback(() => {
+    setPersona(null)
+    setCustomer(null)
+    setProject(null)
+    setSelectedInsight(null)
+    setIsModalLoading(false)
+  }, [])
+
   const showDashboard = persona && customer && project
 
   return (
     <div className="flex min-h-screen flex-col bg-[#f9fafb]">
-      <Header
-        persona={persona}
-        setPersona={setPersona}
-        customer={customer}
-        setCustomer={handleCustomerChange}
-        project={project}
-        setProject={setProject}
-        customers={customers}
-        projects={availableProjects}
-      />
+      <Header />
 
       <main className="flex flex-1 flex-col p-6">
         {!showDashboard ? (
-          <EmptyState hasPersona={!!persona} hasCustomer={!!customer && !!project} />
+          <div className="flex flex-1 items-center justify-center">
+            <div className="mx-auto max-w-md text-center">
+              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#D2E5F6]">
+                <LayoutDashboard className="h-10 w-10 text-[#242E65]/40" />
+              </div>
+              <h2 className="mb-6 font-heading text-xl font-semibold text-[#242E65]">Select your context</h2>
+              <Selectors
+                persona={persona}
+                setPersona={setPersona}
+                customer={customer}
+                setCustomer={handleCustomerChange}
+                project={project}
+                setProject={setProject}
+                customers={customers}
+                projects={availableProjects}
+              />
+            </div>
+          </div>
         ) : (
           <div className="mx-auto w-full max-w-7xl space-y-6">
             {/* Customer Summary */}
@@ -94,13 +112,26 @@ export default function Dashboard() {
                   <InsightCard key={insight.id} insight={insight} onClick={() => handleCardClick(insight)} />
                 ))}
               </div>
+              <div className="mt-8 flex justify-center">
+                <Button
+                  onClick={handleReturnToDashboard}
+                  variant="outline"
+                  className="font-heading text-[#242E65] hover:bg-[#D2E5F6] bg-transparent"
+                >
+                  Return to Dashboard
+                </Button>
+              </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* Modal */}
-      <InsightModal insight={selectedInsight} isLoading={isModalLoading} onClose={handleCloseModal} />
+      <InsightModal
+        insight={selectedInsight}
+        isLoading={isModalLoading}
+        onClose={handleCloseModal}
+        onReturnToDashboard={handleReturnToDashboard}
+      />
     </div>
   )
 }
