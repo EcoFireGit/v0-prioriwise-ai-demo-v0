@@ -10,6 +10,7 @@ import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
 import { AppFooter } from "@/components/app-footer"
+import { redirect } from "next/navigation"
 import {
   customers,
   getProjectsForCustomer,
@@ -157,4 +158,8 @@ export default function Dashboard() {
       />
     </div>
   )
+}
+
+export function RootPage() {
+  redirect("/dashboard")
 }
