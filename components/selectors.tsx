@@ -29,7 +29,7 @@ export function Selectors({
   const personas: Persona[] = ["Sales", "Account Management", "Engineering"]
 
   return (
-    <div className="flex items-center justify-center gap-3 bg-[#f9fafb] px-6 py-4">
+    <div className="flex flex-col items-center justify-center gap-3">
       {/* Persona Selector */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
