@@ -9,6 +9,7 @@ import { InsightCard } from "@/components/insight-card"
 import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
+import { AppFooter } from "@/components/app-footer"
 import {
   customers,
   getProjectsForCustomer,
@@ -145,6 +146,8 @@ export default function Dashboard() {
           </div>
         )}
       </main>
+
+      <AppFooter />
 
       <InsightModal
         insight={selectedInsight}
