@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { LayoutDashboard } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
@@ -25,9 +25,22 @@ export default function Dashboard() {
   const [project, setProject] = useState<Project | null>(null)
   const [selectedInsight, setSelectedInsight] = useState<InsightCardType | null>(null)
   const [isModalLoading, setIsModalLoading] = useState(false)
+  const [isDashboardAnalyzing, setIsDashboardAnalyzing] = useState(false)
+  const [showDashboard, setShowDashboard] = useState(false)
 
   const availableProjects = customer ? getProjectsForCustomer(customer.id) : []
   const insights = persona ? getInsightsForPersona(persona) : []
+
+  useEffect(() => {
+    if (persona && customer && project && !showDashboard) {
+      setIsDashboardAnalyzing(true)
+      // Simulate analyzing delay
+      setTimeout(() => {
+        setIsDashboardAnalyzing(false)
+        setShowDashboard(true)
+      }, 1500)
+    }
+  }, [persona, customer, project, showDashboard])
 
   const handleCustomerChange = useCallback((c: Customer) => {
     setCustomer(c)
@@ -35,13 +48,7 @@ export default function Dashboard() {
   }, [])
 
   const handleCardClick = useCallback((insight: InsightCardType) => {
-    setIsModalLoading(true)
-    setSelectedInsight(null)
-    // Simulate processing delay
-    setTimeout(() => {
-      setSelectedInsight(insight)
-      setIsModalLoading(false)
-    }, 1500)
+    setSelectedInsight(insight)
   }, [])
 
   const handleQuestionSubmit = useCallback(
@@ -65,9 +72,9 @@ export default function Dashboard() {
     setProject(null)
     setSelectedInsight(null)
     setIsModalLoading(false)
+    setShowDashboard(false)
+    setIsDashboardAnalyzing(false)
   }, [])
-
-  const showDashboard = persona && customer && project
 
   return (
     <div className="flex min-h-screen flex-col bg-[#f9fafb]">
@@ -75,24 +82,35 @@ export default function Dashboard() {
 
       <main className="flex flex-1 flex-col p-6">
         {!showDashboard ? (
-          <div className="flex flex-1 items-center justify-center">
-            <div className="mx-auto max-w-md text-center">
-              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#D2E5F6]">
-                <LayoutDashboard className="h-10 w-10 text-[#242E65]/40" />
+          <>
+            <div className="flex flex-1 items-center justify-center">
+              <div className="mx-auto max-w-md text-center">
+                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#D2E5F6]">
+                  <LayoutDashboard className="h-10 w-10 text-[#242E65]/40" />
+                </div>
+                <h2 className="mb-6 font-heading text-xl font-semibold text-[#242E65]">Select your context</h2>
+                <Selectors
+                  persona={persona}
+                  setPersona={setPersona}
+                  customer={customer}
+                  setCustomer={handleCustomerChange}
+                  project={project}
+                  setProject={setProject}
+                  customers={customers}
+                  projects={availableProjects}
+                />
               </div>
-              <h2 className="mb-6 font-heading text-xl font-semibold text-[#242E65]">Select your context</h2>
-              <Selectors
-                persona={persona}
-                setPersona={setPersona}
-                customer={customer}
-                setCustomer={handleCustomerChange}
-                project={project}
-                setProject={setProject}
-                customers={customers}
-                projects={availableProjects}
-              />
             </div>
-          </div>
+            {isDashboardAnalyzing && (
+              <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#D2E5F6] border-t-[#242E65]"></div>
+                  <p className="font-heading text-lg font-medium text-white">Analyzing data...</p>
+                  <p className="text-sm text-white/80">Generating insights and recommendations</p>
+                </div>
+              </div>
+            )}
+          </>
         ) : (
           <div className="mx-auto w-full max-w-7xl space-y-6">
             {/* Customer Summary */}
