@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react"
 import { Header } from "@/components/header"
+import { Selectors } from "@/components/selectors"
 import { InsightCard } from "@/components/insight-card"
 import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
@@ -61,7 +62,9 @@ export default function Dashboard() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#f9fafb]">
-      <Header
+      <Header />
+
+      <Selectors
         persona={persona}
         setPersona={setPersona}
         customer={customer}
