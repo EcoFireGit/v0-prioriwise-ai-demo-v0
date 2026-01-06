@@ -3,6 +3,8 @@
 import { Building2, Users, DollarSign, Activity, HelpCircle, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import type { Customer, Project } from "@/lib/mock-data"
 import { useState } from "react"
+import { calculateHealthMetrics, calculateOverallHealthScore } from "@/lib/health-calculator"
+import { getInsightsForCustomer } from "@/lib/mock-data"
 
 interface CustomerSummaryProps {
   customer: Customer
@@ -20,10 +22,14 @@ interface HealthScorePillar {
 export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
   const [showBreakdown, setShowBreakdown] = useState(false)
 
+  const customerInsights = getInsightsForCustomer(customer.id)
+  const calculatedMetrics = calculateHealthMetrics(customerInsights, customer)
+  const calculatedHealthScore = calculateOverallHealthScore(calculatedMetrics)
+
   const healthColor =
-    customer.healthScore >= 80
+    calculatedHealthScore >= 80
       ? "text-green-600 bg-green-50"
-      : customer.healthScore >= 60
+      : calculatedHealthScore >= 60
         ? "text-amber-600 bg-amber-50"
         : "text-red-600 bg-red-50"
 
@@ -37,43 +43,33 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
   const healthScorePillars: HealthScorePillar[] = [
     {
       name: "Financial Risk",
-      score: customer.healthMetrics.financialRisk.score,
-      trend: customer.healthMetrics.financialRisk.trend,
-      reasoning:
-        customer.healthMetrics.financialRisk.paymentStatus === "Current"
-          ? `Payments on time with ${customer.healthMetrics.financialRisk.contractGrowth}% contract growth, ${customer.healthMetrics.financialRisk.daysUntilRenewal} days until renewal`
-          : `Payment issues detected, ${customer.healthMetrics.financialRisk.daysUntilRenewal} days until renewal`,
+      score: calculatedMetrics.financialRisk.score,
+      trend: calculatedMetrics.financialRisk.trend,
+      reasoning: calculatedMetrics.financialRisk.reasoning,
       impact: 4,
     },
     {
       name: "Product Adoption",
-      score: customer.healthMetrics.productAdoption.score,
-      trend: customer.healthMetrics.productAdoption.trend,
-      reasoning: `${customer.healthMetrics.productAdoption.seatUtilization}% seat utilization with ${customer.healthMetrics.productAdoption.loginFrequency.toLowerCase()} login frequency`,
+      score: calculatedMetrics.productAdoption.score,
+      trend: calculatedMetrics.productAdoption.trend,
+      reasoning: calculatedMetrics.productAdoption.reasoning,
       impact: 3,
     },
     {
       name: "Sentiment",
-      score: customer.healthMetrics.sentiment.score,
-      trend: customer.healthMetrics.sentiment.trend,
-      reasoning: `${customer.healthMetrics.sentiment.currentSentiment} sentiment detected in communications with NPS of ${customer.healthMetrics.sentiment.npsScore}/10`,
+      score: calculatedMetrics.sentiment.score,
+      trend: calculatedMetrics.sentiment.trend,
+      reasoning: calculatedMetrics.sentiment.reasoning,
       impact: 2,
     },
     {
       name: "Engagement",
-      score: customer.healthMetrics.engagement.score,
-      trend: customer.healthMetrics.engagement.trend,
-      reasoning:
-        customer.healthMetrics.engagement.ticketVolumeChange < 0
-          ? `${customer.healthMetrics.engagement.emailResponseRate}% email response rate, ticket volume dropped ${Math.abs(customer.healthMetrics.engagement.ticketVolumeChange)}% (last contact: ${customer.healthMetrics.engagement.lastContact})`
-          : `${customer.healthMetrics.engagement.emailResponseRate}% email response rate with ${customer.healthMetrics.engagement.ticketVolume} support tickets this quarter`,
+      score: calculatedMetrics.engagement.score,
+      trend: calculatedMetrics.engagement.trend,
+      reasoning: calculatedMetrics.engagement.reasoning,
       impact: 1,
     },
   ].sort((a, b) => b.impact - a.impact)
-
-  const calculatedHealthScore = Math.round(
-    healthScorePillars.reduce((sum, pillar) => sum + pillar.score, 0) / healthScorePillars.length,
-  )
 
   const getTrendIcon = (trend: "up" | "down" | "stable") => {
     if (trend === "up") return <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />

@@ -472,3 +472,24 @@ export function getProjectsForCustomer(customerId: string): Project[] {
 export function getInsightsForPersona(persona: Persona): InsightCard[] {
   return insightCards.filter((card) => card.persona === persona)
 }
+
+export function getInsightsForCustomer(customerId: string): InsightCard[] {
+  // Map customers to their relevant insights
+  const customerInsightMap: Record<string, string[]> = {
+    acme: [
+      "security-gap",
+      "seat-count",
+      "eol-refresh",
+      "champion-departure",
+      "quiet-client",
+      "sentiment-drift",
+      "sla-breach",
+      "patch-compliance",
+    ],
+    globex: ["shadow-it", "resource-util"],
+    initech: [],
+  }
+
+  const insightIds = customerInsightMap[customerId] || []
+  return insightCards.filter((card) => insightIds.includes(card.id))
+}
