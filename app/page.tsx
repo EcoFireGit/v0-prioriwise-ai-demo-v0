@@ -48,13 +48,7 @@ export default function Dashboard() {
   }, [])
 
   const handleCardClick = useCallback((insight: InsightCardType) => {
-    setIsModalLoading(true)
-    setSelectedInsight(null)
-    // Simulate processing delay for modal appearance
-    setTimeout(() => {
-      setSelectedInsight(insight)
-      setIsModalLoading(false)
-    }, 1500)
+    setSelectedInsight(insight)
   }, [])
 
   const handleQuestionSubmit = useCallback(
