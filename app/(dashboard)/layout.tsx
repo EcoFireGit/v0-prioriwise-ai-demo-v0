@@ -1,32 +1,18 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import {
-  LayoutDashboard,
-  TrendingUp,
-  AlertTriangle,
-  Library,
-  Briefcase,
-  Database,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
-import { AppFooter } from "@/components/app-footer"
+import { LayoutGrid, TrendingUp, AlertTriangle, BookOpen, Users, Plug } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Dashboard", href: "/dashboard", icon: LayoutGrid },
   { name: "Growth Signals", href: "/growth-signals", icon: TrendingUp },
   { name: "Risk Center", href: "/risk-center", icon: AlertTriangle },
-  { name: "Value Library", href: "/value-library", icon: Library },
-  { name: "Client Portfolio", href: "/client-portfolio", icon: Briefcase },
-  { name: "Data Connectors", href: "/data-connectors", icon: Database },
+  { name: "Value Library", href: "/value-library", icon: BookOpen },
+  { name: "Client Portfolio", href: "/client-portfolio", icon: Users },
+  { name: "Data Connectors", href: "/data-connectors", icon: Plug },
 ]
 
 export default function DashboardLayout({
@@ -34,70 +20,47 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <Header />
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <aside
-          className={cn(
-            "sticky top-0 h-[calc(100vh-4rem)] border-r border-border bg-card transition-all duration-300",
-            collapsed ? "w-16" : "w-64",
-          )}
-        >
-          <div className="flex h-full flex-col">
-            {/* Navigation Links */}
-            <nav className="flex-1 space-y-1 p-2">
-              {navigation.map((item) => {
-                const Icon = item.icon
-                const isActive = pathname === item.href
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={cn(
-                      "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                      isActive
-                        ? "bg-secondary text-primary"
-                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground",
-                    )}
-                    title={collapsed ? item.name : undefined}
-                  >
-                    <Icon className="h-5 w-5 flex-shrink-0" />
-                    {!collapsed && <span className="truncate">{item.name}</span>}
-                  </Link>
-                )
-              })}
-            </nav>
-
-            {/* Collapse Toggle */}
-            <div className="border-t border-border p-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setCollapsed(!collapsed)}
-                className="w-full justify-center"
-              >
-                {collapsed ? (
-                  <ChevronRight className="h-4 w-4" />
-                ) : (
-                  <>
-                    <ChevronLeft className="h-4 w-4" />
-                    <span className="ml-2">Collapse</span>
-                  </>
-                )}
-              </Button>
-            </div>
+    <div className="flex min-h-screen bg-[#1a1f4d]">
+      <aside className="w-72 flex-shrink-0 bg-[#1e2555] flex flex-col">
+        {/* Logo */}
+        <div className="flex items-center gap-2 px-6 py-8">
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#f05523] to-[#ff7849] flex items-center justify-center">
+            <div className="h-5 w-5 rounded border-2 border-white" />
           </div>
-        </aside>
+          <span className="text-2xl font-semibold text-white">Prioriwise</span>
+        </div>
 
-        {/* Main Content */}
-        <main className="flex-1">{children}</main>
-      </div>
-      <AppFooter />
+        {/* Navigation Links */}
+        <nav className="flex-1 px-4 space-y-1">
+          {navigation.map((item) => {
+            const Icon = item.icon
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-all",
+                  isActive
+                    ? "bg-transparent border-2 border-[#f05523] text-white"
+                    : "text-white/70 hover:text-white hover:bg-white/5",
+                )}
+              >
+                <Icon className="h-5 w-5 flex-shrink-0" />
+                <span>{item.name}</span>
+              </Link>
+            )
+          })}
+        </nav>
+
+        {/* Footer */}
+        <div className="px-6 py-4 text-sm text-white/50">© 2026 Prioriwise</div>
+      </aside>
+
+      <main className="flex-1 bg-gradient-to-br from-[#1a1f4d] via-[#2d3470] to-[#4a3d6b]">{children}</main>
     </div>
   )
 }
