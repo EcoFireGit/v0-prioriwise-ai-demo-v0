@@ -72,7 +72,7 @@ export default function ValueLibraryPage() {
       <Header />
       <div className="flex flex-1">
         <Sidebar />
-        <div className="flex flex-1 flex-col bg-background">
+        <div className="flex flex-1 flex-col bg-background ml-64">
           <main className="flex flex-1 flex-col p-6">
             <div className="mx-auto w-full max-w-7xl">
               <div className="mb-6 flex items-center justify-between">
