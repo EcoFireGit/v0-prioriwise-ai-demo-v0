@@ -33,6 +33,7 @@ const severityColors = {
 
 export function InsightCard({ insight, onClick }: InsightCardProps) {
   const Icon = iconMap[insight.title] || AlertTriangle
+  const hasRiskProfile = insight.riskProfile !== undefined
 
   return (
     <Card
@@ -44,15 +45,25 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
             <Icon className="h-5 w-5 text-primary" />
           </div>
-          <Badge variant="outline" className={severityColors[insight.severity]}>
-            {insight.severity.toUpperCase()}
-          </Badge>
+          <div className="flex gap-2">
+            <Badge variant="outline" className={severityColors[insight.severity]}>
+              {insight.severity.toUpperCase()}
+            </Badge>
+            {hasRiskProfile && insight.riskProfile && (
+              <Badge variant="outline" className="bg-red-50 text-red-600 border-red-200">
+                Risk: {insight.riskProfile.overallScore}
+              </Badge>
+            )}
+          </div>
         </div>
         <CardTitle className="mt-3 font-heading text-lg font-semibold text-primary">{insight.title}</CardTitle>
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{insight.category}</p>
       </CardHeader>
       <CardContent>
         <p className="text-sm leading-relaxed text-muted-foreground">{insight.summary}</p>
+        {insight.affectedDevices && (
+          <p className="mt-2 text-xs font-medium text-accent">{insight.affectedDevices.length} devices affected</p>
+        )}
       </CardContent>
     </Card>
   )
