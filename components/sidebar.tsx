@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { LayoutDashboard, TrendingUp, TriangleAlert, BookOpen, Users, Plug } from "lucide-react"
 
@@ -20,11 +19,6 @@ export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 flex-col bg-[#1e2555] text-white">
       <div className="flex h-full flex-col">
-        {/* Logo */}
-        <div className="flex h-16 items-center justify-center border-b border-white/10 px-6">
-          <Image src="/prioriwise-logo.png" alt="Prioriwise" width={180} height={40} className="h-8 w-auto" priority />
-        </div>
-
         {/* Navigation */}
         <nav className="flex-1 space-y-1 px-3 py-6">
           {navigation.map((item) => {
