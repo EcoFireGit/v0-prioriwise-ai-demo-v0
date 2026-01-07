@@ -51,7 +51,13 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
             {showOpportunityPill && (
               <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1">
                 <DollarSign className="h-3 w-3" />
-                {formatOpportunity(monthlyOpportunity)}
+                {formatOpportunity(monthlyOpportunity)}/mo
+              </Badge>
+            )}
+            {insight.persona === "Sales" && !showOpportunityPill && (
+              <Badge variant="outline" className="bg-slate-50 text-slate-600 border-slate-200 gap-1">
+                <TrendingUp className="h-3 w-3" />
+                Strategic
               </Badge>
             )}
             <Badge variant="outline" className={severityColors[insight.severity]}>
