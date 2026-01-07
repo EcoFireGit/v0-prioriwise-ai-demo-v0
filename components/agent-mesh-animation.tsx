@@ -106,7 +106,7 @@ export function AgentMeshAnimation() {
               className="text-xs font-medium"
               fill="#ffffff"
               opacity="0.95"
-              fontSize="8"
+              fontSize="12"
             >
               {agent.name.split(" ")[0]}
             </text>
@@ -116,14 +116,14 @@ export function AgentMeshAnimation() {
 
       {/* Agent title and description */}
       <div className="text-center">
-        <p className="font-heading text-lg font-medium text-white">Agents analyzing...</p>
-        <p className="text-sm text-white/80">Mesh network processing insights</p>
+        <p className="font-heading text-2xl font-medium text-white">Agents analyzing...</p>
+        <p className="text-base text-white/80">Mesh network processing insights</p>
       </div>
 
       <div className="w-64 space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-white">{stages[stage].name}</span>
-          <span className="text-xs text-white/60">{stage + 1} of 4</span>
+          <span className="text-base font-medium text-white">{stages[stage].name}</span>
+          <span className="text-sm text-white/60">{stage + 1} of 4</span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-white/20">
           <div
