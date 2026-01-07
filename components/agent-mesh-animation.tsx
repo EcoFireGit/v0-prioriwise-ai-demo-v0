@@ -40,15 +40,15 @@ export function AgentMeshAnimation() {
             <style>{`
               @keyframes pulse-node {
                 0%, 100% { r: 6px; opacity: 1; }
-                50% { r: 8px; opacity: 0.7; }
+                50% { r: 8px; opacity: 0.9; }
               }
               @keyframes pulse-node-2 {
-                0%, 100% { r: 6px; opacity: 0.6; }
-                50% { r: 8px; opacity: 0.3; }
+                0%, 100% { r: 6px; opacity: 0.95; }
+                50% { r: 8px; opacity: 0.75; }
               }
               @keyframes pulse-node-3 {
-                0%, 100% { r: 6px; opacity: 0.4; }
-                50% { r: 8px; opacity: 0.1; }
+                0%, 100% { r: 6px; opacity: 0.9; }
+                50% { r: 8px; opacity: 0.7; }
               }
               @keyframes flow-1 {
                 0% { stroke-dashoffset: 0; }
@@ -65,7 +65,7 @@ export function AgentMeshAnimation() {
               .connection-line {
                 stroke: #242e65;
                 stroke-width: 1.5;
-                opacity: 0.4;
+                opacity: 0.8;
                 stroke-dasharray: 5, 5;
               }
               .flow-1 { animation: flow-1 4s linear infinite; }
@@ -104,7 +104,8 @@ export function AgentMeshAnimation() {
               y={agent.cy - 18}
               textAnchor="middle"
               className="text-xs font-medium"
-              fill="#e0e7ff"
+              fill="#ffffff"
+              opacity="0.95"
               fontSize="8"
             >
               {agent.name.split(" ")[0]}
