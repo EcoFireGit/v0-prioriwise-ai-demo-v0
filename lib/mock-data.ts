@@ -71,6 +71,9 @@ export interface InsightCard {
   playbook?: Playbook
   affectedDevices?: DeviceGap[]
   conversationPlaybook?: ConversationPlaybook
+  licenseTypes?: LicenseType[] // New field for true-up insights
+  trueUpPlaybook?: TrueUpPlaybookData // New field for true-up frameworks
+  totalMonthlyRecovery?: number // New field for total recovery amount
 }
 
 export interface RiskProfile {
@@ -131,6 +134,35 @@ export interface StakeholderTalkTrack {
 export interface ObjectionHandler {
   objection: string
   response: string
+}
+
+export interface LicenseType {
+  type: string
+  icon: "software" | "device" | "service"
+  contracted: number
+  active: number
+  variance: number
+  monthlyRecovery: number
+}
+
+export interface UsageDocumentation {
+  title: string
+  description: string
+  dataPoint: string
+}
+
+export interface DiscussionFramework {
+  title: string
+  approach: string
+  keyTalkingPoints: string[]
+}
+
+export interface TrueUpPlaybookData {
+  overviewMessage: string
+  usageDocumentation: UsageDocumentation[]
+  discussionFrameworks: DiscussionFramework[]
+  relationshipGuidance: string[]
+  nextSteps: string[]
 }
 
 export const customers: Customer[] = [
@@ -626,21 +658,215 @@ export const insightCards: InsightCard[] = [
     title: "Seat Count True-Up",
     category: "Revenue Recovery",
     severity: "medium",
-    summary: "Active Directory shows 47 more users than currently billed.",
+    summary:
+      "AI agents identified 127 untracked users across multiple license types, representing $12,732/month in recovery opportunity.",
     data: {
-      "Active AD Users": 497,
-      "Billed Seats": 450,
-      Variance: 47,
-      "Monthly Revenue Gap": "$2,115",
+      "Software Seat Overage": 47,
+      "Managed Device Overage": 38,
+      "Service Tier Gap": 42,
+      "Total Monthly Recovery": "$12,732",
+      "Annual Opportunity": "$152,784",
     },
-    recommendation: "Initiate true-up conversation for Q1 billing adjustment.",
+    recommendation: "Initiate true-up conversations for Q1 billing adjustment across all license categories.",
     persona: "Sales",
     dataSources: {
       internal: {
-        structured: ["Active Directory - User Database", "CRM - Billing Records", "License Management System"],
-        unstructured: ["Contract Documents", "Email - Billing Communications"],
+        structured: [
+          "Active Directory - User Database",
+          "Mobile Device Management (MDM) System",
+          "CRM - Billing Records",
+          "License Management System",
+          "Usage Analytics Platform",
+        ],
+        unstructured: ["Contract Documents", "Email - Billing Communications", "Slack - Team Channel History"],
       },
-      external: ["Industry Benchmarking - SaaS Pricing Models"],
+      external: ["Industry Benchmarking - SaaS Pricing Models", "Customer Health Indicators"],
+    },
+    licenseTypes: [
+      {
+        type: "Software Seats (Office 365)",
+        icon: "software",
+        contracted: 450,
+        active: 497,
+        variance: 47,
+        monthlyRecovery: 2115,
+      },
+      {
+        type: "Managed Devices (Mobile/Laptop)",
+        icon: "device",
+        contracted: 280,
+        active: 318,
+        variance: 38,
+        monthlyRecovery: 3800,
+      },
+      {
+        type: "Premium Support Tier",
+        icon: "service",
+        contracted: 300,
+        active: 342,
+        variance: 42,
+        monthlyRecovery: 6817,
+      },
+    ],
+    totalMonthlyRecovery: 12732,
+    trueUpPlaybook: {
+      overviewMessage:
+        "These aren't difficult sales conversations—this is revenue you've already earned, just not yet collected. Our AI agents tracked active users against contracted counts in real time. When clients exceed their agreements, we've identified the gap with precise data. The true-up process positions billing adjustments as routine contract updates, not corrections.",
+      usageDocumentation: [
+        {
+          title: "Active Directory Audit Results",
+          description:
+            "Real-time user counts from AD sync show 47 additional users actively consuming licenses that aren't billed.",
+          dataPoint: "47 active users identified | 30-day average",
+        },
+        {
+          title: "Device Management Records",
+          description:
+            "MDM enrollment data confirms 38 devices beyond contracted allocation actively receiving security updates and management.",
+          dataPoint: "38 managed devices | Verified enrollment dates",
+        },
+        {
+          title: "Usage Analytics Timeline",
+          description:
+            "Service tier usage logs demonstrate consistent consumption patterns exceeding contracted capacity over 90+ days.",
+          dataPoint: "42 service tier users | 95% consistent usage",
+        },
+      ],
+      discussionFrameworks: [
+        {
+          title: "Growth Conversation (Finance/Procurement)",
+          approach: "Position true-up as natural business growth requiring billing alignment, not a correction.",
+          keyTalkingPoints: [
+            "Your team has grown—these users weren't tracked in initial planning but have been active for 3-4 months",
+            "We're catching this now to keep you compliant and avoid licensing audit flags",
+            "True-up cost locks in your rate for 12 months and qualifies for volume discount aggregation",
+            "Retroactive adjustment simplifies Q1 and Q2 reconciliation vs. future corrections",
+          ],
+        },
+        {
+          title: "Operational Conversation (IT Director)",
+          approach: "Emphasize compliance, governance, and operational benefits of accurate licensing.",
+          keyTalkingPoints: [
+            "Ensures full SAM (Software Asset Management) compliance across all categories",
+            "Audit trail protects your company from licensing violations and unexpected penalties",
+            "Accurate license count enables better capacity planning and resource allocation",
+            "Prevents compliance drift as your organization continues growing",
+          ],
+        },
+        {
+          title: "Risk Conversation (General Counsel/Compliance)",
+          approach: "Focus on minimizing legal and financial exposure through proactive true-up.",
+          keyTalkingPoints: [
+            "Staying current with licensing prevents expensive compliance audits and penalties",
+            "Documented agreement adjustment creates clear legal trail vs. undiscovered violations",
+            "Vendor audits are increasingly common—being proactive demonstrates good governance",
+            "True-up now is significantly less expensive than license reconciliation charges later",
+          ],
+        },
+      ],
+      relationshipGuidance: [
+        "Frame as 'catching up with your growth' rather than a billing correction",
+        "Emphasize that accurate licensing is a sign of healthy compliance, not failure",
+        "Offer to review other software to identify consolidation or underutilization opportunities",
+        "Position quarterly true-up reviews as part of ongoing relationship optimization",
+        "Use success stories from similar organizations to normalize the conversation",
+        "Be prepared with clear usage data—transparency builds trust even when delivering change orders",
+      ],
+      nextSteps: [
+        "Schedule true-up review call with Finance and IT leadership within 5 business days",
+        "Send pre-call summary with license breakdown, usage documentation, and recovery calculation",
+        "Prepare contracts amendment reflecting Q1 retroactive true-up and ongoing monthly adjustment",
+        "Discuss bundling opportunity—can other renewals be aggregated for volume discount?",
+        "Schedule quarterly 'licensing optimization' reviews to prevent future gaps and identify consolidation",
+      ],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "AI agents tracked 127 additional users not currently billed across multiple license types",
+        "Software seats, managed devices, and service tiers all exceed contracted allocations",
+        "Users added organically over time often aren't reflected in license reconciliation until audited",
+        "Compliance audit will flag these discrepancies as unlicensed software usage",
+        "True-up is straightforward process and can be applied retroactively to Q1",
+        "Bundling true-up with other renewals creates volume discount opportunities",
+        "Quarterly licensing reviews prevent future gaps and identify consolidation savings",
+      ],
+      successStories: [
+        {
+          title: "Multi-Category License Consolidation",
+          company: "CloudTech Solutions",
+          metric: "127 total users across 3 license types",
+          result:
+            "True-up completed in Q1, identified 23 duplicate software licenses and 12 unused device licenses for consolidation, saved $28,400 annually",
+        },
+        {
+          title: "Manufacturing Compliance Win",
+          company: "Industrial Systems Corp",
+          metric: "89 untracked users discovered",
+          result:
+            "True-up led to complete software asset audit, reallocated premium tier seats more efficiently, eliminated unused licenses, achieved full SAM compliance",
+        },
+        {
+          title: "Financial Services Governance",
+          company: "Apex Financial Group",
+          metric: "62 device management gaps",
+          result:
+            "True-up conversation expanded to device lifecycle review, implemented automated provisioning, reduced overspend by 34%, improved security posture",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Finance / Procurement",
+          focus: "Cost Management & Budgeting",
+          keyMessages: [
+            "True-up cost is $12,732/month going forward, locked in rate for 12 months",
+            "Can aggregate with other software renewals for 15-20% volume discount savings",
+            "Retroactive adjustment simplifies Q1-Q2 reconciliation and prevents future complications",
+            "Quarterly reviews identify consolidation and underutilization to offset new costs",
+          ],
+        },
+        {
+          stakeholder: "IT Director / CISO",
+          focus: "Compliance, Governance & Risk Reduction",
+          keyMessages: [
+            "Ensures full SAM compliance across all software, device, and service categories",
+            "Audit trail creates legal protection and demonstrates proactive governance",
+            "Accurate license counts enable better capacity planning and security baseline",
+            "Prevents licensing violations that carry penalties and reputational risk",
+          ],
+        },
+        {
+          stakeholder: "General Counsel / Compliance Officer",
+          focus: "Legal Risk Mitigation",
+          keyMessages: [
+            "Undiscovered licensing violations expose company to vendor audits and penalties",
+            "Proactive true-up demonstrates good faith compliance vs. reactive discovery",
+            "Documented agreement amendment creates clear legal trail protecting all parties",
+            "True-up cost now is significantly less than compliance audit exposure later",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "Why are we being charged for users we didn't request?",
+          response:
+            "This is a common scenario with growing teams. New hires, contractors, and departments are often added to Active Directory before formal license requests are submitted. This isn't a billing error—it's a recognition that these users should have been licensed all along. We're catching it now to keep you compliant and avoid compliance risk. Think of it as paying for the value you've already received.",
+        },
+        {
+          objection: "Can we just remove these users from the license pool instead?",
+          response:
+            "If they're actively using the software, devices, or service tier, removing them would disrupt operations and break workflows. Our data shows consistent usage patterns—these aren't orphaned accounts. True-up brings licensing in line with actual consumption and ensures compliance without operational disruption. Plus, you've already received the value; true-up simply formalizes the agreement.",
+        },
+        {
+          objection: "This seems like a billing mistake on your vendor's part—shouldn't they absorb it?",
+          response:
+            "Both sides benefit from accurate licensing. From their perspective, they've been under-billed; from your perspective, you've had appropriate access. True-up adjustments are mutual agreement to fix the discrepancy going forward. The good news is we can position this as a cost-shared opportunity—bundling with other renewals often qualifies you for volume discounts that offset or exceed the true-up cost.",
+        },
+        {
+          objection: "We don't have budget for additional software licenses this quarter.",
+          response:
+            "I understand. Here are your options: (1) Retroactive true-up spreads cost across Q1-Q2; (2) Quarterly pricing lock-in stabilizes future costs; (3) License audit often reveals consolidation or underutilization opportunities that create budget offsets; (4) Volume bundling with upcoming renewals typically yields 15-20% discounts. Let's identify which approach works best for your budget cycle.",
+        },
+      ],
     },
     conversationPlaybook: {
       discussionPoints: [
