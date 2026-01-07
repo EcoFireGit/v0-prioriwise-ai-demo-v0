@@ -2,10 +2,11 @@
 
 import type React from "react"
 
-import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock } from "lucide-react"
+import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock, DollarSign } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { InsightCard as InsightCardType } from "@/lib/mock-data"
+import { extractMonthlyOpportunity, formatOpportunity } from "@/lib/opportunity-calculator"
 
 interface InsightCardProps {
   insight: InsightCardType
@@ -33,6 +34,8 @@ const severityColors = {
 
 export function InsightCard({ insight, onClick }: InsightCardProps) {
   const Icon = iconMap[insight.title] || AlertTriangle
+  const monthlyOpportunity = extractMonthlyOpportunity(insight)
+  const showOpportunityPill = insight.persona === "Sales" && monthlyOpportunity > 0
 
   return (
     <Card
@@ -44,9 +47,17 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
             <Icon className="h-5 w-5 text-primary" />
           </div>
-          <Badge variant="outline" className={severityColors[insight.severity]}>
-            {insight.severity.toUpperCase()}
-          </Badge>
+          <div className="flex items-center gap-2">
+            {showOpportunityPill && (
+              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1">
+                <DollarSign className="h-3 w-3" />
+                {formatOpportunity(monthlyOpportunity)}
+              </Badge>
+            )}
+            <Badge variant="outline" className={severityColors[insight.severity]}>
+              {insight.severity.toUpperCase()}
+            </Badge>
+          </div>
         </div>
         <CardTitle className="mt-3 font-heading text-lg font-semibold text-primary">{insight.title}</CardTitle>
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{insight.category}</p>

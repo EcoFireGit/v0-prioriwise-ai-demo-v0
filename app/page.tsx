@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback, useEffect } from "react"
-import { LayoutDashboard } from "lucide-react"
+import { LayoutDashboard, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Selectors } from "@/components/selectors"
@@ -19,6 +19,7 @@ import {
   type Project,
   type InsightCard as InsightCardType,
 } from "@/lib/mock-data"
+import { calculateTotalOpportunity, formatOpportunity } from "@/lib/opportunity-calculator"
 
 export default function Dashboard() {
   const [persona, setPersona] = useState<Persona | null>(null)
@@ -28,9 +29,11 @@ export default function Dashboard() {
   const [isModalLoading, setIsModalLoading] = useState(false)
   const [isDashboardAnalyzing, setIsDashboardAnalyzing] = useState(false)
   const [showDashboard, setShowDashboard] = useState(false)
+  const [showOpportunityTooltip, setShowOpportunityTooltip] = useState(false)
 
   const availableProjects = customer ? getProjectsForCustomer(customer.id) : []
   const insights = persona ? getInsightsForPersona(persona) : []
+  const totalOpportunity = persona === "Sales" ? calculateTotalOpportunity(insights) : 0
 
   useEffect(() => {
     if (persona && customer && project && !showDashboard) {
@@ -53,7 +56,6 @@ export default function Dashboard() {
 
   const handleQuestionSubmit = useCallback(
     (question: string) => {
-      // For demo, show a relevant insight based on the question
       if (insights.length > 0) {
         handleCardClick(insights[0])
       }
@@ -117,12 +119,35 @@ export default function Dashboard() {
 
             {/* Insights Grid */}
             <div>
-              <h3 className="mb-4 text-lg font-semibold text-foreground">
-                {persona} Insights
-                <span className="ml-2 text-sm font-normal text-muted-foreground">
-                  ({insights.length} opportunities)
-                </span>
-              </h3>
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-foreground">
+                  {persona} Insights
+                  <span className="ml-2 text-sm font-normal text-muted-foreground">
+                    ({insights.length} opportunities)
+                  </span>
+                </h3>
+                {persona === "Sales" && totalOpportunity > 0 && (
+                  <div
+                    className="relative flex items-center gap-1.5"
+                    onMouseEnter={() => setShowOpportunityTooltip(true)}
+                    onMouseLeave={() => setShowOpportunityTooltip(false)}
+                  >
+                    <span className="text-sm text-muted-foreground">Total Opportunity</span>
+                    <span className="font-heading text-lg font-semibold text-primary">
+                      {formatOpportunity(totalOpportunity)} / month
+                    </span>
+                    <HelpCircle className="h-3.5 w-3.5 cursor-help text-muted-foreground transition-colors hover:text-primary" />
+
+                    {showOpportunityTooltip && (
+                      <div className="absolute right-0 top-6 z-50 w-72 rounded-lg border border-secondary bg-card p-3 shadow-lg">
+                        <p className="text-xs text-muted-foreground">
+                          Sum of data-driven revenue opportunity across all Sales insights below.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {insights.map((insight) => (
                   <InsightCard key={insight.id} insight={insight} onClick={() => handleCardClick(insight)} />
