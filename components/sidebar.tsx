@@ -17,7 +17,7 @@ export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 flex-col bg-[#1e2555] text-white">
+    <aside className="fixed left-0 top-16 z-40 h-[calc(100vh-4rem)] w-64 flex-col bg-[#1e2555] text-white">
       <div className="flex h-full flex-col">
         {/* Navigation */}
         <nav className="flex-1 space-y-1 px-3 py-6">
