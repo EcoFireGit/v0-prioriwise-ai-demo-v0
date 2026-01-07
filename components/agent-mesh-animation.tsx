@@ -1,9 +1,40 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 export function AgentMeshAnimation() {
+  const [stage, setStage] = useState(0)
+
+  useEffect(() => {
+    const duration = 5000
+    const stageInterval = duration / 4
+    const interval = setInterval(() => {
+      setStage((prev) => (prev + 1) % 4)
+    }, stageInterval)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const stages = [
+    { name: "Account Analysis", color: "from-blue-400" },
+    { name: "Health Assessment", color: "from-green-400" },
+    { name: "Trend Analysis", color: "from-purple-400" },
+    { name: "Insights Generation", color: "from-orange-400" },
+  ]
+
+  const agentNames = [
+    { name: "Account Analysis Agent", cx: 100, cy: 50 },
+    { name: "Risk Assessment Agent", cx: 140, cy: 90 },
+    { name: "Trend Analysis Agent", cx: 60, cy: 90 },
+    { name: "Insights Agent", cx: 100, cy: 100 },
+    { name: "Financial Agent", cx: 140, cy: 150 },
+    { name: "Health Agent", cx: 60, cy: 150 },
+  ]
+
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="relative h-32 w-32">
+    <div className="flex flex-col items-center gap-6">
+      {/* Mesh visualization with agent labels */}
+      <div className="relative h-48 w-48">
         <svg viewBox="0 0 200 200" className="h-full w-full">
           <defs>
             <style>{`
@@ -65,10 +96,48 @@ export function AgentMeshAnimation() {
           {/* Agent nodes - bottom */}
           <circle cx="140" cy="150" className="agent-node agent-pulse-2" r="6" />
           <circle cx="60" cy="150" className="agent-node agent-pulse-3" r="6" />
+
+          {agentNames.map((agent, idx) => (
+            <text
+              key={idx}
+              x={agent.cx}
+              y={agent.cy - 18}
+              textAnchor="middle"
+              className="text-xs font-medium"
+              fill="#e0e7ff"
+              fontSize="8"
+            >
+              {agent.name.split(" ")[0]}
+            </text>
+          ))}
         </svg>
       </div>
-      <p className="font-heading text-lg font-medium text-white">Agents analyzing...</p>
-      <p className="text-sm text-white/80">Mesh network processing insights</p>
+
+      {/* Agent title and description */}
+      <div className="text-center">
+        <p className="font-heading text-lg font-medium text-white">Agents analyzing...</p>
+        <p className="text-sm text-white/80">Mesh network processing insights</p>
+      </div>
+
+      <div className="w-64 space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium text-white">{stages[stage].name}</span>
+          <span className="text-xs text-white/60">{stage + 1} of 4</span>
+        </div>
+        <div className="h-2 w-full overflow-hidden rounded-full bg-white/20">
+          <div
+            className={`h-full bg-gradient-to-r ${stages[stage].color} to-orange-400 transition-all duration-300`}
+            style={{ width: `${((stage + 1) / 4) * 100}%` }}
+          />
+        </div>
+        <div className="flex justify-between text-xs text-white/60">
+          {stages.map((s, idx) => (
+            <span key={idx} className={idx <= stage ? "text-white/80" : ""}>
+              {s.name.split(" ")[0]}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
