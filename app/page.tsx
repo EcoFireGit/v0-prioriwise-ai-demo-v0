@@ -12,6 +12,7 @@ import { CustomerSummary } from "@/components/customer-summary"
 import { AppFooter } from "@/components/app-footer"
 import { Sidebar } from "@/components/sidebar"
 import { redirect } from "next/navigation"
+import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
 import {
   customers,
   getProjectsForCustomer,
@@ -41,7 +42,7 @@ export default function Dashboard() {
       setTimeout(() => {
         setIsDashboardAnalyzing(false)
         setShowDashboard(true)
-      }, 1500)
+      }, 5000)
     }
   }, [persona, customer, project, showDashboard])
 
@@ -106,15 +107,7 @@ export default function Dashboard() {
                     />
                   </div>
                 </div>
-                {isDashboardAnalyzing && (
-                  <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="h-16 w-16 animate-spin rounded-full border-4 border-secondary border-t-primary"></div>
-                      <p className="font-heading text-lg font-medium text-white">Analyzing data...</p>
-                      <p className="text-sm text-white/80">Generating insights and recommendations</p>
-                    </div>
-                  </div>
-                )}
+                {isDashboardAnalyzing && <AgentMeshAnimation />}
               </>
             ) : (
               <div className="mx-auto w-full max-w-7xl space-y-6">
