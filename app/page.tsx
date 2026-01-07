@@ -9,6 +9,7 @@ import { InsightCard } from "@/components/insight-card"
 import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
+import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
 import {
   customers,
   getProjectsForCustomer,
@@ -34,11 +35,10 @@ export default function Dashboard() {
   useEffect(() => {
     if (persona && customer && project && !showDashboard) {
       setIsDashboardAnalyzing(true)
-      // Simulate analyzing delay
       setTimeout(() => {
         setIsDashboardAnalyzing(false)
         setShowDashboard(true)
-      }, 1500)
+      }, 5000)
     }
   }, [persona, customer, project, showDashboard])
 
@@ -103,11 +103,7 @@ export default function Dashboard() {
             </div>
             {isDashboardAnalyzing && (
               <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="h-16 w-16 animate-spin rounded-full border-4 border-secondary border-t-primary"></div>
-                  <p className="font-heading text-lg font-medium text-white">Analyzing data...</p>
-                  <p className="text-sm text-white/80">Generating insights and recommendations</p>
-                </div>
+                <AgentMeshAnimation />
               </div>
             )}
           </>
