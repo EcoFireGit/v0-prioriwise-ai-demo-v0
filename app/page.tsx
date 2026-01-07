@@ -102,7 +102,7 @@ export default function Dashboard() {
               </div>
             </div>
             {isDashboardAnalyzing && (
-              <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
                 <AgentMeshAnimation />
               </div>
             )}
