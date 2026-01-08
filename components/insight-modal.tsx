@@ -10,6 +10,8 @@ import { SecurityPlaybook } from "@/components/security-playbook"
 import { ConversationPlaybook } from "@/components/conversation-playbook"
 import { LicenseTypeBreakdown } from "@/components/license-type-breakdown"
 import { TrueUpPlaybook } from "@/components/true-up-playbook"
+import { ValueBreakdownDisplay } from "@/components/value-breakdown-display"
+import { QBROutputDisplay } from "@/components/qbr-output-display"
 import type { InsightCard } from "@/lib/mock-data"
 
 interface InsightModalProps {
@@ -30,6 +32,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
 
   const isSecurityGap = insight?.id === "security-gap"
   const isSeatCountTrueUp = insight?.id === "seat-count"
+  const isBusinessValueTranslation = insight?.id === "business-value-translation"
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -122,6 +125,19 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
               </div>
             )}
 
+            {/* Business Value Translation specific sections */}
+            {isBusinessValueTranslation && insight.valueBreakdown && (
+              <div className="mb-6">
+                <ValueBreakdownDisplay breakdown={insight.valueBreakdown} />
+              </div>
+            )}
+
+            {isBusinessValueTranslation && insight.qbrOutput && (
+              <div className="mb-6">
+                <QBROutputDisplay qbrOutput={insight.qbrOutput} />
+              </div>
+            )}
+
             {/* Conversation Playbook section for all insight types */}
             {insight.conversationPlaybook && (
               <div className="mb-6">
@@ -187,7 +203,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             </div>
 
             {/* Recommendation - only show if not security gap or seat count true-up */}
-            {!isSecurityGap && !isSeatCountTrueUp && (
+            {!isSecurityGap && !isSeatCountTrueUp && !isBusinessValueTranslation && (
               <div className="mb-6 rounded-lg border border-accent/20 bg-accent/5 p-4">
                 <h3 className="mb-2 font-heading text-sm font-semibold uppercase tracking-wide text-accent">
                   Recommended Action
