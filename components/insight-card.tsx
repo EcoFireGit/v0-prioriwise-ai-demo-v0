@@ -21,7 +21,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "Champion Departure Alert": Users,
   "The Quiet Client Risk": Clock,
   "Sentiment Drift": TrendingUp,
-  "Customer Satisfaction Decline": TrendingDown, // Added icon for Customer Satisfaction Decline
+  "Customer Satisfaction Decline": TrendingDown,
+  "Identifying & Winning Referrals": Users,
   "SLA Breach Risk": AlertTriangle,
   "Resource Utilization": Server,
   "Patch Compliance Gap": Shield,

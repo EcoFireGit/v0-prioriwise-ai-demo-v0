@@ -1086,7 +1086,7 @@ export const insightCards: InsightCard[] = [
       ],
       successStories: [
         {
-          title: "Quiet Client Re-Engagement",
+          title: "Quiet Client Re-engagement",
           company: "Manufacturing Solutions Ltd",
           metric: "Support tickets dropped 71%",
           result: "QBR uncovered unmet needs, expanded platform adoption to additional teams, grew contract 28%",
@@ -1335,6 +1335,137 @@ export const insightCards: InsightCard[] = [
       ],
     },
   },
+  {
+    id: "winning-referrals",
+    title: "Identifying & Winning Referrals",
+    category: "Growth Opportunity",
+    severity: "medium",
+    summary:
+      "Customer health score of 91 and NPS of 10 indicate strong advocacy potential. LinkedIn data shows 47 connections to similar companies.",
+    data: {
+      "Referral Readiness Score": "92/100",
+      "Advocacy Indicators": "Excellent",
+      "LinkedIn Connections": "47 similar companies",
+      "Estimated Referral Value": "$135,000 ARR",
+      "Success Likelihood": "High (78%)",
+    },
+    recommendation:
+      "Schedule referral conversation during next QBR. Present structured referral program with incentives and recognition.",
+    persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: [
+          "CRM - Customer Health Scores",
+          "NPS Survey Platform - Promoter Analysis",
+          "Contract Database - Renewal History",
+          "Product Analytics - Feature Adoption",
+        ],
+        unstructured: [
+          "QBR Meeting Notes - Positive Feedback",
+          "Support Tickets - Testimonial Opportunities",
+          "Email Communications - Advocacy Signals",
+          "Case Study Participation History",
+        ],
+      },
+      external: [
+        "LinkedIn Network Analysis - Contact Mapping",
+        "Industry Association Directories",
+        "Customer Reference Database - Peer Networks",
+        "ZoomInfo - Company Relationship Intelligence",
+      ],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "Customer health score of 91 and NPS of 10 demonstrate exceptional satisfaction and advocacy potential",
+        "LinkedIn network analysis identifies 47 direct connections to similar companies in target verticals",
+        "Active product adoption and positive feedback signals strong case study and reference opportunity",
+        "Structured referral program provides incentives, recognition, and makes it easy to refer peers",
+        "Average referral closes 40% faster with 25% higher retention due to trusted recommendation",
+      ],
+      successStories: [
+        {
+          title: "Tech Company Referral Program",
+          company: "CloudSync Solutions",
+          metric: "Generated 8 referrals in 6 months",
+          result:
+            "Closed 5 new accounts worth $380K ARR, referrer received $15K credit and executive recognition, became brand advocate",
+        },
+        {
+          title: "Manufacturing Network Expansion",
+          company: "Precision Industrial Group",
+          metric: "Introduced us to 3 industry peers",
+          result:
+            "Won 2 accounts ($240K ARR), featured referrer in case study, invited to customer advisory board, deepened partnership",
+        },
+        {
+          title: "Financial Services Peer Network",
+          company: "Regional Bank Consortium",
+          metric: "Made introductions at industry conference",
+          result:
+            "Generated 12 qualified leads, 4 became customers ($520K ARR), referrer received VIP event access and product roadmap preview",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Primary Champion / Advocate",
+          focus: "Recognition & Value Exchange",
+          keyMessages: [
+            "Your success with our platform is exceptional - you're a model customer we'd love to showcase",
+            "We'd like to recognize your advocacy through our referral program with credits, perks, and executive visibility",
+            "Are there 2-3 peers facing similar challenges who might benefit from learning about your experience?",
+            "We make referrals easy - simple intro email, we handle the rest, no pressure on your relationships",
+          ],
+        },
+        {
+          stakeholder: "Executive Sponsor (VP/C-Suite)",
+          focus: "Industry Leadership & Recognition",
+          keyMessages: [
+            "Your organization is a model for how to maximize value from our platform",
+            "We'd love to feature your success in a case study and at industry events - great visibility for your brand",
+            "Many executives in your network could benefit from understanding your approach and results",
+            "Referrals from trusted peers like you close faster and become long-term strategic partners",
+          ],
+        },
+        {
+          stakeholder: "IT Director / Operations",
+          focus: "Peer Learning & Best Practices",
+          keyMessages: [
+            "Your team has implemented some innovative approaches other organizations would value learning from",
+            "We're building a customer advisory board - would you be interested in sharing best practices with peers?",
+            "Connecting with similar organizations creates opportunities for peer benchmarking and idea exchange",
+            "Referral incentives include training credits, priority support access, and early feature previews",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "I don't want to risk my professional relationships by making sales introductions.",
+          response:
+            "Absolutely understood, and that's not what we're asking. We're simply looking for a brief intro email mentioning you use our platform and found it valuable. We handle all follow-up with no pressure. If they're not interested, we respect that immediately. Your reputation is protected - we never push or over-sell your referrals.",
+        },
+        {
+          objection: "What's in it for me? I'm already paying for your service.",
+          response:
+            "Great question. Our referral program includes: (1) Account credits worth 10-15% of referred contract value, (2) Priority access to new features and beta programs, (3) Executive recognition and visibility at company events, (4) Invitation to customer advisory board with direct product roadmap influence, (5) VIP support tier with dedicated technical resources. Plus, you're helping peers solve real problems - that builds your reputation as a trusted advisor.",
+        },
+        {
+          objection: "I'm not sure who to refer - I don't really know anyone looking for your type of solution.",
+          response:
+            "Let's make this easier. Based on your LinkedIn network, we've identified 12 companies in similar industries and size that match our ideal customer profile. I can share that list - do any of these ring a bell as organizations facing challenges like yours? Even a lukewarm connection works - we can say 'we noticed you're both in the same industry association' as the introduction angle. No pressure if none feel right.",
+        },
+        {
+          objection: "We're happy with your service, but we're not at a place to actively promote vendors.",
+          response:
+            "That's completely fair. How about this - we're creating a customer case study showcasing your success. If we feature your results and approach, that naturally becomes a referral mechanism without requiring active promotion. Interested parties will reach out to us after seeing your story. Would that feel more comfortable? You get brand visibility, we get organic lead generation.",
+        },
+        {
+          objection: "Can we revisit this later? Now isn't a good time.",
+          response:
+            "Absolutely. I appreciate your openness to the conversation. Let's schedule a brief 15-minute call in 60 days specifically to discuss referral opportunities. In the meantime, I'll send you our referral program overview so you can review the benefits at your convenience. No pressure - just want to keep the door open when timing works better for you.",
+        },
+      ],
+    },
+  },
   // Engineering persona cards
   {
     id: "sla-breach",
@@ -1568,12 +1699,12 @@ export function getInsightsForCustomer(customerId: string): InsightCard[] {
       "champion-departure",
       "quiet-client",
       "sentiment-drift",
-      "customer-satisfaction", // Add customer satisfaction insight for Acme Corp
+      "customer-satisfaction",
       "sla-breach",
       "patch-compliance",
     ],
     globex: ["shadow-it", "resource-util"],
-    initech: [],
+    initech: ["winning-referrals"],
   }
 
   const insightIds = customerInsightMap[customerId] || []
