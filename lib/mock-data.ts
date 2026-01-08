@@ -807,6 +807,7 @@ export function getInsightsForPersona(persona: Persona): InsightCard[] {
 }
 
 export function getInsightsForCustomer(customerId: string): InsightCard[] {
-  // Return all insights for now - in a real app, this would filter by customer
-  return insightCards
+  // For demo purposes, return Account Management insights for the selected customer
+  // In a real app, this would filter insights specific to the customer
+  return getInsightsForPersona("Account Management")
 }

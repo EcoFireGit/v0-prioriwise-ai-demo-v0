@@ -10,44 +10,38 @@ export interface HealthMetrics {
 export function calculateHealthMetrics(insights: InsightCard[], customer: Customer): HealthMetrics {
   // Base metrics from customer data
   let engagement = 85
-  let satisfaction = customer.healthScore
-  const usage = 88
+  let satisfaction = customer.healthScore || 75
+  let usage = 88
   const financial = 90
 
-  // Adjust metrics based on insights
+  // Adjust based on insights
   insights.forEach((insight) => {
-    switch (insight.id) {
-      case "quiet-client":
-        engagement -= 15
-        break
-      case "sentiment-drift":
-        satisfaction -= 20
-        engagement -= 10
-        break
-      case "champion-departure":
-        engagement -= 25
-        satisfaction -= 15
-        break
-      case "customer-satisfaction-decline":
-        satisfaction -= 15
-        break
-      case "priority-shift-detection":
-        engagement -= 5
-        break
+    if (insight.id === "customer-satisfaction-decline") {
+      satisfaction = 72
+    }
+    if (insight.id === "sentiment-drift") {
+      engagement = 65
+      satisfaction = Math.min(satisfaction, 70)
+    }
+    if (insight.id === "quiet-client") {
+      engagement = 60
+      usage = 70
+    }
+    if (insight.id === "champion-departure") {
+      engagement = Math.min(engagement, 75)
     }
   })
 
-  // Ensure metrics stay within 0-100 range
   return {
-    engagement: Math.max(0, Math.min(100, engagement)),
-    satisfaction: Math.max(0, Math.min(100, satisfaction)),
-    usage: Math.max(0, Math.min(100, usage)),
-    financial: Math.max(0, Math.min(100, financial)),
+    engagement,
+    satisfaction,
+    usage,
+    financial,
   }
 }
 
 export function calculateOverallHealthScore(metrics: HealthMetrics): number {
-  // Weighted average of all metrics
+  // Weighted average of health metrics
   const weights = {
     engagement: 0.25,
     satisfaction: 0.35,
