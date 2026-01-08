@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback, useEffect } from "react"
-import { LayoutDashboard } from "lucide-react"
+import { LayoutDashboard, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Selectors } from "@/components/selectors"
@@ -32,9 +32,29 @@ export default function Dashboard() {
   const [isModalLoading, setIsModalLoading] = useState(false)
   const [isDashboardAnalyzing, setIsDashboardAnalyzing] = useState(false)
   const [showDashboard, setShowDashboard] = useState(false)
+  const [showOpportunityTooltip, setShowOpportunityTooltip] = useState(false)
 
   const availableProjects = customer ? getProjectsForCustomer(customer.id) : []
   const insights = persona ? getInsightsForPersona(persona) : []
+
+  // Calculate total opportunity for Sales persona
+  const formatOpportunity = (value: number) => {
+    if (value >= 10000) return `$${(value / 1000).toFixed(0)}k`
+    if (value >= 1000) return `$${(value / 1000).toFixed(1)}k`
+    return `$${Math.round(value)}`
+  }
+
+  const totalOpportunity = insights
+    .filter((insight) => insight.persona === "Sales")
+    .reduce((total, insight) => {
+      const monthlyGap = insight.data["Monthly Revenue Gap"]
+        ? parseFloat(insight.data["Monthly Revenue Gap"].toString().replace(/[$,]/g, ""))
+        : 0
+      const gapValue = insight.data["Gap Value"]
+        ? parseFloat(insight.data["Gap Value"].toString().replace(/[$,\/yr]/g, "")) / 12
+        : 0
+      return total + (monthlyGap || gapValue)
+    }, 0)
 
   useEffect(() => {
     if (persona && customer && project && !showDashboard) {
@@ -92,7 +112,7 @@ export default function Dashboard() {
               <>
                 <div className="flex flex-1 items-center justify-center">
                   <div className="mx-auto max-w-md text-center">
-                    <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary">
+                    <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary animate-float">
                       <LayoutDashboard className="h-10 w-10 text-primary/40" />
                     </div>
                     <h2 className="mb-6 font-heading text-xl font-semibold text-primary">Welcome back, Urvashi</h2>
@@ -121,19 +141,42 @@ export default function Dashboard() {
             ) : (
               <div className="mx-auto w-full max-w-7xl space-y-6">
                 {/* Customer Summary */}
-                <CustomerSummary customer={customer} project={project} />
+                <CustomerSummary customer={customer!} project={project!} />
 
                 {/* Question Input */}
                 <QuestionInput onSubmit={handleQuestionSubmit} />
 
                 {/* Insights Grid */}
                 <div>
-                  <h3 className="mb-4 text-lg font-semibold text-foreground">
-                    {persona} Insights
-                    <span className="ml-2 text-sm font-normal text-muted-foreground">
-                      ({insights.length} opportunities)
-                    </span>
-                  </h3>
+                  <div className="mb-4 flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {persona} Insights
+                      <span className="ml-2 text-sm font-normal text-muted-foreground">
+                        ({insights.length} opportunities)
+                      </span>
+                    </h3>
+                    {persona === "Sales" && totalOpportunity > 0 && (
+                      <div
+                        className="relative flex cursor-help items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2 transition-all duration-300 hover:bg-emerald-100"
+                        onMouseEnter={() => setShowOpportunityTooltip(true)}
+                        onMouseLeave={() => setShowOpportunityTooltip(false)}
+                      >
+                        <span className="text-sm text-muted-foreground">Total Opportunity</span>
+                        <span className="font-heading text-lg font-semibold text-primary transition-all duration-300 hover:scale-110">
+                          {formatOpportunity(totalOpportunity)} / month
+                        </span>
+                        <HelpCircle className="h-3.5 w-3.5 cursor-help text-muted-foreground transition-all duration-300 hover:text-primary hover:scale-125" />
+
+                        {showOpportunityTooltip && (
+                          <div className="absolute right-0 top-6 z-50 w-72 rounded-lg border border-secondary bg-card p-3 shadow-lg animate-slide-in-up">
+                            <p className="text-xs text-muted-foreground">
+                              Sum of data-driven revenue opportunity across all Sales insights below.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {insights.map((insight) => (
                       <InsightCard key={insight.id} insight={insight} onClick={() => handleCardClick(insight)} />
@@ -143,7 +186,7 @@ export default function Dashboard() {
                     <Button
                       onClick={handleReturnToDashboard}
                       variant="outline"
-                      className="font-heading text-primary hover:bg-secondary bg-transparent"
+                      className="font-heading text-primary hover:bg-secondary bg-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg"
                     >
                       Return to Dashboard
                     </Button>
