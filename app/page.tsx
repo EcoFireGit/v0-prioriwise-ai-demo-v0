@@ -36,12 +36,6 @@ export default function Dashboard() {
   const totalOpportunity = persona === "Sales" ? calculateTotalOpportunity(insights) : 0
 
   useEffect(() => {
-    if (persona) {
-      // removed debug logging statements
-    }
-  }, [persona, insights])
-
-  useEffect(() => {
     if (persona && customer && project && !showDashboard) {
       setIsDashboardAnalyzing(true)
       setTimeout(() => {
