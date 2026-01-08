@@ -9,6 +9,9 @@ import { InsightCard } from "@/components/insight-card"
 import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
+import { AppFooter } from "@/components/app-footer"
+import { Sidebar } from "@/components/sidebar"
+import { redirect } from "next/navigation"
 import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
 import {
   customers,
@@ -81,6 +84,7 @@ export default function Dashboard() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
+      <Sidebar />
 
       <main className="flex flex-1 flex-col p-6">
         {!showDashboard ? (
@@ -166,6 +170,7 @@ export default function Dashboard() {
           </div>
         )}
       </main>
+      <AppFooter />
 
       <InsightModal
         insight={selectedInsight}
