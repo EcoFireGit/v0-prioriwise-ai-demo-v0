@@ -84,43 +84,49 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
   }
 
   return (
-    <div className="rounded-xl border border-secondary bg-card p-5">
+    <div className="rounded-xl border border-secondary bg-card p-5 animate-slide-in-up transition-all duration-300 hover:shadow-lg hover:border-primary/30">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary animate-pulse-glow transition-transform duration-300 hover:scale-110">
             <Building2 className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
-            <h2 className="font-heading text-xl font-semibold text-primary">{customer.name}</h2>
+            <h2 className="font-heading text-xl font-semibold text-primary transition-colors duration-300 hover:text-accent">
+              {customer.name}
+            </h2>
             <p className="text-sm text-muted-foreground">
               {project.name} •{" "}
-              <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${statusColor}`}>
+              <span
+                className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${statusColor} transition-all duration-300 hover:scale-110`}
+              >
                 {project.status}
               </span>
             </p>
           </div>
         </div>
         <div className="flex flex-wrap gap-6">
-          <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-center gap-2 transition-transform duration-300 hover:scale-110">
+            <Users className="h-4 w-4 text-muted-foreground transition-colors duration-300 hover:text-primary" />
             <div>
               <p className="text-xs text-muted-foreground">Employees</p>
               <p className="font-heading font-semibold text-primary">{customer.employees}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-center gap-2 transition-transform duration-300 hover:scale-110">
+            <DollarSign className="h-4 w-4 text-muted-foreground transition-colors duration-300 hover:text-primary" />
             <div>
               <p className="text-xs text-muted-foreground">Contract Value</p>
               <p className="font-heading font-semibold text-primary">${customer.contractValue.toLocaleString()}</p>
             </div>
           </div>
-          <div className="relative flex items-center gap-2">
-            <Activity className="h-4 w-4 text-muted-foreground" />
+          <div className="relative flex items-center gap-2 transition-transform duration-300 hover:scale-110">
+            <Activity className="h-4 w-4 text-muted-foreground transition-colors duration-300 hover:text-primary" />
             <div>
               <p className="text-xs text-muted-foreground">Health Score</p>
               <div className="flex items-center gap-1.5">
-                <p className={`font-heading rounded-md px-2 py-0.5 font-semibold ${healthColor}`}>
+                <p
+                  className={`font-heading rounded-md px-2 py-0.5 font-semibold ${healthColor} transition-all duration-300 hover:scale-110`}
+                >
                   {calculatedHealthScore}/100
                 </p>
                 <div
@@ -128,10 +134,10 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
                   onMouseEnter={() => setShowBreakdown(true)}
                   onMouseLeave={() => setShowBreakdown(false)}
                 >
-                  <HelpCircle className="h-3.5 w-3.5 cursor-help text-muted-foreground transition-colors hover:text-primary" />
+                  <HelpCircle className="h-3.5 w-3.5 cursor-help text-muted-foreground transition-all duration-300 hover:text-primary hover:scale-125" />
 
                   {showBreakdown && (
-                    <div className="absolute right-0 top-6 z-50 w-80 rounded-lg border border-secondary bg-card p-4 shadow-lg">
+                    <div className="absolute right-0 top-6 z-50 w-80 rounded-lg border border-secondary bg-card p-4 shadow-lg animate-slide-in-up">
                       <h3 className="font-heading mb-3 text-sm font-semibold text-primary">Health Score Breakdown</h3>
 
                       <div className="mb-3 rounded-md bg-muted/50 p-2 text-xs text-muted-foreground">
@@ -151,7 +157,7 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
 
                       <div className="space-y-3">
                         {healthScorePillars.map((pillar) => (
-                          <div key={pillar.name} className="space-y-1">
+                          <div key={pillar.name} className="space-y-1 transition-all duration-300 hover:scale-105">
                             <div className="flex items-center justify-between">
                               <span className="text-sm font-medium text-primary">{pillar.name}</span>
                               <div className="flex items-center gap-1.5">
