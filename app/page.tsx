@@ -9,9 +9,6 @@ import { InsightCard } from "@/components/insight-card"
 import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
-import { AppFooter } from "@/components/app-footer"
-import { Sidebar } from "@/components/sidebar"
-import { redirect } from "next/navigation"
 import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
 import {
   customers,
@@ -37,6 +34,22 @@ export default function Dashboard() {
   const availableProjects = customer ? getProjectsForCustomer(customer.id) : []
   const insights = persona ? getInsightsForPersona(persona) : []
   const totalOpportunity = persona === "Sales" ? calculateTotalOpportunity(insights) : 0
+
+  useEffect(() => {
+    if (persona) {
+      console.log("[v0] Persona selected:", persona)
+      console.log("[v0] Insights for persona:", insights)
+      console.log("[v0] Number of insights:", insights.length)
+      console.log(
+        "[v0] Insight IDs:",
+        insights.map((i) => i.id),
+      )
+      console.log(
+        "[v0] Insight Titles:",
+        insights.map((i) => i.title),
+      )
+    }
+  }, [persona, insights])
 
   useEffect(() => {
     if (persona && customer && project && !showDashboard) {
