@@ -164,6 +164,8 @@
 
   .animate-slide-in-up {
     animation: slide-in-up 0.5s ease-out;
+  }
+
   /* Custom scrollbar for dark theme */
   ::-webkit-scrollbar {
     width: 8px;
