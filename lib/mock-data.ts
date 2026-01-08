@@ -178,6 +178,47 @@ export const insightCards: InsightCard[] = [
   },
   // Account Management persona cards
   {
+    id: "referral-opportunity",
+    title: "Identifying & Winning Referrals",
+    category: "Growth Opportunity",
+    severity: "high",
+    summary:
+      "Client satisfaction score of 9.2/10 and 3 peer connections identified make this account a high-potential referral source.",
+    data: {
+      "Client Satisfaction": "9.2/10",
+      "Peer Connections": "3 companies",
+      "Estimated Pipeline Value": "$180,000",
+      "Referral Likelihood": "87%",
+      "Best Contact": "Sarah Chen, IT Director",
+      "Optimal Timing": "Next 30 days",
+    },
+    recommendation:
+      "Schedule referral discussion during next QBR. Prepare case study highlighting 40% cost savings and security improvements achieved. Offer referral incentive program.",
+    persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: [
+          "CRM - Account Relationships",
+          "Customer Database - Satisfaction Scores",
+          "Sales Pipeline Database",
+          "Service Delivery Platform - Success Metrics",
+        ],
+        unstructured: [
+          "Email - Customer Communications",
+          "QBR Meeting Notes",
+          "Customer Success Channel - Slack",
+          "Support Tickets - Positive Feedback",
+        ],
+      },
+      external: [
+        "LinkedIn - Account Mapping",
+        "ZoomInfo - Organizational Connections",
+        "Industry Referral Benchmarks",
+        "G2 Customer Reviews",
+      ],
+    },
+  },
+  {
     id: "champion-departure",
     title: "Champion Departure Alert",
     category: "Retention Risk",
@@ -291,47 +332,6 @@ export const insightCards: InsightCard[] = [
         "Customer Health Score Models - ChurnZero",
         "Gainsight NPS Standards",
         "Forrester Customer Experience Index",
-      ],
-    },
-  },
-  {
-    id: "referral-opportunity",
-    title: "Identifying & Winning Referrals",
-    category: "Growth Opportunity",
-    severity: "high",
-    summary:
-      "Client satisfaction score of 9.2/10 and 3 peer connections identified make this account a high-potential referral source.",
-    data: {
-      "Client Satisfaction": "9.2/10",
-      "Peer Connections": "3 companies",
-      "Estimated Pipeline Value": "$180,000",
-      "Referral Likelihood": "87%",
-      "Best Contact": "Sarah Chen, IT Director",
-      "Optimal Timing": "Next 30 days",
-    },
-    recommendation:
-      "Schedule referral discussion during next QBR. Prepare case study highlighting 40% cost savings and security improvements achieved. Offer referral incentive program.",
-    persona: "Account Management",
-    dataSources: {
-      internal: {
-        structured: [
-          "CRM - Account Relationships",
-          "Customer Database - Satisfaction Scores",
-          "Sales Pipeline Database",
-          "Service Delivery Platform - Success Metrics",
-        ],
-        unstructured: [
-          "Email - Customer Communications",
-          "QBR Meeting Notes",
-          "Customer Success Channel - Slack",
-          "Support Tickets - Positive Feedback",
-        ],
-      },
-      external: [
-        "LinkedIn - Account Mapping",
-        "ZoomInfo - Organizational Connections",
-        "Industry Referral Benchmarks",
-        "G2 Customer Reviews",
       ],
     },
   },
