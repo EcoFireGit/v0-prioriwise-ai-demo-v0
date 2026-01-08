@@ -73,6 +73,7 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
                 Risk: {insight.riskProfile.overallScore}
               </Badge>
             )}
+            </div>
           </div>
         </div>
         <CardTitle className="mt-3 font-heading text-lg font-semibold text-primary">{insight.title}</CardTitle>
