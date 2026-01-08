@@ -164,30 +164,44 @@ function calculateProductAdoption(
   const securityGap = insights.find((i) => i.title.includes("Security Gap"))
 
   if (seatGap) {
-    const activeUsers = seatGap.data["Active AD Users"] as number
-    const billedSeats = seatGap.data["Billed Seats"] as number
-    const utilization = (billedSeats / activeUsers) * 100
-    score = Math.round(utilization)
+    const activeUsers = seatGap.data?.["Active AD Users"] as number | undefined
+    const billedSeats = seatGap.data?.["Billed Seats"] as number | undefined
+
+    if (typeof activeUsers === "number" && activeUsers > 0 && typeof billedSeats === "number") {
+      const utilization = (billedSeats / activeUsers) * 100
+      score = Math.round(Math.min(utilization, 100)) // Cap at 100
+    }
   }
 
   if (securityGap) {
-    const coverage = securityGap.data["RMM Patching Coverage"] as string
-    score = Math.min(score, Number.parseInt(coverage))
+    const coverage = securityGap.data?.["RMM Patching Coverage"] as string | undefined
+    if (coverage) {
+      const coverageNum = Number.parseInt(coverage)
+      if (!isNaN(coverageNum)) {
+        score = Math.min(score, coverageNum)
+      }
+    }
   }
 
   score = Math.max(0, Math.min(100, score))
+
+  if (isNaN(score)) {
+    score = 75 // Default fallback score
+  }
 
   const trend = determineTrend(factors)
 
   // Build reasoning
   let reasoning = ""
   if (seatGap) {
-    const variance = seatGap.data["Variance"] as number
-    reasoning = `${seatGap.data["Billed Seats"]} of ${seatGap.data["Active AD Users"]} users covered (${variance} user gap), expansion opportunity identified`
+    const variance = seatGap.data?.["Variance"] as number | undefined
+    const billed = seatGap.data?.["Billed Seats"] ?? "—"
+    const active = seatGap.data?.["Active AD Users"] ?? "—"
+    reasoning = `${billed} of ${active} users covered${variance ? ` (${variance} user gap)` : ""}, expansion opportunity identified`
   } else if (securityGap) {
-    reasoning = `${securityGap.data["RMM Patching Coverage"]} endpoint coverage with ${securityGap.data["Actual Managed"]} of ${securityGap.data["Contract Scope"]} endpoints managed`
+    reasoning = `${securityGap.data?.["RMM Patching Coverage"] || "—"} endpoint coverage with ${securityGap.data?.["Actual Managed"] || "—"} of ${securityGap.data?.["Contract Scope"] || "—"} endpoints managed`
   } else if (shadowIT) {
-    reasoning = `Core platform adoption strong, but ${shadowIT.data["Unapproved Apps"]} unauthorized tools detected in use`
+    reasoning = `Core platform adoption strong, but ${shadowIT.data?.["Unapproved Apps"] || "—"} unauthorized tools detected in use`
   } else if (customer.healthMetrics.productAdoption.seatUtilization) {
     reasoning = `${customer.healthMetrics.productAdoption.seatUtilization}% seat utilization with ${customer.healthMetrics.productAdoption.featureUsage}% feature adoption`
   } else {
@@ -283,11 +297,30 @@ export function calculateOverallHealthScore(metrics: HealthMetricCalculation): n
     engagement: 0.2,
   }
 
-  const weightedScore =
-    metrics.financialRisk.score * weights.financialRisk +
-    metrics.productAdoption.score * weights.productAdoption +
-    metrics.sentiment.score * weights.sentiment +
-    metrics.engagement.score * weights.engagement
+  const financialScore =
+    typeof metrics.financialRisk.score === "number" && !isNaN(metrics.financialRisk.score)
+      ? metrics.financialRisk.score
+      : 75
+  const adoptionScore =
+    typeof metrics.productAdoption.score === "number" && !isNaN(metrics.productAdoption.score)
+      ? metrics.productAdoption.score
+      : 75
+  const sentimentScore =
+    typeof metrics.sentiment.score === "number" && !isNaN(metrics.sentiment.score) ? metrics.sentiment.score : 75
+  const engagementScore =
+    typeof metrics.engagement.score === "number" && !isNaN(metrics.engagement.score) ? metrics.engagement.score : 75
 
-  return Math.round(weightedScore)
+  const weightedScore =
+    financialScore * weights.financialRisk +
+    adoptionScore * weights.productAdoption +
+    sentimentScore * weights.sentiment +
+    engagementScore * weights.engagement
+
+  let finalScore = Math.round(weightedScore)
+
+  if (isNaN(finalScore)) {
+    finalScore = 75
+  }
+
+  return finalScore
 }

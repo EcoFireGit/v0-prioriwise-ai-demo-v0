@@ -2,10 +2,11 @@
 
 import type React from "react"
 
-import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock } from "lucide-react"
+import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock, DollarSign } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { InsightCard as InsightCardType } from "@/lib/mock-data"
+import { extractMonthlyOpportunity, formatOpportunity } from "@/lib/opportunity-calculator"
 
 interface InsightCardProps {
   insight: InsightCardType
@@ -33,6 +34,8 @@ const severityColors = {
 
 export function InsightCard({ insight, onClick }: InsightCardProps) {
   const Icon = iconMap[insight.title] || AlertTriangle
+  const monthlyOpportunity = extractMonthlyOpportunity(insight)
+  const showOpportunityPill = insight.persona === "Sales" && monthlyOpportunity > 0
   const hasRiskProfile = insight.riskProfile !== undefined
 
   return (
@@ -45,7 +48,19 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
             <Icon className="h-5 w-5 text-primary" />
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            {showOpportunityPill && (
+              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1">
+                <DollarSign className="h-3 w-3" />
+                {formatOpportunity(monthlyOpportunity)}/mo
+              </Badge>
+            )}
+            {insight.persona === "Sales" && !showOpportunityPill && (
+              <Badge variant="outline" className="bg-slate-50 text-slate-600 border-slate-200 gap-1">
+                <TrendingUp className="h-3 w-3" />
+                Strategic
+              </Badge>
+            )}
             <Badge variant="outline" className={severityColors[insight.severity]}>
               {insight.severity.toUpperCase()}
             </Badge>
