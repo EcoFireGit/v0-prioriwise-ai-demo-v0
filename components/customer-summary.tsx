@@ -84,7 +84,7 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
   }
 
   return (
-    <div className="rounded-xl border border-secondary bg-card p-5 animate-slide-in-up transition-all duration-300 hover:shadow-lg hover:border-primary/30">
+    <div className="relative rounded-xl border border-secondary bg-card p-5 animate-slide-in-up transition-all duration-300 hover:shadow-lg hover:border-primary/30">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary animate-pulse-glow transition-transform duration-300 hover:scale-110">
@@ -137,7 +137,7 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
                   <HelpCircle className="h-3.5 w-3.5 cursor-help text-muted-foreground transition-all duration-300 hover:text-primary hover:scale-125" />
 
                   {showBreakdown && (
-                    <div className="absolute right-0 top-6 z-50 w-80 rounded-lg border border-secondary bg-card p-4 shadow-lg animate-slide-in-up">
+                    <div className="absolute right-0 top-6 z-[100] w-80 rounded-lg border border-secondary bg-card p-4 shadow-xl animate-slide-in-up">
                       <h3 className="font-heading mb-3 text-sm font-semibold text-primary">Health Score Breakdown</h3>
 
                       <div className="mb-3 rounded-md bg-muted/50 p-2 text-xs text-muted-foreground">
