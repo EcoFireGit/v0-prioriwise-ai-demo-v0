@@ -84,6 +84,7 @@ export default function Dashboard() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
+      <Sidebar />
 
       <main className="flex flex-1 flex-col p-6">
         {!showDashboard ? (
@@ -169,6 +170,7 @@ export default function Dashboard() {
           </div>
         )}
       </main>
+      <AppFooter />
 
       <InsightModal
         insight={selectedInsight}
