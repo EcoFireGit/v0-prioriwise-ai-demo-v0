@@ -179,8 +179,6 @@ export default function Dashboard() {
         <StakeholderChatbot />
       </div>
 
-      <AppFooter />
-
       <InsightModal
         insight={selectedInsight}
         isLoading={isModalLoading}
