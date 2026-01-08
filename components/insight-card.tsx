@@ -2,11 +2,10 @@
 
 import type React from "react"
 
-import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock, DollarSign, TrendingDown } from "lucide-react"
+import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { InsightCard as InsightCardType } from "@/lib/mock-data"
-import { extractMonthlyOpportunity, formatOpportunity } from "@/lib/opportunity-calculator"
 
 interface InsightCardProps {
   insight: InsightCardType
@@ -21,7 +20,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "Champion Departure Alert": Users,
   "The Quiet Client Risk": Clock,
   "Sentiment Drift": TrendingUp,
-  "Customer Satisfaction Decline": TrendingDown, // Added icon for Customer Satisfaction Decline
+  "Customer Satisfaction Decline": TrendingUp,
   "SLA Breach Risk": AlertTriangle,
   "Resource Utilization": Server,
   "Patch Compliance Gap": Shield,
@@ -35,9 +34,6 @@ const severityColors = {
 
 export function InsightCard({ insight, onClick }: InsightCardProps) {
   const Icon = iconMap[insight.title] || AlertTriangle
-  const monthlyOpportunity = extractMonthlyOpportunity(insight)
-  const showOpportunityPill = insight.persona === "Sales" && monthlyOpportunity > 0
-  const hasRiskProfile = insight.riskProfile !== undefined
 
   return (
     <Card
@@ -49,37 +45,15 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
             <Icon className="h-5 w-5 text-primary" />
           </div>
-          <div className="flex flex-wrap items-center justify-end gap-2">
-            {showOpportunityPill && (
-              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1">
-                <DollarSign className="h-3 w-3" />
-                {formatOpportunity(monthlyOpportunity)}/mo
-              </Badge>
-            )}
-            {insight.persona === "Sales" && !showOpportunityPill && (
-              <Badge variant="outline" className="bg-slate-50 text-slate-600 border-slate-200 gap-1">
-                <TrendingUp className="h-3 w-3" />
-                Strategic
-              </Badge>
-            )}
-            <Badge variant="outline" className={severityColors[insight.severity]}>
-              {insight.severity.toUpperCase()}
-            </Badge>
-            {hasRiskProfile && insight.riskProfile && (
-              <Badge variant="outline" className="bg-red-50 text-red-600 border-red-200">
-                Risk: {insight.riskProfile.overallScore}
-              </Badge>
-            )}
-          </div>
+          <Badge variant="outline" className={severityColors[insight.severity]}>
+            {insight.severity.toUpperCase()}
+          </Badge>
         </div>
         <CardTitle className="mt-3 font-heading text-lg font-semibold text-primary">{insight.title}</CardTitle>
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{insight.category}</p>
       </CardHeader>
       <CardContent>
         <p className="text-sm leading-relaxed text-muted-foreground">{insight.summary}</p>
-        {insight.affectedDevices && (
-          <p className="mt-2 text-xs font-medium text-accent">{insight.affectedDevices.length} devices affected</p>
-        )}
       </CardContent>
     </Card>
   )
