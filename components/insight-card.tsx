@@ -68,4 +68,3 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
     </Card>
   )
 }
-
