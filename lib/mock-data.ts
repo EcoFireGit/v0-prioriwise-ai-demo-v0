@@ -1212,6 +1212,129 @@ export const insightCards: InsightCard[] = [
       ],
     },
   },
+  {
+    id: "customer-satisfaction",
+    title: "Customer Satisfaction Decline",
+    category: "Relationship Health",
+    severity: "high",
+    summary: "NPS score dropped from 8 to 5 over Q4, with CSAT declining to 72% amid rising complaint volume.",
+    data: {
+      "Previous NPS": "8/10",
+      "Current NPS": "5/10",
+      "CSAT Score": "72%",
+      "Target CSAT": "85%",
+      "Trend Duration": "12 weeks",
+      "Survey Responses": "42 users",
+    },
+    recommendation: "Schedule executive business review to address satisfaction concerns and identify root causes.",
+    persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: [
+          "NPS Survey Platform - Score History",
+          "CSAT Survey Database - Response Tracking",
+          "CRM - Customer Health Scores",
+          "Support System - Complaint Volume",
+        ],
+        unstructured: [
+          "Survey Feedback Comments",
+          "Support Ticket Sentiment Analysis",
+          "QBR Meeting Notes",
+          "Customer Advisory Board Transcripts",
+        ],
+      },
+      external: [
+        "Industry NPS Benchmarks - Gartner",
+        "CSAT Research Database - Forrester",
+        "Best Practice Frameworks - TSIA",
+      ],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "NPS declined 37.5% from 8 to 5 over Q4, signaling significant satisfaction erosion",
+        "CSAT at 72% is 13 points below target and industry benchmark of 85%",
+        "42 survey responses indicate consistent feedback pattern across user base",
+        "Declining satisfaction scores are leading indicator of churn risk",
+        "Root cause analysis needed to identify service gaps and product issues",
+      ],
+      successStories: [
+        {
+          title: "Satisfaction Turnaround Program",
+          company: "Enterprise Software Co",
+          metric: "NPS recovered from 4 to 9 in 6 months",
+          result:
+            "Implemented customer feedback loop, dedicated success manager, quarterly business reviews - achieved 95% retention",
+        },
+        {
+          title: "CSAT Improvement Initiative",
+          company: "Manufacturing Tech Inc",
+          metric: "CSAT improved from 68% to 89%",
+          result:
+            "Addressed top 3 complaint drivers, reduced support response times 50%, expanded training program - contract renewed with 22% expansion",
+        },
+        {
+          title: "Proactive Satisfaction Management",
+          company: "Healthcare Systems Ltd",
+          metric: "Maintained NPS 9+ for 18 months",
+          result:
+            "Monthly pulse surveys, rapid issue escalation, customer advisory board - became reference account and advocate",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Primary Contact / IT Director",
+          focus: "Service Improvement",
+          keyMessages: [
+            "We've noticed satisfaction scores declining and want to understand your experience",
+            "Your feedback is critical to helping us serve you better",
+            "Let's schedule time to discuss specific pain points and how we can address them",
+            "We're committed to getting back on track and exceeding your expectations",
+          ],
+        },
+        {
+          stakeholder: "Executive Sponsor (CIO/VP)",
+          focus: "Partnership & Accountability",
+          keyMessages: [
+            "I'm personally taking ownership to ensure we address your concerns",
+            "Our executive team values your partnership and wants to make this right",
+            "Let's review what's working and what needs immediate improvement",
+            "We'll develop an action plan with clear timelines and accountability",
+          ],
+        },
+        {
+          stakeholder: "Finance (CFO/Controller)",
+          focus: "Value Realization",
+          keyMessages: [
+            "We want to ensure you're realizing the full value of your investment",
+            "Let's review ROI metrics and identify optimization opportunities",
+            "Understanding your satisfaction helps us align our roadmap to your needs",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "We've been providing feedback but nothing changes.",
+          response:
+            "You're absolutely right, and I apologize. That stops today. I'm committing executive resources to address your concerns within 30 days. Let's schedule weekly check-ins where I personally report progress. Can we start with your top 3 issues that need immediate attention?",
+        },
+        {
+          objection: "We're already evaluating other solutions.",
+          response:
+            "I understand, and that's our failure for not earning your continued business. Before you decide, give us 60 days to demonstrate real change. Let me show you our improvement plan with specific commitments and timelines. Many customers in similar situations chose to stay after seeing our renewed commitment - can I earn that opportunity?",
+        },
+        {
+          objection: "The product just doesn't meet our evolving needs.",
+          response:
+            "That's valuable feedback. Our product roadmap is heavily influenced by customer input. Let's schedule time with our product team to understand your evolving requirements. We've successfully adapted our platform for similar customers facing changing needs. What specific capabilities would make the biggest difference?",
+        },
+        {
+          objection: "Support response times are too slow.",
+          response:
+            "Speed matters and we're not meeting your expectations. Effective immediately, I'm assigning a dedicated support engineer to your account for priority escalation. Let's also review your support plan to ensure you have the right SLA. Can we schedule a call this week to discuss your support experience and set new expectations?",
+        },
+      ],
+    },
+  },
   // Engineering persona cards
   {
     id: "sla-breach",
@@ -1445,6 +1568,7 @@ export function getInsightsForCustomer(customerId: string): InsightCard[] {
       "champion-departure",
       "quiet-client",
       "sentiment-drift",
+      "customer-satisfaction", // Add customer satisfaction insight for Acme Corp
       "sla-breach",
       "patch-compliance",
     ],
