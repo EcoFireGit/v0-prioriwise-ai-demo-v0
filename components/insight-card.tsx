@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock } from "lucide-react"
+import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock, UserPlus } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { InsightCard as InsightCardType } from "@/lib/mock-data"
@@ -21,6 +21,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "The Quiet Client Risk": Clock,
   "Sentiment Drift": TrendingUp,
   "Customer Satisfaction Decline": TrendingUp,
+  "Identifying & Winning Referrals": UserPlus,
   "SLA Breach Risk": AlertTriangle,
   "Resource Utilization": Server,
   "Patch Compliance Gap": Shield,
