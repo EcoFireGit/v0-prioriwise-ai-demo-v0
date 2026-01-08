@@ -1,8 +1,8 @@
 export function AppFooter() {
   return (
-    <footer className="border-t border-border bg-background py-4">
-      <div className="flex items-center justify-center px-6">
-        <p className="text-center text-sm text-muted-foreground">Ai-driven insights for customer success</p>
+    <footer className="border-t border-secondary bg-card">
+      <div className="mx-auto max-w-7xl px-6 py-4">
+        <p className="text-xs text-muted-foreground">© 2025 Prioriwise. All rights reserved.</p>
       </div>
     </footer>
   )
