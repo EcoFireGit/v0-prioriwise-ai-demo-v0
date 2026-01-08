@@ -661,6 +661,9 @@ export const insightCards: InsightCard[] = [
     summary:
       "AI agents identified 127 untracked users across multiple license types, representing $12,732/month in recovery opportunity.",
     data: {
+      "Active AD Users": 497,
+      "Billed Seats": 450,
+      Variance: 47,
       "Software Seat Overage": 47,
       "Managed Device Overage": 38,
       "Service Tier Gap": 42,

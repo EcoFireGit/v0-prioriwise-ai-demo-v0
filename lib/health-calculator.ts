@@ -151,6 +151,15 @@ function calculateSentiment(
   return { score, trend, reasoning }
 }
 
+/**
+ * Safely extracts a numeric value from an object, returning a fallback if invalid
+ */
+function safeGetNumber(obj: any, key: string, fallback = 0): number {
+  const value = obj?.[key]
+  const num = typeof value === "number" ? value : Number.parseFloat(String(value))
+  return !isNaN(num) && isFinite(num) ? num : fallback
+}
+
 function calculateProductAdoption(
   insights: InsightCard[],
   customer: Customer,
@@ -164,15 +173,30 @@ function calculateProductAdoption(
   const securityGap = insights.find((i) => i.title.includes("Security Gap"))
 
   if (seatGap) {
-    const activeUsers = seatGap.data["Active AD Users"] as number
-    const billedSeats = seatGap.data["Billed Seats"] as number
-    const utilization = (billedSeats / activeUsers) * 100
-    score = Math.round(utilization)
+    const activeUsers = safeGetNumber(seatGap.data, "Active AD Users", 1) // Default to 1 to avoid division by zero
+    const billedSeats = safeGetNumber(seatGap.data, "Billed Seats", 0)
+
+    // Validate before division
+    if (activeUsers > 0) {
+      const utilization = (billedSeats / activeUsers) * 100
+      score = Math.round(utilization)
+      console.log(
+        "[v0] Product Adoption - Seat Gap: activeUsers:",
+        activeUsers,
+        "billedSeats:",
+        billedSeats,
+        "utilization:",
+        utilization,
+      )
+    } else {
+      console.log("[v0] Product Adoption - Invalid seat data, using fallback")
+      score = customer.healthMetrics.productAdoption.seatUtilization ?? 90
+    }
   }
 
   if (securityGap) {
-    const coverage = securityGap.data["RMM Patching Coverage"] as string
-    score = Math.min(score, Number.parseInt(coverage))
+    const coverage = safeGetNumber(securityGap.data, "RMM Patching Coverage", 100)
+    score = Math.min(score, coverage)
   }
 
   score = Math.max(0, Math.min(100, score))
@@ -182,12 +206,18 @@ function calculateProductAdoption(
   // Build reasoning
   let reasoning = ""
   if (seatGap) {
-    const variance = seatGap.data["Variance"] as number
-    reasoning = `${seatGap.data["Billed Seats"]} of ${seatGap.data["Active AD Users"]} users covered (${variance} user gap), expansion opportunity identified`
+    const activeUsers = safeGetNumber(seatGap.data, "Active AD Users", 0)
+    const billedSeats = safeGetNumber(seatGap.data, "Billed Seats", 0)
+    const variance = safeGetNumber(seatGap.data, "Variance", 0)
+    reasoning = `${billedSeats} of ${activeUsers} users covered (${variance} user gap), expansion opportunity identified`
   } else if (securityGap) {
-    reasoning = `${securityGap.data["RMM Patching Coverage"]} endpoint coverage with ${securityGap.data["Actual Managed"]} of ${securityGap.data["Contract Scope"]} endpoints managed`
+    const coverage = safeGetNumber(securityGap.data, "RMM Patching Coverage", 0)
+    const managed = safeGetNumber(securityGap.data, "Actual Managed", 0)
+    const scope = safeGetNumber(securityGap.data, "Contract Scope", 1)
+    reasoning = `${coverage}% endpoint coverage with ${managed} of ${scope} endpoints managed`
   } else if (shadowIT) {
-    reasoning = `Core platform adoption strong, but ${shadowIT.data["Unapproved Apps"]} unauthorized tools detected in use`
+    const unapprovedApps = safeGetNumber(shadowIT.data, "Unapproved Apps", 0)
+    reasoning = `Core platform adoption strong, but ${unapprovedApps} unauthorized tools detected in use`
   } else if (customer.healthMetrics.productAdoption.seatUtilization) {
     reasoning = `${customer.healthMetrics.productAdoption.seatUtilization}% seat utilization with ${customer.healthMetrics.productAdoption.featureUsage}% feature adoption`
   } else {
