@@ -37,17 +37,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (persona) {
-      console.log("[v0] Persona selected:", persona)
-      console.log("[v0] Insights for persona:", insights)
-      console.log("[v0] Number of insights:", insights.length)
-      console.log(
-        "[v0] Insight IDs:",
-        insights.map((i) => i.id),
-      )
-      console.log(
-        "[v0] Insight Titles:",
-        insights.map((i) => i.title),
-      )
+      // removed debug logging statements
     }
   }, [persona, insights])
 
