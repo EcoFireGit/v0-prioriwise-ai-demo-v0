@@ -1,20 +1,21 @@
 "use client"
 
-import { LayoutDashboard, Users, FolderOpen } from "lucide-react"
+import { Sparkles, Users, FolderOpen } from "lucide-react"
 
 interface EmptyStateProps {
   hasPersona: boolean
   hasCustomer: boolean
+  username: string
 }
 
-export function EmptyState({ hasPersona, hasCustomer }: EmptyStateProps) {
+export function EmptyState({ hasPersona, hasCustomer, username }: EmptyStateProps) {
   return (
     <div className="flex flex-1 items-center justify-center">
       <div className="mx-auto max-w-md text-center">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary">
-          <LayoutDashboard className="h-10 w-10 text-primary/40" />
+          <Sparkles className="h-10 w-10 text-primary" />
         </div>
-        <h2 className="mb-3 font-heading text-xl font-semibold text-primary">Select your context</h2>
+        <h2 className="mb-3 font-heading text-xl font-semibold text-primary">Welcome back, {username}</h2>
         <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
           Choose a persona, customer, and project to see tailored insights and opportunities.
         </p>
