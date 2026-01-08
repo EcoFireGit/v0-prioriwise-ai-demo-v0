@@ -252,6 +252,48 @@ export const insightCards: InsightCard[] = [
       external: ["Industry NPS Benchmarks", "Customer Health Score Models - ChurnZero"],
     },
   },
+  {
+    id: "customer-satisfaction-decline",
+    title: "Customer Satisfaction Decline",
+    category: "Customer Health",
+    severity: "high",
+    summary: "CSAT score dropped from 8.5 to 7.2 over last quarter with declining NPS trend.",
+    data: {
+      "Current CSAT": "7.2/10",
+      "Previous Quarter": "8.5/10",
+      "Score Decline": "-1.3 points",
+      "Current NPS": "+24",
+      "Previous NPS": "+42",
+      "Response Count": 42,
+    },
+    recommendation:
+      "Conduct customer feedback interviews to identify pain points and implement service improvement initiatives.",
+    persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: [
+          "CRM - CSAT Survey Responses",
+          "CRM - NPS Survey Database",
+          "Ticketing System - Support Quality Metrics",
+          "Customer Database - Account Health Scores",
+          "Service Delivery Platform - SLA Performance",
+        ],
+        unstructured: [
+          "Support Tickets - Customer Comments",
+          "Email - Customer Feedback",
+          "Call Recordings - Customer Satisfaction Surveys",
+          "Slack - Customer Support Channel",
+          "QBR Meeting Notes",
+        ],
+      },
+      external: [
+        "Industry CSAT Benchmarks",
+        "Customer Health Score Models - ChurnZero",
+        "Gainsight NPS Standards",
+        "Forrester Customer Experience Index",
+      ],
+    },
+  },
   // Engineering persona cards
   {
     id: "sla-breach",
