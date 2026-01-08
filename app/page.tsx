@@ -10,8 +10,10 @@ import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
 import { AppFooter } from "@/components/app-footer"
+import { StakeholderChatbot } from "@/components/stakeholder-chatbot"
 import { Sidebar } from "@/components/sidebar"
 import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
+
 import {
   customers,
   getProjectsForCustomer,
@@ -172,6 +174,10 @@ export default function Dashboard() {
         </main>
       </div>
       <AppFooter />
+
+      <div className="fixed bottom-4 right-4">
+        <StakeholderChatbot />
+      </div>
 
       <InsightModal
         insight={selectedInsight}
