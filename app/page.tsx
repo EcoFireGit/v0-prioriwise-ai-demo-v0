@@ -13,7 +13,6 @@ import { AppFooter } from "@/components/app-footer"
 import { StakeholderChatbot } from "@/components/stakeholder-chatbot"
 import { Sidebar } from "@/components/sidebar"
 import { redirect } from "next/navigation"
-import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
 import {
   customers,
   getProjectsForCustomer,
@@ -48,10 +47,10 @@ export default function Dashboard() {
     .filter((insight) => insight.persona === "Sales")
     .reduce((total, insight) => {
       const monthlyGap = insight.data["Monthly Revenue Gap"]
-        ? parseFloat(insight.data["Monthly Revenue Gap"].toString().replace(/[$,]/g, ""))
+        ? Number.parseFloat(insight.data["Monthly Revenue Gap"].toString().replace(/[$,]/g, ""))
         : 0
       const gapValue = insight.data["Gap Value"]
-        ? parseFloat(insight.data["Gap Value"].toString().replace(/[$,\/yr]/g, "")) / 12
+        ? Number.parseFloat(insight.data["Gap Value"].toString().replace(/[$,/yr]/g, "")) / 12
         : 0
       return total + (monthlyGap || gapValue)
     }, 0)
