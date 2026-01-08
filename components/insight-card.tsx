@@ -25,6 +25,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "SLA Breach Risk": AlertTriangle,
   "Resource Utilization": Server,
   "Patch Compliance Gap": Shield,
+  "Automated Business Value Translation": TrendingUp, // Added icon for Automated Business Value Translation card
 }
 
 const severityColors = {

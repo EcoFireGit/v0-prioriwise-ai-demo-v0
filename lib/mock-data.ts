@@ -1548,6 +1548,135 @@ export const insightCards: InsightCard[] = [
       ],
     },
   },
+  {
+    id: "automated-business-value",
+    title: "Automated Business Value Translation",
+    category: "Value Demonstration",
+    severity: "medium",
+    summary:
+      "Prioriwise translated recent delivery work into documented business impact, quantifying cost avoidance, productivity gains, and risk mitigation for executive review.",
+    data: {
+      "Total Business Value": "$847,200 (90 days)",
+      "Cost Avoided": "$312,400",
+      "Productivity Gains": "$289,600",
+      "Risk Mitigated": "$245,200",
+    },
+    recommendation:
+      "Export executive-ready QBR slide summarizing documented business value delivered across all service areas.",
+    persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "PSA Ticketing System - Delivery Work Records",
+          "RMM Platform - Alert & Resolution Data",
+          "Patch Management System - Vulnerability Remediation",
+          "Monitoring Platform - Uptime & Performance Metrics",
+        ],
+        unstructured: [
+          "Project Documentation - Implementation Notes",
+          "Team Communications - Incident Response Logs",
+          "Change Management Records",
+        ],
+      },
+      external: [
+        "Industry Benchmark Data - Cost of Downtime by Sector",
+        "NIST Cybersecurity Framework - Risk Quantification",
+        "Gartner IT Metrics - Productivity Impact Studies",
+        "Ponemon Institute - Cost of Data Breach Reports",
+      ],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "Delivery team created $847K in quantified business value over last 90 days",
+        "All values calculated using documented, auditable methodology tied to industry benchmarks",
+        "Cost avoidance from prevented downtime: $312K based on customer's hourly operational revenue",
+        "Productivity gains from network optimization and system performance: $289K in recovered employee hours",
+        "Risk mitigation from patching critical vulnerabilities: $245K based on average breach cost exposure",
+        "QBR-ready summary generated automatically—no manual effort required",
+      ],
+      successStories: [
+        {
+          title: "Manufacturing QBR Value Demonstration",
+          company: "Industrial Equipment Provider",
+          metric: "$1.2M quarterly value",
+          result:
+            "Executive team renewed contract early with 18% increase after seeing documented business impact translation",
+        },
+        {
+          title: "Financial Services Value Reporting",
+          company: "Regional Bank",
+          metric: "$680K in risk mitigation",
+          result:
+            "CFO presented IT value to board using automated translation, secured additional security budget approval",
+        },
+        {
+          title: "Healthcare Value Quantification",
+          company: "Multi-Site Medical Group",
+          metric: "$425K productivity gains",
+          result: "CIO used automated report to justify technology investments, eliminated budget cut proposals",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "CIO / IT Director",
+          focus: "Executive Reporting & Justification",
+          keyMessages: [
+            "Automated translation converts technical metrics into executive-ready business impact",
+            "Every value is auditable and tied to documented methodology",
+            "QBR slides generated automatically—saves hours of manual report preparation",
+            "Demonstrates IT team's business contribution beyond ticket counts and uptime percentages",
+          ],
+        },
+        {
+          stakeholder: "CFO / Finance Leadership",
+          focus: "ROI & Value Documentation",
+          keyMessages: [
+            "$847K in documented business value delivered over 90 days",
+            "Cost avoidance calculations based on customer's actual operational revenue data",
+            "Risk mitigation tied to industry-standard breach cost models (Ponemon Institute)",
+            "Transparent methodology allows finance team to validate and audit all calculations",
+          ],
+        },
+        {
+          stakeholder: "Service Delivery Manager",
+          focus: "Team Value Communication",
+          keyMessages: [
+            "Engineering team's technical work translated into business outcomes executives understand",
+            "Patching 47 critical vulnerabilities becomes '$245K in risk mitigation'",
+            "Network optimization becomes '$289K in productivity gains'",
+            "Helps justify staffing levels and technology investments using concrete business impact",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "These dollar values seem inflated—how do you calculate them?",
+          response:
+            "Every value is based on documented, auditable calculations tied to industry benchmarks. For example: prevented downtime uses your company's hourly operational revenue ($3,450/hr per your financial data) multiplied by hours of uptime maintained. Risk mitigation uses Ponemon Institute's average breach costs specific to your industry sector. We can walk through the methodology for any value you'd like to examine.",
+        },
+        {
+          objection: "We can't prove we actually prevented those costs—they're theoretical.",
+          response:
+            "You're right that cost avoidance is forward-looking, which is why we use conservative, industry-standard models. When we patch a critical vulnerability with active exploits, the average breach cost in your sector is $245K (Ponemon data). We prevented exposure to that risk—that's documented value. The alternative is reporting only what was spent (hours, tickets) rather than the business outcomes achieved.",
+        },
+        {
+          objection: "Our executives don't care about IT metrics—they just want things to work.",
+          response:
+            "Exactly—which is why this translation matters. Instead of showing '47 servers patched' or '99.7% uptime,' we're showing '$312K in cost avoided from prevented downtime' and '$245K in risk mitigated.' This speaks the language of business outcomes, not technical effort. It positions IT as a value center, not a cost center. Would you like to see the QBR slide preview?",
+        },
+        {
+          objection: "This sounds like it requires a lot of manual work to generate these reports.",
+          response:
+            "Zero manual effort—that's the whole point. Prioriwise automatically ingests PSA tickets, RMM alerts, and patch records, applies documented calculation models, and generates the QBR summary. The report you're seeing took no human time to create. You can export it directly for executive review. All the heavy lifting happens automatically in the background.",
+        },
+        {
+          objection: "What if we can't justify some of the values? Will it look bad?",
+          response:
+            "We only include values that can be justified with documented methodology. If a technical action doesn't map to a quantifiable business outcome, we exclude it from the report. Transparency beats flash—every value shown has an audit trail. You'll never have to defend a number you can't explain. Would you like to review the data sources and calculation methods used?",
+        },
+      ],
+    },
+  },
 ]
 
 export function getProjectsForCustomer(customerId: string): Project[] {
@@ -1571,6 +1700,7 @@ export function getInsightsForCustomer(customerId: string): InsightCard[] {
       "customer-satisfaction", // Add customer satisfaction insight for Acme Corp
       "sla-breach",
       "patch-compliance",
+      "automated-business-value",
     ],
     globex: ["shadow-it", "resource-util"],
     initech: [],
