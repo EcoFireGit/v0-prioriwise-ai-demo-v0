@@ -146,7 +146,7 @@ export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
                     typeof document !== "undefined" &&
                     createPortal(
                       <div
-                        className="fixed z-[9999] w-80 rounded-lg border border-secondary bg-card p-4 shadow-xl animate-slide-in-up"
+                        className="fixed z-[99999] w-80 rounded-lg border border-secondary bg-card p-4 shadow-xl animate-slide-in-up"
                         style={{
                           top: `${iconPosition.top + 8}px`,
                           left: `${iconPosition.left - 320}px`,
