@@ -1,8 +1,17 @@
 "use client"
-
 import type React from "react"
-
-import { AlertTriangle, TrendingUp, Shield, Users, Server, Clock, UserPlus } from "lucide-react"
+import {
+  AlertTriangle,
+  TrendingUp,
+  Shield,
+  Users,
+  Server,
+  Clock,
+  UserPlus,
+  DollarSign,
+  TrendingDown,
+  AlertCircle,
+} from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { InsightCard as InsightCardType } from "@/lib/mock-data"
@@ -20,11 +29,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "Champion Departure Alert": Users,
   "The Quiet Client Risk": Clock,
   "Sentiment Drift": TrendingUp,
-  "Customer Satisfaction Decline": TrendingUp,
+  "Customer Satisfaction Decline": TrendingDown,
   "Identifying & Winning Referrals": UserPlus,
   "SLA Breach Risk": AlertTriangle,
   "Resource Utilization": Server,
   "Patch Compliance Gap": Shield,
+  "Priority Shift Detection": AlertCircle,
 }
 
 const severityColors = {
@@ -35,7 +45,6 @@ const severityColors = {
 
 export function InsightCard({ insight, onClick }: InsightCardProps) {
   const Icon = iconMap[insight.title] || AlertTriangle
-
   return (
     <Card
       className="cursor-pointer border-secondary bg-card transition-all duration-200 hover:border-primary/30 hover:shadow-lg"
@@ -59,3 +68,4 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
     </Card>
   )
 }
+

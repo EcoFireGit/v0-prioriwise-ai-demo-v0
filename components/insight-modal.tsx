@@ -4,6 +4,13 @@ import { X, ArrowRight, Database, FileText, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { SegmentedRingLoader } from "@/components/segmented-ring-loader"
+import { RiskProfileDisplay } from "@/components/risk-profile-display"
+import { DeviceGapTable } from "@/components/device-gap-table"
+import { SecurityPlaybook } from "@/components/security-playbook"
+import { ConversationPlaybook } from "@/components/conversation-playbook"
+import { LicenseTypeBreakdown } from "@/components/license-type-breakdown"
+import { TrueUpPlaybook } from "@/components/true-up-playbook"
+import { PriorityShiftDisplay } from "@/components/priority-shift-display"
 import type { InsightCard } from "@/lib/mock-data"
 
 interface InsightModalProps {
@@ -21,6 +28,10 @@ const severityColors = {
 
 export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard }: InsightModalProps) {
   if (!insight && !isLoading) return null
+
+  const isSecurityGap = insight?.id === "security-gap"
+  const isSeatCountTrueUp = insight?.id === "seat-count"
+  const isPriorityShift = insight?.id === "priority-shift-detection"
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -69,6 +80,53 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
                 ))}
               </div>
             </div>
+
+            {isSecurityGap && insight.riskProfile && (
+              <div className="mb-6">
+                <RiskProfileDisplay riskProfile={insight.riskProfile} />
+              </div>
+            )}
+
+            {isSecurityGap && insight.affectedDevices && (
+              <div className="mb-6">
+                <DeviceGapTable devices={insight.affectedDevices} />
+              </div>
+            )}
+
+            {isSecurityGap && insight.playbook && (
+              <div className="mb-6">
+                <SecurityPlaybook playbook={insight.playbook} />
+              </div>
+            )}
+
+            {/* True-up specific components */}
+            {isSeatCountTrueUp && insight.licenseTypes && insight.totalMonthlyRecovery && (
+              <div className="mb-6">
+                <LicenseTypeBreakdown
+                  licenses={insight.licenseTypes}
+                  totalMonthlyRecovery={insight.totalMonthlyRecovery}
+                />
+              </div>
+            )}
+
+            {isSeatCountTrueUp && insight.trueUpPlaybook && (
+              <div className="mb-6">
+                <TrueUpPlaybook playbook={insight.trueUpPlaybook} />
+              </div>
+            )}
+
+            {isPriorityShift && insight.priorityShiftData && (
+              <div className="mb-6">
+                <PriorityShiftDisplay data={insight.priorityShiftData} />
+              </div>
+            )}
+
+            {/* Conversation Playbook section for all insight types */}
+            {insight.conversationPlaybook && (
+              <div className="mb-6">
+                <ConversationPlaybook playbook={insight.conversationPlaybook} />
+              </div>
+            )}
 
             {/* Data Sources */}
             <div className="mb-6 rounded-lg border border-secondary bg-card p-4">
@@ -127,13 +185,15 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
               </div>
             </div>
 
-            {/* Recommendation */}
-            <div className="mb-6 rounded-lg border border-accent/20 bg-accent/5 p-4">
-              <h3 className="mb-2 font-heading text-sm font-semibold uppercase tracking-wide text-accent">
-                Recommended Action
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{insight.recommendation}</p>
-            </div>
+            {/* Recommendation - only show if not security gap or seat count true-up */}
+            {!isSecurityGap && !isSeatCountTrueUp && !isPriorityShift && (
+              <div className="mb-6 rounded-lg border border-accent/20 bg-accent/5 p-4">
+                <h3 className="mb-2 font-heading text-sm font-semibold uppercase tracking-wide text-accent">
+                  Recommended Action
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{insight.recommendation}</p>
+              </div>
+            )}
 
             {/* CTA Buttons */}
             <div className="space-y-2">
