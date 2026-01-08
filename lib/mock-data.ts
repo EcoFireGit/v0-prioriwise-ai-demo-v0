@@ -320,6 +320,202 @@ export const projects: Project[] = [
 ]
 
 export const insightCards: InsightCard[] = [
+  // ADDED: New Engineering insight card for Automated Business Value Translation
+  {
+    id: "business-value-translation",
+    title: "Automated Business Value Translation",
+    category: "Value Demonstration",
+    severity: "medium",
+    summary:
+      "Prioriwise translated recent delivery work into documented business impact, quantifying cost avoidance, productivity gains, and risk mitigation for executive review.",
+    data: {
+      "Total Business Value (90 days)": "$287,400",
+      "Cost Avoided": "$142,000",
+      "Productivity Gained": "$98,200",
+      "Risk Mitigated": "$47,200",
+    },
+    recommendation:
+      "Use the auto-generated QBR slide to demonstrate technical team value in business terms. Export the value breakdown for executive presentations and budget justification discussions.",
+    persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "PSA Tickets - Completed Work Orders",
+          "RMM Platform - System Alerts & Resolutions",
+          "Patch Management System - Deployment Records",
+          "Change Management Database",
+        ],
+        unstructured: [
+          "Engineering Team Notes - Incident Response",
+          "Ticketing System - Resolution Documentation",
+          "Weekly Status Reports",
+        ],
+      },
+      external: [
+        "Gartner Downtime Cost Calculator 2025",
+        "Ponemon Institute - Cost of Data Breach Report",
+        "IDC Productivity Impact Studies",
+        "NIST Cybersecurity Economics Framework",
+      ],
+    },
+    valueBreakdown: [
+      {
+        technicalAction: "Prevented 4 critical server outages through proactive monitoring alerts",
+        businessOutcome: "Avoided production downtime and revenue disruption",
+        dollarValue: 89000,
+        category: "cost_avoided",
+        calculation:
+          "4 incidents × $127/min downtime × 175 min avg incident = $88,900. Based on client revenue and historical incident duration.",
+        dataSource: "RMM Alerts + Historical Incident Database + Revenue Data",
+      },
+      {
+        technicalAction: "Patched 87 critical vulnerabilities across infrastructure (CVE-2024-43582, CVE-2024-38063)",
+        businessOutcome: "Mitigated ransomware and data breach risk exposure",
+        dollarValue: 47200,
+        category: "risk_mitigated",
+        calculation:
+          "87 CVEs × $542 avg breach cost per vulnerability. Ponemon Institute breach cost data applied to client environment.",
+        dataSource: "Patch Management System + NIST NVD + Ponemon Cost Model",
+      },
+      {
+        technicalAction: "Optimized network routing and reduced latency by 34% across 12 sites",
+        businessOutcome: "Improved employee productivity and application performance",
+        dollarValue: 53000,
+        category: "productivity_gained",
+        calculation:
+          "450 employees × 34% latency reduction × 8.2 min saved daily × $42/hr avg rate × 90 days = $52,836",
+        dataSource: "Network Monitoring Tools + Time Study Analysis + HR Salary Data",
+      },
+      {
+        technicalAction: "Automated 23 manual backup verification processes with scripted validation",
+        businessOutcome: "Freed 127 engineering hours for strategic projects",
+        dollarValue: 14200,
+        category: "productivity_gained",
+        calculation:
+          "127 hours × $112/hr loaded engineering rate = $14,224. Hours redirected to infrastructure modernization.",
+        dataSource: "Time Tracking System + Automation Scripts + Labor Cost Model",
+      },
+      {
+        technicalAction: "Deployed EDR to 23 previously unprotected endpoints",
+        businessOutcome: "Closed critical security gaps and achieved compliance requirements",
+        dollarValue: 31000,
+        category: "productivity_gained",
+        calculation:
+          "23 endpoints × 4.2 hours avg incident response saved × $315/incident avg cost = $30,429. Plus compliance audit pass.",
+        dataSource: "EDR Console + Historical Security Incidents + Audit Requirements",
+      },
+      {
+        technicalAction: "Eliminated 3 recurring application crashes affecting finance team",
+        businessOutcome: "Restored finance department productivity and prevented month-end delays",
+        dollarValue: 18800,
+        category: "cost_avoided",
+        calculation: "18 finance users × 3 crashes/week × 42 min downtime × $48/hr avg rate × 13 weeks = $18,734",
+        dataSource: "Application Logs + Ticketing System + Department Productivity Tracking",
+      },
+      {
+        technicalAction: "Migrated legacy database to high-availability architecture",
+        businessOutcome: "Eliminated single point of failure and reduced recovery time from 4 hours to 12 minutes",
+        dollarValue: 34200,
+        category: "cost_avoided",
+        calculation:
+          "Prevented potential 4-hour outage scenarios: 4 hours × $142/min downtime × 60 min = $34,080 cost avoidance",
+        dataSource: "Database Migration Records + RTO Analysis + Business Continuity Plan",
+      },
+    ],
+    qbrOutput: {
+      title: "Executive-Ready QBR Slide Generated Automatically",
+      description:
+        "A presentation-ready summary of business value delivered by the engineering team, formatted for C-level review with full audit trail.",
+      previewAvailable: true,
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "$287,400 in quantified business value delivered over the last 90 days through delivery work",
+        "Every technical action has been translated into executive-friendly business outcomes",
+        "All values are auditable with documented calculations and data source transparency",
+        "QBR slide automatically generated—ready for executive presentation with zero manual effort",
+        "Demonstrates engineering team impact in language that Finance, Operations, and Executive teams understand",
+        "Cost avoidance, productivity gains, and risk mitigation all backed by industry benchmarks and client-specific data",
+      ],
+      successStories: [
+        {
+          title: "Engineering Value Quantification",
+          company: "Manufacturing Tech Services",
+          metric: "$287K value demonstrated",
+          result:
+            "Presented QBR with auto-generated business value translation, secured 22% budget increase for infrastructure projects, gained executive sponsorship",
+        },
+        {
+          title: "Technical ROI Presentation",
+          company: "Financial Services MSP",
+          metric: "$412K in 90-day value",
+          result:
+            "Used value breakdown to justify headcount request, hired 2 additional engineers, improved client retention by demonstrating ongoing impact",
+        },
+        {
+          title: "Budget Justification Success",
+          company: "Healthcare IT Provider",
+          metric: "$198K quantified impact",
+          result:
+            "Converted technical metrics into business outcomes for board presentation, approved $1.2M infrastructure modernization initiative",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "CFO / Finance",
+          focus: "ROI & Cost Justification",
+          keyMessages: [
+            "$287,400 in documented business value from engineering delivery work over 90 days",
+            "Cost avoidance of $142K prevents budget overruns from incidents and downtime",
+            "Productivity gains translate to $98K in operational efficiency improvements",
+            "All calculations are auditable and based on industry-standard methodologies",
+          ],
+        },
+        {
+          stakeholder: "CIO / VP Engineering",
+          focus: "Team Value & Strategic Positioning",
+          keyMessages: [
+            "Engineering team delivers massive business value but it's currently reported as technical metrics",
+            "Automated translation converts tickets, patches, and alerts into dollar-value business outcomes",
+            "QBR-ready output eliminates manual effort and provides executive-level visibility",
+            "Positions engineering as strategic business partner, not just technical support function",
+          ],
+        },
+        {
+          stakeholder: "CEO / Executive Leadership",
+          focus: "Business Impact & Strategic Investment",
+          keyMessages: [
+            "Engineering team prevented $142K in downtime costs through proactive monitoring",
+            "Risk mitigation work avoided potential $47K in breach and compliance penalties",
+            "Productivity improvements freed 127 engineering hours for strategic initiatives",
+            "Data-driven value demonstration supports budget requests and team expansion",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "These numbers seem inflated—how do we know they're accurate?",
+          response:
+            "Every value calculation is fully documented with data sources, industry benchmarks, and client-specific inputs. For example, downtime cost is calculated using your actual revenue data and historical incident duration. Breach cost estimates come from Ponemon Institute research applied to your environment. You can audit every number back to its source—transparency is built in, not an afterthought.",
+        },
+        {
+          objection: "This is just repackaging work we're already paying for—why does it matter?",
+          response:
+            "You're absolutely right that this is work already completed. The issue isn't the work itself—it's how it's communicated to executives. When engineering reports 'patched 87 vulnerabilities,' executives don't act on it. When engineering reports 'mitigated $47,200 in breach risk exposure,' that gets budget approval and board recognition. Same work, different language—and that language difference determines funding, headcount, and strategic positioning.",
+        },
+        {
+          objection: "We don't have time to manually track and calculate all of this for every QBR.",
+          response:
+            "That's exactly the problem this solves. Prioriwise does this automatically—no manual tracking required. It pulls from your existing PSA, RMM, and patch management systems, applies industry-standard cost models, and generates the QBR slide with zero engineering effort. You get executive-ready value demonstration without adding workload to your delivery team.",
+        },
+        {
+          objection: "Our executives don't care about technical details—will they actually use this?",
+          response:
+            "That's precisely why this works. Executives don't care about CVE numbers or ticket volumes—but they absolutely care about cost avoidance, productivity gains, and risk mitigation. This translation speaks their language. When you present '$89,000 in prevented downtime costs' instead of '4 monitoring alerts resolved,' you're giving them the business impact they need to make informed decisions about budget and resources.",
+        },
+      ],
+    },
+  },
   // Sales persona cards
   {
     id: "security-gap",
@@ -1703,202 +1899,6 @@ export const insightCards: InsightCard[] = [
           objection: "Can this wait until our next planned maintenance window?",
           response:
             "These are active exploits—not something we can wait on. Next planned window isn't for 6 weeks. Risk is too high. One compromised server could spread laterally across your environment. Emergency patching is justified here.",
-        },
-      ],
-    },
-  },
-  // ADDED: New Engineering insight card for Automated Business Value Translation
-  {
-    id: "business-value-translation",
-    title: "Automated Business Value Translation",
-    category: "Value Demonstration",
-    severity: "medium",
-    summary:
-      "Prioriwise translated recent delivery work into documented business impact, quantifying cost avoidance, productivity gains, and risk mitigation for executive review.",
-    data: {
-      "Total Business Value (90 days)": "$287,400",
-      "Cost Avoided": "$142,000",
-      "Productivity Gained": "$98,200",
-      "Risk Mitigated": "$47,200",
-    },
-    recommendation:
-      "Use the auto-generated QBR slide to demonstrate technical team value in business terms. Export the value breakdown for executive presentations and budget justification discussions.",
-    persona: "Engineering",
-    dataSources: {
-      internal: {
-        structured: [
-          "PSA Tickets - Completed Work Orders",
-          "RMM Platform - System Alerts & Resolutions",
-          "Patch Management System - Deployment Records",
-          "Change Management Database",
-        ],
-        unstructured: [
-          "Engineering Team Notes - Incident Response",
-          "Ticketing System - Resolution Documentation",
-          "Weekly Status Reports",
-        ],
-      },
-      external: [
-        "Gartner Downtime Cost Calculator 2025",
-        "Ponemon Institute - Cost of Data Breach Report",
-        "IDC Productivity Impact Studies",
-        "NIST Cybersecurity Economics Framework",
-      ],
-    },
-    valueBreakdown: [
-      {
-        technicalAction: "Prevented 4 critical server outages through proactive monitoring alerts",
-        businessOutcome: "Avoided production downtime and revenue disruption",
-        dollarValue: 89000,
-        category: "cost_avoided",
-        calculation:
-          "4 incidents × $127/min downtime × 175 min avg incident = $88,900. Based on client revenue and historical incident duration.",
-        dataSource: "RMM Alerts + Historical Incident Database + Revenue Data",
-      },
-      {
-        technicalAction: "Patched 87 critical vulnerabilities across infrastructure (CVE-2024-43582, CVE-2024-38063)",
-        businessOutcome: "Mitigated ransomware and data breach risk exposure",
-        dollarValue: 47200,
-        category: "risk_mitigated",
-        calculation:
-          "87 CVEs × $542 avg breach cost per vulnerability. Ponemon Institute breach cost data applied to client environment.",
-        dataSource: "Patch Management System + NIST NVD + Ponemon Cost Model",
-      },
-      {
-        technicalAction: "Optimized network routing and reduced latency by 34% across 12 sites",
-        businessOutcome: "Improved employee productivity and application performance",
-        dollarValue: 53000,
-        category: "productivity_gained",
-        calculation:
-          "450 employees × 34% latency reduction × 8.2 min saved daily × $42/hr avg rate × 90 days = $52,836",
-        dataSource: "Network Monitoring Tools + Time Study Analysis + HR Salary Data",
-      },
-      {
-        technicalAction: "Automated 23 manual backup verification processes with scripted validation",
-        businessOutcome: "Freed 127 engineering hours for strategic projects",
-        dollarValue: 14200,
-        category: "productivity_gained",
-        calculation:
-          "127 hours × $112/hr loaded engineering rate = $14,224. Hours redirected to infrastructure modernization.",
-        dataSource: "Time Tracking System + Automation Scripts + Labor Cost Model",
-      },
-      {
-        technicalAction: "Deployed EDR to 23 previously unprotected endpoints",
-        businessOutcome: "Closed critical security gaps and achieved compliance requirements",
-        dollarValue: 31000,
-        category: "productivity_gained",
-        calculation:
-          "23 endpoints × 4.2 hours avg incident response saved × $315/incident avg cost = $30,429. Plus compliance audit pass.",
-        dataSource: "EDR Console + Historical Security Incidents + Audit Requirements",
-      },
-      {
-        technicalAction: "Eliminated 3 recurring application crashes affecting finance team",
-        businessOutcome: "Restored finance department productivity and prevented month-end delays",
-        dollarValue: 18800,
-        category: "cost_avoided",
-        calculation: "18 finance users × 3 crashes/week × 42 min downtime × $48/hr avg rate × 13 weeks = $18,734",
-        dataSource: "Application Logs + Ticketing System + Department Productivity Tracking",
-      },
-      {
-        technicalAction: "Migrated legacy database to high-availability architecture",
-        businessOutcome: "Eliminated single point of failure and reduced recovery time from 4 hours to 12 minutes",
-        dollarValue: 34200,
-        category: "cost_avoided",
-        calculation:
-          "Prevented potential 4-hour outage scenarios: 4 hours × $142/min downtime × 60 min = $34,080 cost avoidance",
-        dataSource: "Database Migration Records + RTO Analysis + Business Continuity Plan",
-      },
-    ],
-    qbrOutput: {
-      title: "Executive-Ready QBR Slide Generated Automatically",
-      description:
-        "A presentation-ready summary of business value delivered by the engineering team, formatted for C-level review with full audit trail.",
-      previewAvailable: true,
-    },
-    conversationPlaybook: {
-      discussionPoints: [
-        "$287,400 in quantified business value delivered over the last 90 days through delivery work",
-        "Every technical action has been translated into executive-friendly business outcomes",
-        "All values are auditable with documented calculations and data source transparency",
-        "QBR slide automatically generated—ready for executive presentation with zero manual effort",
-        "Demonstrates engineering team impact in language that Finance, Operations, and Executive teams understand",
-        "Cost avoidance, productivity gains, and risk mitigation all backed by industry benchmarks and client-specific data",
-      ],
-      successStories: [
-        {
-          title: "Engineering Value Quantification",
-          company: "Manufacturing Tech Services",
-          metric: "$287K value demonstrated",
-          result:
-            "Presented QBR with auto-generated business value translation, secured 22% budget increase for infrastructure projects, gained executive sponsorship",
-        },
-        {
-          title: "Technical ROI Presentation",
-          company: "Financial Services MSP",
-          metric: "$412K in 90-day value",
-          result:
-            "Used value breakdown to justify headcount request, hired 2 additional engineers, improved client retention by demonstrating ongoing impact",
-        },
-        {
-          title: "Budget Justification Success",
-          company: "Healthcare IT Provider",
-          metric: "$198K quantified impact",
-          result:
-            "Converted technical metrics into business outcomes for board presentation, approved $1.2M infrastructure modernization initiative",
-        },
-      ],
-      stakeholderTalks: [
-        {
-          stakeholder: "CFO / Finance",
-          focus: "ROI & Cost Justification",
-          keyMessages: [
-            "$287,400 in documented business value from engineering delivery work over 90 days",
-            "Cost avoidance of $142K prevents budget overruns from incidents and downtime",
-            "Productivity gains translate to $98K in operational efficiency improvements",
-            "All calculations are auditable and based on industry-standard methodologies",
-          ],
-        },
-        {
-          stakeholder: "CIO / VP Engineering",
-          focus: "Team Value & Strategic Positioning",
-          keyMessages: [
-            "Engineering team delivers massive business value but it's currently reported as technical metrics",
-            "Automated translation converts tickets, patches, and alerts into dollar-value business outcomes",
-            "QBR-ready output eliminates manual effort and provides executive-level visibility",
-            "Positions engineering as strategic business partner, not just technical support function",
-          ],
-        },
-        {
-          stakeholder: "CEO / Executive Leadership",
-          focus: "Business Impact & Strategic Investment",
-          keyMessages: [
-            "Engineering team prevented $142K in downtime costs through proactive monitoring",
-            "Risk mitigation work avoided potential $47K in breach and compliance penalties",
-            "Productivity improvements freed 127 engineering hours for strategic initiatives",
-            "Data-driven value demonstration supports budget requests and team expansion",
-          ],
-        },
-      ],
-      objectionHandling: [
-        {
-          objection: "These numbers seem inflated—how do we know they're accurate?",
-          response:
-            "Every value calculation is fully documented with data sources, industry benchmarks, and client-specific inputs. For example, downtime cost is calculated using your actual revenue data and historical incident duration. Breach cost estimates come from Ponemon Institute research applied to your environment. You can audit every number back to its source—transparency is built in, not an afterthought.",
-        },
-        {
-          objection: "This is just repackaging work we're already paying for—why does it matter?",
-          response:
-            "You're absolutely right that this is work already completed. The issue isn't the work itself—it's how it's communicated to executives. When engineering reports 'patched 87 vulnerabilities,' executives don't act on it. When engineering reports 'mitigated $47,200 in breach risk exposure,' that gets budget approval and board recognition. Same work, different language—and that language difference determines funding, headcount, and strategic positioning.",
-        },
-        {
-          objection: "We don't have time to manually track and calculate all of this for every QBR.",
-          response:
-            "That's exactly the problem this solves. Prioriwise does this automatically—no manual tracking required. It pulls from your existing PSA, RMM, and patch management systems, applies industry-standard cost models, and generates the QBR slide with zero engineering effort. You get executive-ready value demonstration without adding workload to your delivery team.",
-        },
-        {
-          objection: "Our executives don't care about technical details—will they actually use this?",
-          response:
-            "That's precisely why this works. Executives don't care about CVE numbers or ticket volumes—but they absolutely care about cost avoidance, productivity gains, and risk mitigation. This translation speaks their language. When you present '$89,000 in prevented downtime costs' instead of '4 monitoring alerts resolved,' you're giving them the business impact they need to make informed decisions about budget and resources.",
         },
       ],
     },
