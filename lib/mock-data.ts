@@ -1820,7 +1820,24 @@ export function getProjectsForCustomer(customerId: string): Project[] {
 }
 
 export function getInsightsForPersona(persona: Persona): InsightCard[] {
-  return insightCards.filter((card) => card.persona === persona)
+  const filtered = insightCards.filter((card) => card.persona === persona)
+
+  if (persona === "Account Management") {
+    const priorityShift = filtered.find((card) => card.id === "priority-shift-detection")
+    const customerSatisfaction = filtered.find((card) => card.id === "customer-satisfaction")
+    const others = filtered.filter(
+      (card) => card.id !== "priority-shift-detection" && card.id !== "customer-satisfaction",
+    )
+
+    const reordered = []
+    if (priorityShift) reordered.push(priorityShift)
+    if (customerSatisfaction) reordered.push(customerSatisfaction)
+    reordered.push(...others)
+
+    return reordered
+  }
+
+  return filtered
 }
 
 export function getInsightsForCustomer(customerId: string): InsightCard[] {
