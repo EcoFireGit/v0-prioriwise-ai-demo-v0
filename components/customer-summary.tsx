@@ -4,11 +4,15 @@ import { Building2, Users, DollarSign, Activity } from "lucide-react"
 import type { Customer, Project } from "@/lib/mock-data"
 
 interface CustomerSummaryProps {
-  customer: Customer
-  project: Project
+  customer: Customer | null
+  project: Project | null
 }
 
 export function CustomerSummary({ customer, project }: CustomerSummaryProps) {
+  if (!customer || !project) {
+    return null
+  }
+
   const healthColor =
     customer.healthScore >= 80
       ? "text-green-600 bg-green-50"
