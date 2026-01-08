@@ -51,6 +51,47 @@ export interface Project {
   startDate: string
 }
 
+// New TypeScript interfaces for Priority Shift Detection feature
+export interface PriorityShiftData {
+  previousFocus: string
+  currentFocus: string
+  shiftPercentage: number
+  analysisWindow: string
+  linguisticIndicators: string[]
+  stakeholderChanges: StakeholderChange[]
+  departmentActivity: DepartmentActivity[]
+  evidenceExamples: EvidenceExample[]
+  alignmentGauge: AlignmentGaugeData
+}
+
+export interface StakeholderChange {
+  name: string
+  role: string
+  previousEngagement: string
+  currentEngagement: string
+  departmentInfluence: string
+}
+
+export interface DepartmentActivity {
+  department: string
+  previousActivity: number
+  currentActivity: number
+  changeDirection: "up" | "down"
+}
+
+export interface EvidenceExample {
+  date: string
+  source: string
+  quote: string
+  category: string
+}
+
+export interface AlignmentGaugeData {
+  currentAlignment: "red" | "amber" | "green"
+  reason: string
+  recommendations: string[]
+}
+
 export interface InsightCard {
   id: string
   title: string
@@ -74,6 +115,7 @@ export interface InsightCard {
   licenseTypes?: LicenseType[] // New field for true-up insights
   trueUpPlaybook?: TrueUpPlaybookData // New field for true-up frameworks
   totalMonthlyRecovery?: number // New field for total recovery amount
+  priorityShiftData?: PriorityShiftData // New field for priority shift detection
 }
 
 export interface RiskProfile {
@@ -1544,6 +1586,229 @@ export const insightCards: InsightCard[] = [
           objection: "Can this wait until our next planned maintenance window?",
           response:
             "These are active exploits—not something we can wait on. Next planned window isn't for 6 weeks. Risk is too high. One compromised server could spread laterally across your environment. Emergency patching is justified here.",
+        },
+      ],
+    },
+  },
+  {
+    id: "priority-shift-detection",
+    title: "Priority Shift Detection",
+    category: "Strategic Alignment Risk",
+    severity: "high",
+    summary: "Client focus shifted from User Experience to Data Security in 70% of communications over 45 days.",
+    data: {
+      "Shift Detected": "70%",
+      "Analysis Period": "45 days",
+      "Previous Focus": "User Experience",
+      "Current Focus": "Data Security",
+      "New Stakeholders": "3 (CIO, CISO, Compliance Officer)",
+      "Communication Volume": "47 interactions",
+    },
+    recommendation:
+      "Schedule strategic realignment meeting to understand security priorities and adjust service delivery accordingly.",
+    persona: "Account Management",
+    dataSources: {
+      internal: {
+        structured: [
+          "CRM - Executive Communication Log",
+          "Email Server - Sentiment Analysis Database",
+          "Meeting Platform - Transcript Archive",
+          "Support System - Ticket Categorization",
+          "Project Management - Request Priority Tracking",
+        ],
+        unstructured: [
+          "Email Communications - AI Linguistic Analysis",
+          "Meeting Notes - Keyword Extraction",
+          "Support Tickets - Topic Modeling",
+          "Slack/Teams - Channel Activity Mining",
+        ],
+      },
+      external: [
+        "Gartner Industry Trend Reports",
+        "Compliance Framework Updates (SOC2, GDPR, CMMC)",
+        "Market Intelligence - Competitive Analysis",
+      ],
+    },
+    priorityShiftData: {
+      previousFocus: "User Experience & Growth",
+      currentFocus: "Data Security & Compliance",
+      shiftPercentage: 70,
+      analysisWindow: "45 days",
+      linguisticIndicators: [
+        "Use of 'compliance' increased 340%",
+        "Security terminology frequency up 280%",
+        "Cost reduction language up 156%",
+        "Growth language declined 45%",
+      ],
+      stakeholderChanges: [
+        {
+          name: "Jennifer Walsh",
+          role: "CIO",
+          previousEngagement: "Quarterly check-ins",
+          currentEngagement: "Weekly security discussions",
+          departmentInfluence: "IT Operations (increased)",
+        },
+        {
+          name: "Marcus Chen",
+          role: "CISO (New)",
+          previousEngagement: "N/A",
+          currentEngagement: "Leading security evaluation",
+          departmentInfluence: "Security & Compliance",
+        },
+        {
+          name: "Sarah Rodriguez",
+          role: "Compliance Officer",
+          previousEngagement: "Minimal",
+          currentEngagement: "Active in all planning",
+          departmentInfluence: "Risk & Compliance",
+        },
+      ],
+      departmentActivity: [
+        {
+          department: "IT Operations",
+          previousActivity: 35,
+          currentActivity: 62,
+          changeDirection: "up",
+        },
+        {
+          department: "Security & Compliance",
+          previousActivity: 8,
+          currentActivity: 41,
+          changeDirection: "up",
+        },
+        {
+          department: "Business Development",
+          previousActivity: 28,
+          currentActivity: 12,
+          changeDirection: "down",
+        },
+        {
+          department: "Product/UX",
+          previousActivity: 19,
+          currentActivity: 5,
+          changeDirection: "down",
+        },
+      ],
+      evidenceExamples: [
+        {
+          date: "2024-12-18",
+          source: "Executive Email",
+          quote: "We need to accelerate our zero-trust security model implementation across all systems.",
+          category: "Security Focus",
+        },
+        {
+          date: "2024-12-15",
+          source: "Meeting Notes - Security Strategy",
+          quote: "Compliance with CMMC Level 2 is now a board-level priority for 2025.",
+          category: "Compliance Priority",
+        },
+        {
+          date: "2024-12-10",
+          source: "Project Request",
+          quote: "We're deprioritizing the UX dashboard refresh to focus budget on security audit remediation.",
+          category: "Budget Reallocation",
+        },
+        {
+          date: "2024-12-08",
+          source: "Support Ticket",
+          quote: "Can we get a detailed security compliance report for our SOC 2 audit next month?",
+          category: "Compliance Documentation",
+        },
+      ],
+      alignmentGauge: {
+        currentAlignment: "amber",
+        reason: "Current service offerings focus on UX/growth but client priority shifted to security/compliance.",
+        recommendations: [
+          "Highlight security capabilities in current solution",
+          "Discuss data governance and compliance features",
+          "Propose security-focused roadmap adjustments",
+          "Introduce compliance team for deeper security conversations",
+        ],
+      },
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "70% of executive communications now focused on security and compliance (vs. UX previously)",
+        "New stakeholders entering conversations: CISO, Compliance Officer, Security Council",
+        "Shift from growth language ('expand', 'innovate') to efficiency/security language ('zero-trust', 'compliance', 'risk mitigation')",
+        "This represents fundamental strategic pivot requiring service delivery alignment",
+        "Early detection enables proactive support and prevents perception of misalignment",
+      ],
+      successStories: [
+        {
+          title: "Security Pivot Enabled Expansion",
+          company: "Financial Services Provider",
+          metric: "70% security focus shift detected",
+          result:
+            "Quickly pivoted solution to security/compliance focus, retained $180K contract, upsold security module for $35K",
+        },
+        {
+          title: "Compliance Priority Deepened Relationship",
+          company: "Healthcare Technology Company",
+          metric: "New CISO involvement, compliance language increased 300%",
+          result: "Positioned as security partner, expanded to 5 new departments, grew contract 42%",
+        },
+        {
+          title: "Early Alert Prevented Churn",
+          company: "Manufacturing Enterprise",
+          metric: "Budget reallocation from growth to compliance",
+          result:
+            "Proactive security conversation prevented consideration of competitors, renewed with strategic security roadmap",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "CIO / IT Director",
+          focus: "Strategic Technology Alignment",
+          keyMessages: [
+            "We've identified your strategic shift toward security and compliance—we want to ensure our solution supports this evolution",
+            "Our platform's security architecture and compliance features position you well for your zero-trust initiative",
+            "Let's discuss how we can accelerate your security roadmap and reduce implementation risk",
+          ],
+        },
+        {
+          stakeholder: "CISO / Security Officer",
+          focus: "Risk Mitigation & Compliance",
+          keyMessages: [
+            "Your security and compliance requirements are now the foundation of our partnership strategy",
+            "We can provide the visibility, control, and audit trails your CMMC and SOC 2 initiatives require",
+            "Our security team is ready to partner on your zero-trust architecture and risk assessment",
+          ],
+        },
+        {
+          stakeholder: "Compliance Officer",
+          focus: "Regulatory & Risk Management",
+          keyMessages: [
+            "We understand your regulatory requirements and can support your audit and compliance workflows",
+            "Our solution provides the documentation and traceability needed for compliance frameworks",
+            "Let's align on governance policies and risk controls that benefit your entire organization",
+          ],
+        },
+        {
+          stakeholder: "CFO / Finance",
+          focus: "Risk-Adjusted Investing",
+          keyMessages: [
+            "Investing in security and compliance reduces operational risk and insurance costs",
+            "Our platform's compliance capabilities protect against costly breaches and audit findings",
+            "This shift strengthens your risk posture and supports better financial outcomes",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "We're evaluating different security solutions that might be better suited for our needs.",
+          response:
+            "That's a natural part of this transition. We've worked with many organizations through similar pivots. Can we schedule time with your security team to discuss how our platform specifically addresses your zero-trust and compliance goals? We have deep expertise in CMMC and SOC 2 implementations.",
+        },
+        {
+          objection: "Our priorities haven't really changed—we're just being more careful about security.",
+          response:
+            "I appreciate that perspective. Our data shows a significant shift in how executives are communicating about priorities. This isn't a criticism—it's actually a positive sign of security maturity. Let's use this as an opportunity to align our roadmap with where your organization is heading.",
+        },
+        {
+          objection: "This is just temporary. We'll likely refocus on growth next year.",
+          response:
+            "Security and compliance investments typically reflect structural organizational changes. Rather than seeing this as temporary, what if we position our partnership to support both security discipline and sustainable growth? That's how leading organizations think about it.",
         },
       ],
     },
