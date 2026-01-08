@@ -9,6 +9,9 @@ import { InsightCard } from "@/components/insight-card"
 import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
+import { AppFooter } from "@/components/app-footer"
+import { Sidebar } from "@/components/sidebar"
+import { redirect } from "next/navigation"
 import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
 import {
   customers,

@@ -36,6 +36,7 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
   const Icon = iconMap[insight.title] || AlertTriangle
   const monthlyOpportunity = extractMonthlyOpportunity(insight)
   const showOpportunityPill = insight.persona === "Sales" && monthlyOpportunity > 0
+  const hasRiskProfile = insight.riskProfile !== undefined
 
   return (
     <Card
@@ -63,6 +64,15 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
             <Badge variant="outline" className={severityColors[insight.severity]}>
               {insight.severity.toUpperCase()}
             </Badge>
+          <div className="flex gap-2">
+            <Badge variant="outline" className={severityColors[insight.severity]}>
+              {insight.severity.toUpperCase()}
+            </Badge>
+            {hasRiskProfile && insight.riskProfile && (
+              <Badge variant="outline" className="bg-red-50 text-red-600 border-red-200">
+                Risk: {insight.riskProfile.overallScore}
+              </Badge>
+            )}
           </div>
         </div>
         <CardTitle className="mt-3 font-heading text-lg font-semibold text-primary">{insight.title}</CardTitle>
@@ -70,6 +80,9 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
       </CardHeader>
       <CardContent>
         <p className="text-sm leading-relaxed text-muted-foreground">{insight.summary}</p>
+        {insight.affectedDevices && (
+          <p className="mt-2 text-xs font-medium text-accent">{insight.affectedDevices.length} devices affected</p>
+        )}
       </CardContent>
     </Card>
   )
