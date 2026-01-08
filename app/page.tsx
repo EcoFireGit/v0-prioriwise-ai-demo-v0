@@ -148,6 +148,10 @@ export default function Dashboard() {
         )}
       </main>
 
+      <div className="pb-4 px-6">
+        <StakeholderChatbot />
+      </div>
+
       <AppFooter />
 
       <InsightModal
@@ -156,8 +160,6 @@ export default function Dashboard() {
         onClose={handleCloseModal}
         onReturnToDashboard={handleReturnToDashboard}
       />
-
-      <StakeholderChatbot />
     </div>
   )
 }

@@ -115,20 +115,19 @@ export function StakeholderChatbot() {
   }
 
   return (
-    <>
+    <div className="flex justify-center">
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
-          size="icon"
-          className="fixed bottom-8 right-4 h-12 w-12 rounded-full bg-accent shadow-lg hover:bg-accent/90 hover:scale-110 transition-all duration-300 animate-pulse"
+          className="h-12 px-6 rounded-full bg-accent shadow-lg hover:bg-accent/90 hover:scale-110 transition-all duration-300"
         >
-          <MessageCircle className="h-5 w-5" />
-          <span className="sr-only">Open chatbot</span>
+          <MessageCircle className="h-5 w-5 mr-2" />
+          <span className="text-sm font-medium">Ask Questions About Prioriwise</span>
         </Button>
       )}
 
       {isOpen && (
-        <Card className="fixed bottom-8 right-4 z-50 w-80 shadow-2xl border-2 animate-in slide-in-from-bottom-4 duration-300">
+        <Card className="w-full max-w-2xl shadow-2xl border-2 animate-in slide-in-from-bottom-4 duration-300">
           <div className="flex items-center justify-between bg-gradient-to-r from-primary to-accent px-4 py-3 rounded-t-lg">
             <div className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-primary-foreground animate-pulse" />
@@ -199,6 +198,6 @@ export function StakeholderChatbot() {
           </div>
         </Card>
       )}
-    </>
+    </div>
   )
 }
