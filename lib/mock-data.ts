@@ -418,6 +418,46 @@ export const insightCards: InsightCard[] = [
       ],
     },
   },
+  {
+    id: "vip-identification",
+    title: "VIP Client Priority Alert",
+    category: "Customer Intelligence",
+    severity: "high",
+    summary:
+      "3 high-value accounts require prioritized support based on contract value, relationship tenure, and recent escalations.",
+    data: {
+      "VIP Accounts Identified": 3,
+      "Combined ARR": "$354,000",
+      "Avg Relationship Tenure": "4.2 years",
+      "Active P1/P2 Tickets": 7,
+      "QBR Due Within": "14 days",
+    },
+    recommendation:
+      "Implement VIP support queue with dedicated engineering resources and 2-hour response SLA for these accounts.",
+    persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "CRM - Account Value & Contract Data",
+          "Ticketing System - Support History & Priority",
+          "Customer Success Platform - Relationship Metrics",
+          "Service Delivery Platform - SLA Performance",
+          "Calendar System - QBR Schedule",
+        ],
+        unstructured: [
+          "Executive Communications - Email & Slack",
+          "QBR Meeting Notes & Action Items",
+          "Account Team Channels - Customer Sentiment",
+          "Support Escalation Reports",
+        ],
+      },
+      external: [
+        "Industry Customer Lifetime Value Benchmarks",
+        "Gartner VIP Support Best Practices",
+        "TSIA Customer Success Standards",
+      ],
+    },
+  },
 ]
 
 export function getProjectsForCustomer(customerId: string): Project[] {
