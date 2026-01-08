@@ -151,15 +151,6 @@ function calculateSentiment(
   return { score, trend, reasoning }
 }
 
-/**
- * Safely extracts a numeric value from an object, returning a fallback if invalid
- */
-function safeGetNumber(obj: any, key: string, fallback = 0): number {
-  const value = obj?.[key]
-  const num = typeof value === "number" ? value : Number.parseFloat(String(value))
-  return !isNaN(num) && isFinite(num) ? num : fallback
-}
-
 function calculateProductAdoption(
   insights: InsightCard[],
   customer: Customer,
@@ -173,51 +164,44 @@ function calculateProductAdoption(
   const securityGap = insights.find((i) => i.title.includes("Security Gap"))
 
   if (seatGap) {
-    const activeUsers = safeGetNumber(seatGap.data, "Active AD Users", 1) // Default to 1 to avoid division by zero
-    const billedSeats = safeGetNumber(seatGap.data, "Billed Seats", 0)
+    const activeUsers = seatGap.data?.["Active AD Users"] as number | undefined
+    const billedSeats = seatGap.data?.["Billed Seats"] as number | undefined
 
-    // Validate before division
-    if (activeUsers > 0) {
+    if (typeof activeUsers === "number" && activeUsers > 0 && typeof billedSeats === "number") {
       const utilization = (billedSeats / activeUsers) * 100
-      score = Math.round(utilization)
-      console.log(
-        "[v0] Product Adoption - Seat Gap: activeUsers:",
-        activeUsers,
-        "billedSeats:",
-        billedSeats,
-        "utilization:",
-        utilization,
-      )
-    } else {
-      console.log("[v0] Product Adoption - Invalid seat data, using fallback")
-      score = customer.healthMetrics.productAdoption.seatUtilization ?? 90
+      score = Math.round(Math.min(utilization, 100)) // Cap at 100
     }
   }
 
   if (securityGap) {
-    const coverage = safeGetNumber(securityGap.data, "RMM Patching Coverage", 100)
-    score = Math.min(score, coverage)
+    const coverage = securityGap.data?.["RMM Patching Coverage"] as string | undefined
+    if (coverage) {
+      const coverageNum = Number.parseInt(coverage)
+      if (!isNaN(coverageNum)) {
+        score = Math.min(score, coverageNum)
+      }
+    }
   }
 
   score = Math.max(0, Math.min(100, score))
+
+  if (isNaN(score)) {
+    score = 75 // Default fallback score
+  }
 
   const trend = determineTrend(factors)
 
   // Build reasoning
   let reasoning = ""
   if (seatGap) {
-    const activeUsers = safeGetNumber(seatGap.data, "Active AD Users", 0)
-    const billedSeats = safeGetNumber(seatGap.data, "Billed Seats", 0)
-    const variance = safeGetNumber(seatGap.data, "Variance", 0)
-    reasoning = `${billedSeats} of ${activeUsers} users covered (${variance} user gap), expansion opportunity identified`
+    const variance = seatGap.data?.["Variance"] as number | undefined
+    const billed = seatGap.data?.["Billed Seats"] ?? "—"
+    const active = seatGap.data?.["Active AD Users"] ?? "—"
+    reasoning = `${billed} of ${active} users covered${variance ? ` (${variance} user gap)` : ""}, expansion opportunity identified`
   } else if (securityGap) {
-    const coverage = safeGetNumber(securityGap.data, "RMM Patching Coverage", 0)
-    const managed = safeGetNumber(securityGap.data, "Actual Managed", 0)
-    const scope = safeGetNumber(securityGap.data, "Contract Scope", 1)
-    reasoning = `${coverage}% endpoint coverage with ${managed} of ${scope} endpoints managed`
+    reasoning = `${securityGap.data?.["RMM Patching Coverage"] || "—"} endpoint coverage with ${securityGap.data?.["Actual Managed"] || "—"} of ${securityGap.data?.["Contract Scope"] || "—"} endpoints managed`
   } else if (shadowIT) {
-    const unapprovedApps = safeGetNumber(shadowIT.data, "Unapproved Apps", 0)
-    reasoning = `Core platform adoption strong, but ${unapprovedApps} unauthorized tools detected in use`
+    reasoning = `Core platform adoption strong, but ${shadowIT.data?.["Unapproved Apps"] || "—"} unauthorized tools detected in use`
   } else if (customer.healthMetrics.productAdoption.seatUtilization) {
     reasoning = `${customer.healthMetrics.productAdoption.seatUtilization}% seat utilization with ${customer.healthMetrics.productAdoption.featureUsage}% feature adoption`
   } else {
@@ -313,11 +297,30 @@ export function calculateOverallHealthScore(metrics: HealthMetricCalculation): n
     engagement: 0.2,
   }
 
-  const weightedScore =
-    metrics.financialRisk.score * weights.financialRisk +
-    metrics.productAdoption.score * weights.productAdoption +
-    metrics.sentiment.score * weights.sentiment +
-    metrics.engagement.score * weights.engagement
+  const financialScore =
+    typeof metrics.financialRisk.score === "number" && !isNaN(metrics.financialRisk.score)
+      ? metrics.financialRisk.score
+      : 75
+  const adoptionScore =
+    typeof metrics.productAdoption.score === "number" && !isNaN(metrics.productAdoption.score)
+      ? metrics.productAdoption.score
+      : 75
+  const sentimentScore =
+    typeof metrics.sentiment.score === "number" && !isNaN(metrics.sentiment.score) ? metrics.sentiment.score : 75
+  const engagementScore =
+    typeof metrics.engagement.score === "number" && !isNaN(metrics.engagement.score) ? metrics.engagement.score : 75
 
-  return Math.round(weightedScore)
+  const weightedScore =
+    financialScore * weights.financialRisk +
+    adoptionScore * weights.productAdoption +
+    sentimentScore * weights.sentiment +
+    engagementScore * weights.engagement
+
+  let finalScore = Math.round(weightedScore)
+
+  if (isNaN(finalScore)) {
+    finalScore = 75
+  }
+
+  return finalScore
 }
