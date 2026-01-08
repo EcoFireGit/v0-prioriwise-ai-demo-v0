@@ -148,7 +148,7 @@ export default function Dashboard() {
         )}
       </main>
 
-      <div className="pb-4 px-6">
+      <div className="fixed bottom-4 right-4">
         <StakeholderChatbot />
       </div>
 
