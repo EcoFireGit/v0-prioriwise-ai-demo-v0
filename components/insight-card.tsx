@@ -48,7 +48,7 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
             <Icon className="h-5 w-5 text-primary" />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-2">
             {showOpportunityPill && (
               <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1">
                 <DollarSign className="h-3 w-3" />
@@ -64,16 +64,11 @@ export function InsightCard({ insight, onClick }: InsightCardProps) {
             <Badge variant="outline" className={severityColors[insight.severity]}>
               {insight.severity.toUpperCase()}
             </Badge>
-          <div className="flex gap-2">
-            <Badge variant="outline" className={severityColors[insight.severity]}>
-              {insight.severity.toUpperCase()}
-            </Badge>
             {hasRiskProfile && insight.riskProfile && (
               <Badge variant="outline" className="bg-red-50 text-red-600 border-red-200">
                 Risk: {insight.riskProfile.overallScore}
               </Badge>
             )}
-            </div>
           </div>
         </div>
         <CardTitle className="mt-3 font-heading text-lg font-semibold text-primary">{insight.title}</CardTitle>
