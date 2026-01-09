@@ -1383,8 +1383,7 @@ export const insightCards: InsightCard[] = [
     title: "VIP Identification",
     category: "Team Intelligence",
     severity: "high",
-    summary:
-      "Automatically identifies the 8-12 VIPs per account by analyzing org charts, communication patterns, and escalation history. Every VIP gets automatically tagged. Their tickets are instantly flagged for priority handling.",
+    summary: "10 VIPs identified with 94% confidence. 24 tickets auto-flagged for priority routing.",
     data: {
       "VIPs Identified": "10",
       "Detection Confidence": "94%",
