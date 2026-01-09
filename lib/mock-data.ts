@@ -369,7 +369,7 @@ export const insightCards: InsightCard[] = [
     category: "Value Demonstration",
     severity: "medium",
     summary:
-      "Prioriwise translated recent delivery work into documented business impact, quantifying cost avoidance, productivity gains, and risk mitigation for executive review.",
+      "$287,400 in quantified business value over 90 days: $142K cost avoided, $98K productivity gained, $47K risk mitigated—auto-translated from delivery work into executive-ready metrics.",
     data: {
       "Total Business Value (90 days)": "$287,400",
       "Cost Avoided": "$142,000",
@@ -723,7 +723,7 @@ export const insightCards: InsightCard[] = [
         deviceName: "ACME-SHOP-WS-25",
         osVersion: "Windows 11 Pro 23H2",
         lastSeen: "2025-01-06 08:29",
-        vulnerabilities: ["CVE-2024-43583", "No MFA configured"],
+        vulnerabilities: ["CVE-2024-43583", "CVE-2024-38063", "No MFA configured"],
         riskScore: 74,
       },
       {
@@ -1095,7 +1095,7 @@ export const insightCards: InsightCard[] = [
           keyMessages: [
             "Undiscovered licensing violations expose company to vendor audits and penalties",
             "Proactive true-up demonstrates good faith compliance vs. reactive discovery",
-            "Documented agreement amendment creates clear legal trail protecting all parties",
+            "Documented agreement adjustment creates clear legal trail protecting all parties",
             "True-up cost now is significantly less than compliance audit exposure later",
           ],
         },
@@ -1175,7 +1175,7 @@ export const insightCards: InsightCard[] = [
         {
           objection: "Can we just remove these users from Active Directory instead?",
           response:
-            "If they're in Active Directory, they likely have data, email, or folder access that's business-critical. Removing them could break workflows. True-up brings licensing in line with actual usage and ensures compliance without disrupting operations.",
+            "If they're in Active Directory, they likely have data, email, or folder access that's business-critical. Removing them could break workflows. True-up brings licensing in line with actual usage and ensures compliance without operational disruption.",
         },
       ],
     },
@@ -1335,7 +1335,6 @@ export const insightCards: InsightCard[] = [
       discussionPoints: [
         "68% drop in support tickets over 90 days is significant engagement decline",
         "Could indicate: system stability, user adoption drop, or customer dissatisfaction",
-        "Last proactive check-in was 45 days ago, no recent business reviews",
         "Low engagement precedes churn—early action prevents account loss",
         "QBR is opportunity to reassess business alignment and priorities",
       ],
