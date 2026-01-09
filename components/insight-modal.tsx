@@ -137,6 +137,10 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             {isBusinessValueTranslation && insight.qbrOutput && (
               <div className="mb-6">
                 <QBROutputDisplay qbrOutput={insight.qbrOutput} />
+              </div>
+            )}
+
+            {/* Priority Shift section */}
             {isPriorityShift && insight.priorityShiftData && (
               <div className="mb-6">
                 <PriorityShiftDisplay data={insight.priorityShiftData} />
