@@ -115,7 +115,24 @@ export interface InsightCard {
   licenseTypes?: LicenseType[] // New field for true-up insights
   trueUpPlaybook?: TrueUpPlaybookData // New field for true-up frameworks
   totalMonthlyRecovery?: number // New field for total recovery amount
-  priorityShiftData?: PriorityShiftData // New field for priority shift detection
+  valueBreakdown?: ValueBreakdownEntry[]
+  qbrOutput?: QBROutput
+  priorityShiftData?: PriorityShiftData
+}
+
+export interface ValueBreakdownEntry {
+  technicalAction: string
+  businessOutcome: string
+  dollarValue: number
+  category: "cost_avoided" | "productivity_gained" | "risk_mitigated"
+  calculation: string
+  dataSource: string
+}
+
+export interface QBROutput {
+  title: string
+  description: string
+  previewAvailable: boolean
 }
 
 export interface RiskProfile {
@@ -345,6 +362,202 @@ export const projects: Project[] = [
 ]
 
 export const insightCards: InsightCard[] = [
+  // ADDED: New Engineering insight card for Automated Business Value Translation
+  {
+    id: "business-value-translation",
+    title: "Automated Business Value Translation",
+    category: "Value Demonstration",
+    severity: "medium",
+    summary:
+      "$287,400 in quantified business value over 90 days: $142K cost avoided, $98K productivity gained, $47K risk mitigated",
+    data: {
+      "Total Business Value (90 days)": "$287,400",
+      "Cost Avoided": "$142,000",
+      "Productivity Gained": "$98,200",
+      "Risk Mitigated": "$47,200",
+    },
+    recommendation:
+      "Use the auto-generated QBR slide to demonstrate technical team value in business terms. Export the value breakdown for executive presentations and budget justification discussions.",
+    persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "PSA Tickets - Completed Work Orders",
+          "RMM Platform - System Alerts & Resolutions",
+          "Patch Management System - Deployment Records",
+          "Change Management Database",
+        ],
+        unstructured: [
+          "Engineering Team Notes - Incident Response",
+          "Ticketing System - Resolution Documentation",
+          "Weekly Status Reports",
+        ],
+      },
+      external: [
+        "Gartner Downtime Cost Calculator 2025",
+        "Ponemon Institute - Cost of Data Breach Report",
+        "IDC Productivity Impact Studies",
+        "NIST Cybersecurity Economics Framework",
+      ],
+    },
+    valueBreakdown: [
+      {
+        technicalAction: "Prevented 4 critical server outages through proactive monitoring alerts",
+        businessOutcome: "Avoided production downtime and revenue disruption",
+        dollarValue: 89000,
+        category: "cost_avoided",
+        calculation:
+          "4 incidents × $127/min downtime × 175 min avg incident = $88,900. Based on client revenue and historical incident duration.",
+        dataSource: "RMM Alerts + Historical Incident Database + Revenue Data",
+      },
+      {
+        technicalAction: "Patched 87 critical vulnerabilities across infrastructure (CVE-2024-43582, CVE-2024-38063)",
+        businessOutcome: "Mitigated ransomware and data breach risk exposure",
+        dollarValue: 47200,
+        category: "risk_mitigated",
+        calculation:
+          "87 CVEs × $542 avg breach cost per vulnerability. Ponemon Institute breach cost data applied to client environment.",
+        dataSource: "Patch Management System + NIST NVD + Ponemon Cost Model",
+      },
+      {
+        technicalAction: "Optimized network routing and reduced latency by 34% across 12 sites",
+        businessOutcome: "Improved employee productivity and application performance",
+        dollarValue: 53000,
+        category: "productivity_gained",
+        calculation:
+          "450 employees × 34% latency reduction × 8.2 min saved daily × $42/hr avg rate × 90 days = $52,836",
+        dataSource: "Network Monitoring Tools + Time Study Analysis + HR Salary Data",
+      },
+      {
+        technicalAction: "Automated 23 manual backup verification processes with scripted validation",
+        businessOutcome: "Freed 127 engineering hours for strategic projects",
+        dollarValue: 14200,
+        category: "productivity_gained",
+        calculation:
+          "127 hours × $112/hr loaded engineering rate = $14,224. Hours redirected to infrastructure modernization.",
+        dataSource: "Time Tracking System + Automation Scripts + Labor Cost Model",
+      },
+      {
+        technicalAction: "Deployed EDR to 23 previously unprotected endpoints",
+        businessOutcome: "Closed critical security gaps and achieved compliance requirements",
+        dollarValue: 31000,
+        category: "productivity_gained",
+        calculation:
+          "23 endpoints × 4.2 hours avg incident response saved × $315/incident avg cost = $30,429. Plus compliance audit pass.",
+        dataSource: "EDR Console + Historical Security Incidents + Audit Requirements",
+      },
+      {
+        technicalAction: "Eliminated 3 recurring application crashes affecting finance team",
+        businessOutcome: "Restored finance department productivity and prevented month-end delays",
+        dollarValue: 18800,
+        category: "cost_avoided",
+        calculation: "18 finance users × 3 crashes/week × 42 min downtime × $48/hr avg rate × 13 weeks = $18,734",
+        dataSource: "Application Logs + Ticketing System + Department Productivity Tracking",
+      },
+      {
+        technicalAction: "Migrated legacy database to high-availability architecture",
+        businessOutcome: "Eliminated single point of failure and reduced recovery time from 4 hours to 12 minutes",
+        dollarValue: 34200,
+        category: "cost_avoided",
+        calculation:
+          "Prevented potential 4-hour outage scenarios: 4 hours × $142/min downtime × 60 min = $34,080 cost avoidance",
+        dataSource: "Database Migration Records + RTO Analysis + Business Continuity Plan",
+      },
+    ],
+    qbrOutput: {
+      title: "Executive-Ready QBR Slide Generated Automatically",
+      description:
+        "A presentation-ready summary of business value delivered by the engineering team, formatted for C-level review with full audit trail.",
+      previewAvailable: true,
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "$287,400 in quantified business value delivered over the last 90 days through delivery work",
+        "Every technical action has been translated into executive-friendly business outcomes",
+        "All values are auditable with documented calculations and data source transparency",
+        "QBR slide automatically generated—ready for executive presentation with zero manual effort",
+        "Demonstrates engineering team impact in language that Finance, Operations, and Executive teams understand",
+        "Cost avoidance, productivity gains, and risk mitigation all backed by industry benchmarks and client-specific data",
+      ],
+      successStories: [
+        {
+          title: "Engineering Value Quantification",
+          company: "Manufacturing Tech Services",
+          metric: "$287K value demonstrated",
+          result:
+            "Presented QBR with auto-generated business value translation, secured 22% budget increase for infrastructure projects, gained executive sponsorship",
+        },
+        {
+          title: "Technical ROI Presentation",
+          company: "Financial Services MSP",
+          metric: "$412K in 90-day value",
+          result:
+            "Used value breakdown to justify headcount request, hired 2 additional engineers, improved client retention by demonstrating ongoing impact",
+        },
+        {
+          title: "Budget Justification Success",
+          company: "Healthcare IT Provider",
+          metric: "$198K quantified impact",
+          result:
+            "Converted technical metrics into business outcomes for board presentation, approved $1.2M infrastructure modernization initiative",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "CFO / Finance",
+          focus: "ROI & Cost Justification",
+          keyMessages: [
+            "$287,400 in documented business value from engineering delivery work over 90 days",
+            "Cost avoidance of $142K prevents budget overruns from incidents and downtime",
+            "Productivity gains translate to $98K in operational efficiency improvements",
+            "All calculations are auditable and based on industry-standard methodologies",
+          ],
+        },
+        {
+          stakeholder: "CIO / VP Engineering",
+          focus: "Team Value & Strategic Positioning",
+          keyMessages: [
+            "Engineering team delivers massive business value but it's currently reported as technical metrics",
+            "Automated translation converts tickets, patches, and alerts into dollar-value business outcomes",
+            "QBR-ready output eliminates manual effort and provides executive-level visibility",
+            "Positions engineering as strategic business partner, not just technical support function",
+          ],
+        },
+        {
+          stakeholder: "CEO / Executive Leadership",
+          focus: "Business Impact & Strategic Investment",
+          keyMessages: [
+            "Engineering team prevented $142K in downtime costs through proactive monitoring",
+            "Risk mitigation work avoided potential $47K in breach and compliance penalties",
+            "Productivity improvements freed 127 engineering hours for strategic initiatives",
+            "Data-driven value demonstration supports budget requests and team expansion",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "These numbers seem inflated—how do we know they're accurate?",
+          response:
+            "Every value calculation is fully documented with data sources, industry benchmarks, and client-specific inputs. For example, downtime cost is calculated using your actual revenue data and historical incident duration. Breach cost estimates come from Ponemon Institute research applied to your environment. You can audit every number back to its source—transparency is built in, not an afterthought.",
+        },
+        {
+          objection: "This is just repackaging work we're already paying for—why does it matter?",
+          response:
+            "You're absolutely right that this is work already completed. The issue isn't the work itself—it's how it's communicated to executives. When engineering reports 'patched 87 vulnerabilities,' executives don't act on it. When engineering reports 'mitigated $47,200 in breach risk exposure,' that gets budget approval and board recognition. Same work, different language—and that language difference determines funding, headcount, and strategic positioning.",
+        },
+        {
+          objection: "We don't have time to manually track and calculate all of this for every QBR.",
+          response:
+            "That's exactly the problem this solves. Prioriwise does this automatically—no manual tracking required. It pulls from your existing PSA, RMM, and patch management systems, applies industry-standard cost models, and generates the QBR slide with zero engineering effort. You get executive-ready value demonstration without adding workload to your delivery team.",
+        },
+        {
+          objection: "Our executives don't care about technical details—will they actually use this?",
+          response:
+            "That's precisely why this works. Executives don't care about CVE numbers or ticket volumes—but they absolutely care about cost avoidance, productivity gains, and risk mitigation. This translation speaks their language. When you present '$89,000 in prevented downtime costs' instead of '4 monitoring alerts resolved,' you're giving them the business impact they need to make informed decisions about budget and resources.",
+        },
+      ],
+    },
+  },
   // Sales persona cards
   {
     id: "security-gap",
@@ -510,7 +723,7 @@ export const insightCards: InsightCard[] = [
         deviceName: "ACME-SHOP-WS-25",
         osVersion: "Windows 11 Pro 23H2",
         lastSeen: "2025-01-06 08:29",
-        vulnerabilities: ["CVE-2024-43583", "No MFA configured"],
+        vulnerabilities: ["CVE-2024-43583", "CVE-2024-38063", "No MFA configured"],
         riskScore: 74,
       },
       {
@@ -882,7 +1095,7 @@ export const insightCards: InsightCard[] = [
           keyMessages: [
             "Undiscovered licensing violations expose company to vendor audits and penalties",
             "Proactive true-up demonstrates good faith compliance vs. reactive discovery",
-            "Documented agreement amendment creates clear legal trail protecting all parties",
+            "Documented agreement adjustment creates clear legal trail protecting all parties",
             "True-up cost now is significantly less than compliance audit exposure later",
           ],
         },
@@ -962,7 +1175,7 @@ export const insightCards: InsightCard[] = [
         {
           objection: "Can we just remove these users from Active Directory instead?",
           response:
-            "If they're in Active Directory, they likely have data, email, or folder access that's business-critical. Removing them could break workflows. True-up brings licensing in line with actual usage and ensures compliance without disrupting operations.",
+            "If they're in Active Directory, they likely have data, email, or folder access that's business-critical. Removing them could break workflows. True-up brings licensing in line with actual usage and ensures compliance without operational disruption.",
         },
       ],
     },
@@ -1122,13 +1335,12 @@ export const insightCards: InsightCard[] = [
       discussionPoints: [
         "68% drop in support tickets over 90 days is significant engagement decline",
         "Could indicate: system stability, user adoption drop, or customer dissatisfaction",
-        "Last proactive check-in was 45 days ago, no recent business reviews",
         "Low engagement precedes churn—early action prevents account loss",
         "QBR is opportunity to reassess business alignment and priorities",
       ],
       successStories: [
         {
-          title: "Quiet Client Re-Engagement",
+          title: "Quiet Client Re-engagement",
           company: "Manufacturing Solutions Ltd",
           metric: "Support tickets dropped 71%",
           result: "QBR uncovered unmet needs, expanded platform adoption to additional teams, grew contract 28%",
@@ -1290,6 +1502,11 @@ export const insightCards: InsightCard[] = [
         "CSAT Research Database - Forrester",
         "Best Practice Frameworks - TSIA",
       ],
+    },
+    qbrOutput: {
+      title: "Executive Business Review",
+      description: "A comprehensive review of customer satisfaction and operational performance.",
+      previewAvailable: true,
     },
     conversationPlaybook: {
       discussionPoints: [
@@ -1479,6 +1696,47 @@ export const insightCards: InsightCard[] = [
       },
       external: ["ITIL Service Management Framework", "HDI Support Center Benchmarks"],
     },
+    playbook: {
+      generatedAt: "2025-01-06T10:30:00Z",
+      timeline: "Immediate",
+      estimatedCost: 0,
+      costOfInaction: 50000,
+      expectedRiskReduction: 100,
+      conversationScript:
+        "I need to flag an urgent operational risk: our P1 ticket response time is currently averaging 12 minutes, with only a 3-minute buffer before breaching our 15-minute SLA. We have 4 open P1 tickets, indicating a potential surge. If we breach the SLA, it could trigger customer escalations and contractual penalties estimated at $50,000. To mitigate this, I recommend allocating an additional on-call engineer from 2 PM today through Sunday to manage the current load and prevent a breach. This is a critical, short-term measure to ensure compliance and customer satisfaction. Can I get approval to proceed with this staffing adjustment?",
+      roiSummary:
+        "Temporary staffing adjustment prevents $50,000 contract penalty and significant customer dissatisfaction. Proactive risk management ensures SLA compliance.",
+      steps: [
+        {
+          phase: "Immediate Action",
+          action: "Allocate additional on-call engineer for Thursday-Sunday",
+          owner: "Engineering Lead",
+          duration: "4 days",
+          dependencies: [],
+        },
+        {
+          phase: "Monitoring",
+          action: "Continuously monitor P1 ticket volume and response times",
+          owner: "On-Call Engineer",
+          duration: "Ongoing",
+          dependencies: ["Allocate additional on-call engineer for Thursday-Sunday"],
+        },
+        {
+          phase: "Analysis",
+          action: "Analyze root cause of ticket surge and identify long-term solutions",
+          owner: "Engineering Lead",
+          duration: "Next week",
+          dependencies: ["Allocate additional on-call engineer for Thursday-Sunday"],
+        },
+        {
+          phase: "Reporting",
+          action: "Report on SLA compliance and proposed long-term solutions to management",
+          owner: "Engineering Lead",
+          duration: "End of next week",
+          dependencies: ["Analyze root cause of ticket surge and identify long-term solutions"],
+        },
+      ],
+    },
     conversationPlaybook: {
       discussionPoints: [
         "P1 response time trending toward 15-minute SLA breach (currently 12 min avg)",
@@ -1540,6 +1798,54 @@ export const insightCards: InsightCard[] = [
         unstructured: ["Infrastructure Runbooks", "Slack - DevOps Alerts Channel"],
       },
       external: ["AWS Well-Architected Framework", "Uptime Institute - Capacity Planning Guidelines"],
+    },
+    playbook: {
+      generatedAt: "2025-01-06T10:30:00Z",
+      timeline: "6 weeks",
+      estimatedCost: 15000,
+      costOfInaction: 75000,
+      expectedRiskReduction: 95,
+      conversationScript:
+        "I'm flagging a critical capacity planning alert for the main server cluster. Peak CPU utilization is consistently hitting 87%, which is close to our operational threshold. Based on current growth trends, we project hitting the storage limit by February 15th, 2026. Operating at this utilization level risks performance degradation and potential outages, which could cost us up to $75,000 in lost revenue and remediation. We have two primary options: Scale infrastructure, which has a 12-day lead time for new hardware, or optimize current workloads, which requires a 2-week analysis phase. I recommend we proceed with a proactive infrastructure upgrade, with an estimated cost of $15,000, to ensure stability and avoid customer impact. Can I get approval to initiate the procurement process?",
+      roiSummary:
+        "Proactive infrastructure upgrade of $15,000 prevents potential outage costs of $75,000+, ensuring 99.99% uptime and protecting customer trust.",
+      steps: [
+        {
+          phase: "Analysis & Planning",
+          action: "Conduct detailed workload analysis and confirm resource needs",
+          owner: "DevOps Engineer",
+          duration: "Week 1-2",
+          dependencies: [],
+        },
+        {
+          phase: "Procurement",
+          action: "Source and procure new hardware/cloud resources",
+          owner: "Procurement Specialist",
+          duration: "Week 1-3",
+          dependencies: ["Conduct detailed workload analysis and confirm resource needs"],
+        },
+        {
+          phase: "Implementation",
+          action: "Deploy and configure new infrastructure components",
+          owner: "Infrastructure Engineer",
+          duration: "Week 3-5",
+          dependencies: ["Source and procure new hardware/cloud resources"],
+        },
+        {
+          phase: "Migration & Testing",
+          action: "Migrate workloads and perform load testing",
+          owner: "DevOps Engineer",
+          duration: "Week 5-6",
+          dependencies: ["Deploy and configure new infrastructure components"],
+        },
+        {
+          phase: "Monitoring",
+          action: "Monitor performance metrics post-upgrade",
+          owner: "Monitoring Team",
+          duration: "Ongoing",
+          dependencies: ["Migrate workloads and perform load testing"],
+        },
+      ],
     },
     conversationPlaybook: {
       discussionPoints: [
@@ -1613,6 +1919,54 @@ export const insightCards: InsightCard[] = [
         "NIST National Vulnerability Database (NVD)",
         "CISA Known Exploited Vulnerabilities",
         "Microsoft Security Response Center",
+      ],
+    },
+    playbook: {
+      generatedAt: "2025-01-06T10:30:00Z",
+      timeline: "24 hours",
+      estimatedCost: 5000,
+      costOfInaction: 100000,
+      expectedRiskReduction: 98,
+      conversationScript:
+        "Urgent security alert: we have 14 servers missing critical security patches from the December cycle. Three of these unpatched servers have vulnerabilities (CVEs) that are actively being exploited in the wild. Failing to patch these systems poses a significant risk of compromise, which could lead to data breaches or ransomware attacks, with potential costs upwards of $100,000. Additionally, an upcoming compliance audit will flag this as a critical finding. To mitigate this immediate risk, I recommend scheduling an emergency maintenance window within the next 24 hours to deploy these critical patches. The estimated cost for this urgent deployment, including overtime for engineers, is $5,000. Can I get approval to proceed with scheduling this emergency maintenance?",
+      roiSummary:
+        "Emergency patching costing $5,000 prevents potential breach costs of $100,000+ and ensures compliance, significantly reducing security and regulatory risk.",
+      steps: [
+        {
+          phase: "Assessment & Planning",
+          action: "Identify all affected servers and required patches",
+          owner: "Security Engineer",
+          duration: "2 hours",
+          dependencies: [],
+        },
+        {
+          phase: "Scheduling",
+          action: "Schedule emergency maintenance window within 24 hours",
+          owner: "Operations Manager",
+          duration: "4 hours",
+          dependencies: ["Identify all affected servers and required patches"],
+        },
+        {
+          phase: "Deployment",
+          action: "Deploy critical security patches to affected servers",
+          owner: "System Administrators",
+          duration: "8 hours",
+          dependencies: ["Schedule emergency maintenance window within 24 hours"],
+        },
+        {
+          phase: "Validation",
+          action: "Perform post-deployment verification and vulnerability scans",
+          owner: "Security Engineer",
+          duration: "4 hours",
+          dependencies: ["Deploy critical security patches to affected servers"],
+        },
+        {
+          phase: "Reporting",
+          action: "Document patch deployment and update compliance status",
+          owner: "Security Engineer",
+          duration: "2 hours",
+          dependencies: ["Perform post-deployment verification and vulnerability scans"],
+        },
       ],
     },
     conversationPlaybook: {

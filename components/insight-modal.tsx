@@ -10,6 +10,8 @@ import { SecurityPlaybook } from "@/components/security-playbook"
 import { ConversationPlaybook } from "@/components/conversation-playbook"
 import { LicenseTypeBreakdown } from "@/components/license-type-breakdown"
 import { TrueUpPlaybook } from "@/components/true-up-playbook"
+import { ValueBreakdownDisplay } from "@/components/value-breakdown-display"
+import { QBROutputDisplay } from "@/components/qbr-output-display"
 import { PriorityShiftDisplay } from "@/components/priority-shift-display" // imported Priority Shift Display component
 import type { InsightCard } from "@/lib/mock-data"
 
@@ -31,6 +33,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
 
   const isSecurityGap = insight?.id === "security-gap"
   const isSeatCountTrueUp = insight?.id === "seat-count"
+  const isBusinessValueTranslation = insight?.id === "business-value-translation"
   const isPriorityShift = insight?.id === "priority-shift-detection" // added check for priority shift
 
   return (
@@ -124,6 +127,20 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
               </div>
             )}
 
+            {/* Business Value Translation specific sections */}
+            {isBusinessValueTranslation && insight.valueBreakdown && (
+              <div className="mb-6">
+                <ValueBreakdownDisplay breakdown={insight.valueBreakdown} />
+              </div>
+            )}
+
+            {isBusinessValueTranslation && insight.qbrOutput && (
+              <div className="mb-6">
+                <QBROutputDisplay qbrOutput={insight.qbrOutput} />
+              </div>
+            )}
+
+            {/* Priority Shift section */}
             {isPriorityShift && insight.priorityShiftData && (
               <div className="mb-6">
                 <PriorityShiftDisplay data={insight.priorityShiftData} />
@@ -195,7 +212,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             </div>
 
             {/* Recommendation - only show if not security gap or seat count true-up */}
-            {!isSecurityGap && !isSeatCountTrueUp && !isPriorityShift && (
+            {!isSecurityGap && !isSeatCountTrueUp && !isBusinessValueTranslation && !isPriorityShift && (
               <div className="mb-6 rounded-lg border border-accent/20 bg-accent/5 p-4">
                 <h3 className="mb-2 font-heading text-sm font-semibold uppercase tracking-wide text-accent">
                   Recommended Action
