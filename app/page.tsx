@@ -10,8 +10,10 @@ import { InsightModal } from "@/components/insight-modal"
 import { QuestionInput } from "@/components/question-input"
 import { CustomerSummary } from "@/components/customer-summary"
 import { AppFooter } from "@/components/app-footer"
+import { StakeholderChatbot } from "@/components/stakeholder-chatbot"
 import { Sidebar } from "@/components/sidebar"
 import { AgentMeshAnimation } from "@/components/agent-mesh-animation"
+
 import {
   customers,
   getProjectsForCustomer,
@@ -91,7 +93,7 @@ export default function Dashboard() {
             <>
               <div className="flex flex-1 items-center justify-center">
                 <div className="mx-auto max-w-md text-center">
-                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary animate-float">
                     <LayoutDashboard className="h-10 w-10 text-primary/40" />
                   </div>
                   <h2 className="mb-6 font-heading text-xl font-semibold text-primary">Select your context</h2>
@@ -137,13 +139,13 @@ export default function Dashboard() {
                       onMouseLeave={() => setShowOpportunityTooltip(false)}
                     >
                       <span className="text-sm text-muted-foreground">Total Opportunity</span>
-                      <span className="font-heading text-lg font-semibold text-primary">
+                      <span className="font-heading text-lg font-semibold text-primary transition-all duration-300 hover:scale-110">
                         {formatOpportunity(totalOpportunity)} / month
                       </span>
-                      <HelpCircle className="h-3.5 w-3.5 cursor-help text-muted-foreground transition-colors hover:text-primary" />
+                      <HelpCircle className="h-3.5 w-3.5 cursor-help text-muted-foreground transition-all duration-300 hover:text-primary hover:scale-125" />
 
                       {showOpportunityTooltip && (
-                        <div className="absolute right-0 top-6 z-50 w-72 rounded-lg border border-secondary bg-card p-3 shadow-lg">
+                        <div className="absolute right-0 top-6 z-50 w-72 rounded-lg border border-secondary bg-card p-3 shadow-lg animate-slide-in-up">
                           <p className="text-xs text-muted-foreground">
                             Sum of data-driven revenue opportunity across all Sales insights below.
                           </p>
@@ -161,7 +163,7 @@ export default function Dashboard() {
                   <Button
                     onClick={handleReturnToDashboard}
                     variant="outline"
-                    className="font-heading text-primary hover:bg-secondary bg-transparent"
+                    className="font-heading text-primary hover:bg-secondary bg-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   >
                     Return to Dashboard
                   </Button>
@@ -172,6 +174,10 @@ export default function Dashboard() {
         </main>
       </div>
       <AppFooter />
+
+      <div className="fixed bottom-4 right-4">
+        <StakeholderChatbot />
+      </div>
 
       <InsightModal
         insight={selectedInsight}

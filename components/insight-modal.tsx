@@ -12,6 +12,7 @@ import { LicenseTypeBreakdown } from "@/components/license-type-breakdown"
 import { TrueUpPlaybook } from "@/components/true-up-playbook"
 import { ValueBreakdownDisplay } from "@/components/value-breakdown-display"
 import { QBROutputDisplay } from "@/components/qbr-output-display"
+import { PriorityShiftDisplay } from "@/components/priority-shift-display" // imported Priority Shift Display component
 import type { InsightCard } from "@/lib/mock-data"
 
 interface InsightModalProps {
@@ -33,6 +34,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
   const isSecurityGap = insight?.id === "security-gap"
   const isSeatCountTrueUp = insight?.id === "seat-count"
   const isBusinessValueTranslation = insight?.id === "business-value-translation"
+  const isPriorityShift = insight?.id === "priority-shift-detection" // added check for priority shift
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -135,6 +137,9 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             {isBusinessValueTranslation && insight.qbrOutput && (
               <div className="mb-6">
                 <QBROutputDisplay qbrOutput={insight.qbrOutput} />
+            {isPriorityShift && insight.priorityShiftData && (
+              <div className="mb-6">
+                <PriorityShiftDisplay data={insight.priorityShiftData} />
               </div>
             )}
 
@@ -203,7 +208,7 @@ export function InsightModal({ insight, isLoading, onClose, onReturnToDashboard 
             </div>
 
             {/* Recommendation - only show if not security gap or seat count true-up */}
-            {!isSecurityGap && !isSeatCountTrueUp && !isBusinessValueTranslation && (
+            {!isSecurityGap && !isSeatCountTrueUp && !isBusinessValueTranslation && !isPriorityShift && (
               <div className="mb-6 rounded-lg border border-accent/20 bg-accent/5 p-4">
                 <h3 className="mb-2 font-heading text-sm font-semibold uppercase tracking-wide text-accent">
                   Recommended Action
