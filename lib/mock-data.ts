@@ -369,7 +369,7 @@ export const insightCards: InsightCard[] = [
     category: "Value Demonstration",
     severity: "medium",
     summary:
-      "$287,400 in quantified business value over 90 days: $142K cost avoided, $98K productivity gained, $47K risk mitigated—auto-translated from delivery work into executive-ready metrics.",
+      "$287,400 in quantified business value over 90 days: $142K cost avoided, $98K productivity gained, $47K risk mitigated",
     data: {
       "Total Business Value (90 days)": "$287,400",
       "Cost Avoided": "$142,000",
