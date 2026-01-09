@@ -36,6 +36,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "Resource Utilization": Server,
   "Patch Compliance Gap": Shield,
   "Priority Shift Detection": AlertCircle, // added icon mapping for Priority Shift Detection
+  "VIP Identification": Users, // Added icon mapping for VIP Identification
 }
 
 const severityColors = {

@@ -1379,6 +1379,82 @@ export const insightCards: InsightCard[] = [
   },
   // Engineering persona cards
   {
+    id: "vip-identification",
+    title: "VIP Identification",
+    category: "Team Intelligence",
+    severity: "high",
+    summary: "10 VIPs identified with 94% confidence. 24 tickets auto-flagged for priority routing.",
+    data: {
+      "VIPs Identified": "10",
+      "Detection Confidence": "94%",
+      "Tickets Auto-Flagged": 24,
+      "Priority Escalations": 8,
+    },
+    recommendation: "Review identified VIPs and enable automated priority routing for their tickets.",
+    persona: "Engineering",
+    dataSources: {
+      internal: {
+        structured: [
+          "Organizational Chart - Hierarchy & Roles",
+          "Ticketing System - Escalation History",
+          "Communication Platform - Message Frequency Analytics",
+        ],
+        unstructured: ["Support Tickets - VIP Interaction Patterns", "Team Chat - Leadership Mentions"],
+      },
+      external: ["Organizational Psychology - Leadership Identification Frameworks"],
+    },
+    conversationPlaybook: {
+      discussionPoints: [
+        "10 VIPs identified across your account with 94% confidence based on org structure and communication patterns",
+        "VIPs account for 40% of escalations but receive inconsistent priority handling",
+        "Automated VIP tagging ensures every VIP ticket is instantly flagged for priority routing",
+        "Improved response times for VIP tickets reduce escalations and strengthen executive relationships",
+        "VIP identification updates automatically as organizational structure changes",
+      ],
+      successStories: [
+        {
+          title: "Reduced VIP Escalations",
+          company: "Enterprise Software Client",
+          metric: "10 VIPs with 24 auto-flagged tickets",
+          result:
+            "Implemented automated VIP priority routing, reduced VIP ticket response time by 60%, prevented 3 executive escalations",
+        },
+      ],
+      stakeholderTalks: [
+        {
+          stakeholder: "Engineering Lead",
+          focus: "Operational Efficiency",
+          keyMessages: [
+            "System identified 10 VIPs across your organization using org charts and communication analysis",
+            "Enable automated priority routing to ensure VIP tickets get instant attention",
+            "This reduces response time variability and improves customer satisfaction for your key decision-makers",
+          ],
+        },
+        {
+          stakeholder: "Customer Success Manager",
+          focus: "Account Management",
+          keyMessages: [
+            "Your 10 key stakeholders are now tagged in the system for priority handling",
+            "Every time one of them submits a ticket, it's instantly escalated to our priority queue",
+            "This demonstrates our commitment to their success and strengthens the relationship",
+          ],
+        },
+      ],
+      objectionHandling: [
+        {
+          objection: "How do you know who our VIPs are?",
+          response:
+            "We analyze your organizational chart, communication patterns, and escalation history. VIPs are typically decision-makers and executives with high communication frequency and escalation involvement. The system is 94% accurate and you can manually adjust VIP list anytime.",
+        },
+        {
+          objection: "Could this create bias or miss important people?",
+          response:
+            "The system identifies primary VIPs automatically, but you maintain full control. You can add or remove people from the VIP list at any time. We recommend reviewing quarterly as organizational structures evolve.",
+        },
+      ],
+    },
+  },
+  {
     id: "sla-breach",
     title: "SLA Breach Risk",
     category: "Operations",
